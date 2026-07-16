@@ -7,14 +7,14 @@ export function EdgeClose() {
 
   return (
     <section
-      className="relative min-h-[100svh] bg-[#F7F6F2]"
+      className="relative -mt-[8vh] min-h-[95svh]"
       aria-labelledby="home-close"
     >
-      <div className="flex min-h-[100svh] flex-col px-[var(--margin-mobile)] md:px-[var(--margin-desktop)]">
-        <div className="flex flex-1 items-center justify-center">
+      <div className="flex min-h-[95svh] flex-col px-[var(--margin-mobile)] md:px-[var(--margin-desktop)]">
+        <div className="flex flex-1 items-end justify-start pb-[clamp(3rem,10vh,6rem)] pt-24 md:items-center md:justify-center md:pb-0">
           <h2
             id="home-close"
-            className="max-w-[14em] text-center font-semibold text-[#0A0A0A]"
+            className="max-w-[14em] font-semibold text-[#0A0A0A] md:text-center"
             style={{
               fontSize: "clamp(2.25rem, 5.5vw, 4.75rem)",
               lineHeight: 1.15,

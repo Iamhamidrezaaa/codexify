@@ -1,4 +1,5 @@
 import { HomeChrome } from "@/home/HomeChrome";
+import { HomeField } from "@/home/HomeField";
 import { AirHero } from "@/home/views/AirHero";
 import { EdgeClose } from "@/home/views/EdgeClose";
 import { MidIgnition } from "@/home/views/MidIgnition";
@@ -10,13 +11,16 @@ export function HomePage() {
   return (
     <>
       <HomeChrome />
-      <main id="main-content">
-        <AirHero />
-        <MidIgnition />
-        <Nocturne />
-        <ShearIndex />
-        <StoreyManifest />
-        <EdgeClose />
+      <main id="main-content" className="relative overflow-x-clip bg-[#C9C2B6]">
+        <HomeField />
+        <div className="relative z-[1]">
+          <AirHero />
+          <MidIgnition />
+          <Nocturne />
+          <ShearIndex />
+          <StoreyManifest />
+          <EdgeClose />
+        </div>
       </main>
     </>
   );

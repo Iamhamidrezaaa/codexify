@@ -7,16 +7,16 @@ export function StoreyManifest() {
 
   return (
     <section
-      className="relative min-h-[100svh] overflow-hidden bg-[#E7E2D8]"
+      className="relative -mt-[16vh] min-h-[105svh] overflow-visible pt-[10vh]"
       aria-labelledby="home-storey"
     >
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute inset-x-[-5%] top-[42%] overflow-hidden"
+        className="pointer-events-none absolute inset-x-[-5%] top-[38%] z-0 overflow-hidden"
         initial={reduce ? false : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1.5 }}
+        transition={{ duration: 1.4 }}
       >
         <span
           className="block select-none text-center font-black leading-none text-[#0A0A0A]/[0.07]"
@@ -26,7 +26,7 @@ export function StoreyManifest() {
         </span>
       </motion.div>
 
-      <div className="relative z-[1] flex min-h-[100svh] flex-col justify-between px-[var(--margin-mobile)] py-[clamp(4.5rem,12vh,7.5rem)] md:px-[var(--margin-desktop)]">
+      <div className="relative z-[1] flex min-h-[90svh] flex-col justify-between px-[var(--margin-mobile)] py-[clamp(3rem,10vh,6rem)] md:px-[var(--margin-desktop)]">
         <h2 id="home-storey" className="sr-only">
           خودِ وب‌سایت پورتفولیو است.
         </h2>
@@ -40,7 +40,7 @@ export function StoreyManifest() {
           initial={reduce ? false : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.9 }}
         >
           وب‌سایت
         </motion.p>
@@ -58,7 +58,7 @@ export function StoreyManifest() {
             initial={reduce ? false : { opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.08 }}
+            transition={{ duration: 0.9, delay: 0.05 }}
           >
             است.
           </motion.p>

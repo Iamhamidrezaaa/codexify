@@ -7,26 +7,21 @@ export function AirHero() {
 
   return (
     <section
-      className="relative min-h-[100svh] overflow-hidden bg-[#C9C2B6]"
+      className="relative min-h-[100svh] overflow-visible"
       aria-labelledby="home-hero"
     >
-      <div
-        className="pointer-events-none absolute inset-y-[12%] start-[42%] w-px bg-[#1A1816]/[0.12] max-md:hidden"
-        aria-hidden
-      />
-
       <motion.p
         aria-hidden
-        className="pointer-events-none absolute -end-[8%] top-[8%] select-none font-black leading-none text-[#1A1816]/[0.06] md:-end-[4%] md:top-[4%]"
+        className="pointer-events-none absolute -end-[6%] top-[6%] z-0 select-none font-black leading-none text-[#1A1816]/[0.07] md:top-[2%]"
         style={{ fontSize: "clamp(8rem, 28vw, 22rem)" }}
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
       >
         ترکیب
       </motion.p>
 
-      <div className="relative z-[1] flex min-h-[100svh] flex-col justify-between px-[var(--margin-mobile)] py-[clamp(5.5rem,14vh,8rem)] md:px-[var(--margin-desktop)]">
+      <div className="relative z-[1] flex min-h-[100svh] flex-col justify-between px-[var(--margin-mobile)] pb-[clamp(4rem,12vh,7rem)] pt-[clamp(5.5rem,14vh,8rem)] md:px-[var(--margin-desktop)]">
         <div className="flex justify-end">
           <span className="type-overline tracking-[0.28em] text-[#1A1816]/40">
             کدکسیفای
@@ -42,7 +37,7 @@ export function AirHero() {
           }}
           initial={reduce ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.4, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.3, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
           ترکیب،
           <br />
@@ -51,6 +46,12 @@ export function AirHero() {
           هر ادعا.
         </motion.h1>
       </div>
+
+      {/* Leak into next room — plane continues below fold */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[28vh] bg-gradient-to-b from-transparent to-[#E8E3D9]/80"
+      />
     </section>
   );
 }
