@@ -10,7 +10,8 @@ type PrincipleBlockProps = {
 };
 
 /**
- * Quiet principle plate — statement first, explanation second.
+ * Quiet principle plate (v1) — statement first, explanation second.
+ * Used on the Process publication. Manifesto uses PrincipleBlock v2 in `studio/`.
  * Not a feature card. Not a marketing pillar.
  */
 export function PrincipleBlock({

@@ -82,3 +82,5 @@ Nothing playful.
 Process explains the method.  
 `/work` shows the method applied.  
 Do not conflate the two into a single marketing funnel page.
+
+See also: [STUDIO-PHILOSOPHY.md](./STUDIO-PHILOSOPHY.md) for beliefs (Sprint 7).

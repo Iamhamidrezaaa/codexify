@@ -6,6 +6,7 @@ Domain-specific modules for Codexify.
 |---------|------|
 | `work/` | Exhibition + case-study publication engine |
 | `process/` | Editorial process publication (`/process`) |
+| `studio/` | Studio manifesto publication (`/studio`) |
 
 Examples for later:
 
