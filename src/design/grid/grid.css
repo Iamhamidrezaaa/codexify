@@ -1,13 +1,13 @@
-/* Container + grid gutters / margins */
+/* Container + grid — quieter margins on large screens */
 :root {
   --container-max: 90rem;
-  --container-wide: 100rem;
+  --container-wide: 96rem;
   --gutter-mobile: var(--space-4);
   --gutter-tablet: var(--space-5);
   --gutter-desktop: var(--space-6);
   --margin-mobile: var(--space-5);
   --margin-tablet: var(--space-8);
-  --margin-desktop: var(--space-9);
+  --margin-desktop: clamp(3rem, 5vw, 5rem);
   --cols-mobile: 4;
   --cols-tablet: 8;
   --cols-desktop: 12;

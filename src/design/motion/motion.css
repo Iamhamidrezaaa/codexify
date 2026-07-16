@@ -1,12 +1,12 @@
-/* Motion durations + easings + keyframes */
+/* Motion — calmer, less noticeable */
 :root {
-  --duration-instant: 100ms;
-  --duration-fast: 280ms;
-  --duration-base: 480ms;
-  --duration-slow: 800ms;
-  --duration-slower: 1200ms;
-  --duration-reveal: 1400ms;
-  --duration-marquee: 55s;
+  --duration-instant: 120ms;
+  --duration-fast: 320ms;
+  --duration-base: 520ms;
+  --duration-slow: 900ms;
+  --duration-slower: 1300ms;
+  --duration-reveal: 1500ms;
+  --duration-marquee: 70s;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);

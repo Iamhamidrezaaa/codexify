@@ -1,4 +1,4 @@
-/* Spacing scale — 8px base + semantic section rhythm */
+/* Spacing — more breath for premium rhythm */
 :root {
   --space-0: 0;
   --space-1: 0.25rem;
@@ -14,9 +14,9 @@
   --space-11: 6rem;
   --space-12: 8rem;
 
-  --space-section: clamp(5rem, 14vh, 11rem);
-  --space-block: clamp(2.5rem, 6vh, 5rem);
+  --space-section: clamp(6.5rem, 18vh, 14rem);
+  --space-block: clamp(3rem, 7vh, 6rem);
   --space-stack: var(--space-5);
   --space-inline: var(--space-4);
-  --space-text: 0.65em;
+  --space-text: 0.7em;
 }

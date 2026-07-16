@@ -19,8 +19,9 @@ export const fadeIn: Variants = {
   },
 };
 
+/** Soft rise — barely noticeable */
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
@@ -28,11 +29,10 @@ export const fadeUp: Variants = {
   },
 };
 
-/** Alias kept for existing FadeIn usage — identical to fadeUp */
 export const fadeInUp = fadeUp;
 
 export const fadeDown: Variants = {
-  hidden: { opacity: 0, y: -16 },
+  hidden: { opacity: 0, y: -10 },
   visible: {
     opacity: 1,
     y: 0,
@@ -45,7 +45,7 @@ export const staggerContainer: Variants = {
   visible: {
     transition: {
       staggerChildren: stagger.base,
-      delayChildren: 0.08,
+      delayChildren: 0.06,
     },
   },
 };
@@ -61,7 +61,7 @@ export const staggerTight: Variants = {
 };
 
 export const textReveal: Variants = {
-  hidden: { opacity: 0, y: "110%" },
+  hidden: { opacity: 0, y: "105%" },
   visible: {
     opacity: 1,
     y: 0,
@@ -78,7 +78,7 @@ export const maskReveal: Variants = {
 };
 
 export const imageReveal: Variants = {
-  hidden: { opacity: 0, scale: 1.04 },
+  hidden: { opacity: 0, scale: 1.03 },
   visible: {
     opacity: 1,
     scale: 1,
@@ -96,7 +96,7 @@ export const lineReveal: Variants = {
 };
 
 export const pageTransition: Variants = {
-  initial: { opacity: 0, y: 12 },
+  initial: { opacity: 0, y: 8 },
   enter: {
     opacity: 1,
     y: 0,
@@ -104,7 +104,7 @@ export const pageTransition: Variants = {
   },
   exit: {
     opacity: 0,
-    y: -8,
+    y: -6,
     transition: { duration: duration.base, ease: easing.inOut },
   },
 };
@@ -112,7 +112,7 @@ export const pageTransition: Variants = {
 export const hoverScale = {
   rest: { scale: 1 },
   hover: {
-    scale: 1.02,
+    scale: 1.015,
     transition: { duration: duration.fast, ease: easing.out },
   },
 };
@@ -120,7 +120,7 @@ export const hoverScale = {
 export const hoverLift = {
   rest: { y: 0 },
   hover: {
-    y: -2,
+    y: -1,
     transition: { duration: duration.fast, ease: easing.out },
   },
 };

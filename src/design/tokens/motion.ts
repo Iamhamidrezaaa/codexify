@@ -3,12 +3,12 @@
  * CSS durations live in design/motion/motion.css
  */
 export const duration = {
-  instant: 0.1,
-  fast: 0.28,
-  base: 0.48,
-  slow: 0.8,
-  slower: 1.2,
-  reveal: 1.4,
+  instant: 0.12,
+  fast: 0.32,
+  base: 0.52,
+  slow: 0.9,
+  slower: 1.3,
+  reveal: 1.5,
 } as const;
 
 export const durationCss = {
@@ -28,7 +28,7 @@ export const easing = {
 };
 
 export const stagger = {
-  tight: 0.05,
-  base: 0.08,
-  loose: 0.12,
+  tight: 0.04,
+  base: 0.07,
+  loose: 0.1,
 } as const;

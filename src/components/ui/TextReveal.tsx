@@ -14,7 +14,6 @@ type TextRevealProps = {
 
 /**
  * Editorial text reveal — word/line stagger with mask.
- * Works for Persian word boundaries (space-separated).
  */
 export function TextReveal({
   text,
@@ -28,25 +27,27 @@ export function TextReveal({
 
   if (prefersReducedMotion) {
     return (
-      <Tag id={id} className={className}>
+      <Tag id={id} className={cn(className, splitBy === "lines" && "whitespace-pre-line")}>
         {text}
       </Tag>
     );
   }
 
   return (
-    <Tag id={id} className={cn(className)} aria-label={text}>
+    <Tag id={id} className={cn(className)} aria-label={text.replace(/\n/g, " ")}>
       <motion.span
-        className="flex flex-wrap"
+        className={cn(
+          splitBy === "lines" ? "flex flex-col" : "flex flex-wrap",
+        )}
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: "-60px" }}
+        viewport={{ once: true, margin: "-10% 0px" }}
       >
         {units.map((unit, index) => (
           <span key={`${unit}-${index}`} className="overflow-hidden">
             <motion.span
-              className="inline-block"
+              className="inline-block will-change-transform"
               variants={textReveal}
               aria-hidden
             >

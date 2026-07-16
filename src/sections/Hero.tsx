@@ -1,12 +1,23 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { useRef } from "react";
 import { Grid } from "@/components/layout/Grid";
 import { LinkArrow } from "@/components/ui/LinkArrow";
 import { TextReveal } from "@/components/ui/TextReveal";
 import { lineReveal } from "@/design/motion";
 
+const HEADLINE =
+  "تجربه‌هایی می‌سازیم\nکه انگار همیشه\nهمین‌طور بوده‌اند.";
+
+/**
+ * Hero identity: calm · massive · breathing
+ */
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
@@ -15,64 +26,78 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(
+  const headlineY = useTransform(
     scrollYProgress,
     [0, 1],
-    [0, prefersReducedMotion ? 0 : 64],
+    [0, prefersReducedMotion ? 0 : 56],
   );
-  const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0.35]);
+  const headlineOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.55, 1],
+    [1, 0.7, 0.25],
+  );
+  const metaY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, prefersReducedMotion ? 0 : 24],
+  );
+  const asideOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
   return (
     <section
       ref={ref}
-      className="relative min-h-[100svh] pb-section pt-[7.5rem] md:pt-[9rem]"
+      className="relative flex min-h-[100svh] flex-col justify-end pb-[clamp(4rem,12vh,8rem)] pt-[8rem] md:pt-[10rem]"
       aria-labelledby="hero-heading"
     >
-      <motion.div style={{ y, opacity }}>
-        <Grid className="min-h-[68svh] items-end">
-          {/* Index column — inline-start in RTL */}
-          <div className="col-span-1 hidden lg:block">
+      <Grid className="items-end gap-y-[var(--space-11)]">
+        <motion.div
+          className="col-span-4 md:col-span-7 lg:col-span-8"
+          style={{ y: headlineY, opacity: headlineOpacity }}
+        >
+          <div className="mb-[var(--space-7)] flex items-center gap-[var(--space-4)]">
             <span className="type-number">۰۱</span>
-            <div
-              className="mt-[var(--space-4)] h-24 w-px bg-border"
+            <span
+              className={
+                prefersReducedMotion
+                  ? "h-px w-6 bg-border"
+                  : "animate-breathe h-px w-6 bg-accent"
+              }
               aria-hidden
             />
+            <p className="type-overline">استودیوی طراحی دیجیتال</p>
           </div>
 
-          <div className="col-span-4 md:col-span-7 lg:col-span-7">
-            <p className="type-overline mb-[var(--space-6)]">
-              استودیوی طراحی دیجیتال
-            </p>
+          <TextReveal
+            as="h1"
+            id="hero-heading"
+            text={HEADLINE}
+            splitBy="lines"
+            className="type-display text-ink"
+          />
+        </motion.div>
 
-            <TextReveal
-              as="h1"
-              id="hero-heading"
-              text="تجربه‌هایی می‌سازیم که انگار همیشه همین‌طور بوده‌اند."
-              className="type-display text-ink"
-            />
+        <motion.div
+          className="col-span-4 md:col-span-5 md:col-start-4 lg:col-span-3 lg:col-start-10"
+          style={{ y: metaY, opacity: asideOpacity }}
+        >
+          <motion.div
+            variants={lineReveal}
+            initial="hidden"
+            animate="visible"
+            className="mb-[var(--space-7)] h-px w-10 bg-accent"
+            aria-hidden
+          />
+
+          <p className="type-body-lg max-w-[var(--measure-narrow)] text-muted">
+            برای بنیان‌گذاران و برندهایی که حاضر نیستند در وب معمولی
+            به‌نظر برسند.
+          </p>
+
+          <div className="mt-[var(--space-8)]">
+            <LinkArrow href="/contact">شروع پروژه</LinkArrow>
           </div>
-
-          <div className="col-span-4 mt-[var(--space-8)] md:col-span-5 md:col-start-3 md:mt-[var(--space-9)] lg:col-span-3 lg:col-start-10 lg:mt-0">
-            <motion.div
-              variants={lineReveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="mb-[var(--space-6)] h-px w-14 bg-accent"
-              aria-hidden
-            />
-
-            <p className="type-body-lg max-w-[18rem] text-muted">
-              کدکسیفای برای بنیان‌گذاران، استارتاپ‌ها و برندهایی است که حاضر
-              نیستند در وب معمولی به‌نظر برسند.
-            </p>
-
-            <div className="mt-[var(--space-8)]">
-              <LinkArrow href="/contact">شروع پروژه</LinkArrow>
-            </div>
-          </div>
-        </Grid>
-      </motion.div>
+        </motion.div>
+      </Grid>
     </section>
   );
 }

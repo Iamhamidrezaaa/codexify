@@ -48,4 +48,6 @@ Public API: `import { … } from "@/design"`
 - [x] Sprint 0 — Foundation
 - [x] Sprint 0.5 — Persian / RTL art direction
 - [x] Sprint 0.6 — Design system architecture
+- [x] Sprint 0.7 — Creative polish
+- [x] Sprint 0.8 — Experience language
 - [ ] Sprint 1 — Work / case studies

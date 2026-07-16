@@ -13,6 +13,7 @@ Codexify design language — Persian / RTL first.
 | [motion.md](./motion.md) | Motion rules |
 | [rtl.md](./rtl.md) | RTL rules |
 | [interaction.md](./interaction.md) | Interaction rules |
+| [experience.md](./experience.md) | Scroll & experience language |
 | [responsive.md](./responsive.md) | Responsive rules |
 | [components.md](./components.md) | Component philosophy |
 

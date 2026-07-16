@@ -1,4 +1,5 @@
-/* Layout spacing utilities — token-backed only */
+/* Layout spacing — rhythm variants for scroll storytelling */
+
 .pt-section {
   padding-top: var(--space-section);
 }
@@ -9,4 +10,39 @@
 
 .py-section {
   padding-block: var(--space-section);
+}
+
+/* Expansive — museum breathing room */
+.py-section-expansive {
+  padding-block: clamp(8rem, 22vh, 16rem);
+}
+
+/* Compressed — denser editorial beat */
+.py-section-compact {
+  padding-block: clamp(4rem, 10vh, 8rem);
+}
+
+/* Hero breathing line */
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1.15);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 5.5s var(--ease-in-out) infinite;
+  transform-origin: right center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-breathe {
+    animation: none !important;
+    opacity: 1 !important;
+  }
 }

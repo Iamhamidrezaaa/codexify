@@ -18,3 +18,11 @@ export {
   DURATION,
   STAGGER,
 } from "./presets";
+
+export {
+  heroPresence,
+  editorialDissolve,
+  discoverySettle,
+  quietArrive,
+  indexCrossfade,
+} from "./experience";

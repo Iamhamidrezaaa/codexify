@@ -1,25 +1,27 @@
-/* Type roles — compose size + weight + leading from tokens only */
+/* Type roles — optical polish, token-only */
 
 .type-display {
   font-family: var(--font-peyda), "Peyda", Tahoma, Arial, sans-serif;
   font-size: var(--text-display);
-  font-weight: var(--weight-extrabold);
+  font-weight: var(--weight-bold);
   line-height: var(--leading-display);
   letter-spacing: var(--tracking-display);
+  text-wrap: balance;
 }
 
 .type-heading {
   font-family: var(--font-peyda), "Peyda", Tahoma, Arial, sans-serif;
   font-size: var(--text-heading);
-  font-weight: var(--weight-bold);
+  font-weight: var(--weight-semibold);
   line-height: var(--leading-heading);
   letter-spacing: var(--tracking-heading);
+  text-wrap: balance;
 }
 
 .type-title {
   font-family: var(--font-peyda), "Peyda", Tahoma, Arial, sans-serif;
   font-size: var(--text-title);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
   line-height: var(--leading-title);
   letter-spacing: var(--tracking-heading);
 }
@@ -78,7 +80,16 @@
   line-height: var(--leading-tight);
 }
 
+.type-wordmark {
+  font-family: var(--font-peyda), "Peyda", Tahoma, Arial, sans-serif;
+  font-size: var(--text-button);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
 /* Latin / English passages — Geist */
 .font-latin {
   font-family: var(--font-geist), "Geist", system-ui, sans-serif;
+  letter-spacing: -0.01em;
 }
