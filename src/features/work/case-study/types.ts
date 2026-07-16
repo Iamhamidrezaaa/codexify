@@ -26,7 +26,9 @@ export type CaseStudyScreen = {
     | "corridor"
     | "monograph"
     | "section-cut"
-    | "threshold";
+    | "threshold"
+    | "suite"
+    | "consult";
   figure?: string;
 };
 

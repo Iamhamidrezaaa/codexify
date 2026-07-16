@@ -258,5 +258,5 @@ export const soraResidenceCaseStudy: CaseStudyContent = {
   },
 
   prev: { slug: "atelier-noir", name: "Atelier Noir" },
-  next: { slug: "velora", name: "Velora" },
+  next: { slug: "auren-clinic", name: "Auren Clinic" },
 };

@@ -20,7 +20,9 @@ export type CompositionMotif =
   | "elevation"
   | "timber"
   | "shadow-cast"
-  | "threshold";
+  | "threshold"
+  | "linen"
+  | "veil";
 
 type ImageCompositionProps = {
   family: ImageFamily;
@@ -40,7 +42,7 @@ const FAMILY_DEFAULT_MOTIF: Record<ImageFamily, CompositionMotif> = {
   architecture: "plan",
   macro: "bezel",
   texture: "grain",
-  "negative-space": "aperture",
+  "negative-space": "veil",
 };
 
 /**
@@ -59,7 +61,10 @@ export function ImageComposition({
 }: ImageCompositionProps) {
   const prefersReducedMotion = useReducedMotion();
   const resolved = motif || FAMILY_DEFAULT_MOTIF[family];
-  const slow = family === "architecture" || family === "negative-space";
+  const slow =
+    family === "architecture" ||
+    family === "negative-space" ||
+    family === "material";
 
   const plate = (
     <motion.div
@@ -343,11 +348,47 @@ function Motif({
           }}
         />
       );
+    case "veil":
+      return (
+        <>
+          <div
+            className="absolute inset-[12%_10%]"
+            style={{
+              background: `radial-gradient(ellipse at 50% 42%, ${accent}28 0%, transparent 68%)`,
+            }}
+          />
+          <div
+            className="absolute inset-[28%_24%]"
+            style={{ boxShadow: `inset 0 0 0 1px ${ink}10` }}
+          />
+        </>
+      );
+    case "linen":
+      return (
+        <>
+          <div
+            className="absolute inset-y-[16%] start-[12%] end-[12%]"
+            style={{
+              background: `repeating-linear-gradient(0deg, ${accent}14, ${accent}14 1px, transparent 1px, transparent 18px)`,
+            }}
+          />
+          <div
+            className="absolute inset-x-[28%] top-[30%] bottom-[30%] border"
+            style={{ borderColor: `${ink}14` }}
+          />
+          <div
+            className="absolute inset-x-[28%] bottom-[30%] h-[14%]"
+            style={{
+              background: `linear-gradient(180deg, ${accent}18, transparent)`,
+            }}
+          />
+        </>
+      );
     case "letter":
       return (
         <p
-          className="absolute inset-0 flex items-center justify-center font-latin text-[clamp(4rem,18vw,11rem)] font-bold leading-none"
-          style={{ color: ink, opacity: 0.12 }}
+          className="absolute inset-0 flex items-center justify-center font-latin text-[clamp(4rem,18vw,11rem)] font-medium leading-none"
+          style={{ color: ink, opacity: 0.1 }}
         >
           Aa
         </p>

@@ -250,6 +250,51 @@ function ScreenMotif({
     );
   }
 
+  if (motif === "suite") {
+    return (
+      <>
+        <div
+          className="absolute inset-[16%_14%]"
+          style={{
+            background: `radial-gradient(ellipse at 50% 40%, ${accent}20 0%, transparent 70%)`,
+          }}
+        />
+        <div
+          className="absolute inset-x-[22%] top-[26%] bottom-[28%] border"
+          style={{ borderColor: `${ink}12` }}
+        />
+        <div
+          className="absolute inset-x-[22%] top-[26%] h-px"
+          style={{ backgroundColor: `${accent}45` }}
+        />
+      </>
+    );
+  }
+
+  if (motif === "consult") {
+    return (
+      <>
+        <div
+          className="absolute inset-x-[16%] top-[20%] h-px"
+          style={{ backgroundColor: `${ink}16` }}
+        />
+        <div className="absolute inset-x-[16%] top-[32%] space-y-4" aria-hidden>
+          {[1, 2, 3].map((n) => (
+            <div
+              key={n}
+              className="h-px w-full"
+              style={{ backgroundColor: `${ink}14` }}
+            />
+          ))}
+        </div>
+        <div
+          className="absolute inset-x-[16%] bottom-[18%] h-9"
+          style={{ backgroundColor: `${accent}35` }}
+        />
+      </>
+    );
+  }
+
   /* inquiry — default contact frame */
   return (
     <>

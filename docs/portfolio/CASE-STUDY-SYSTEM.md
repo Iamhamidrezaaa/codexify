@@ -16,21 +16,30 @@ src/features/work/case-study/
   chapters.ts     # Canonical chapter spine
   CaseStudyView.tsx
   registry.ts
-  types.ts        # Includes publication.theme + imageFamily
+  atmosphere.ts   # Header chrome map
+  types.ts
 ```
 
 Route: `src/app/work/[slug]/page.tsx`
 
-## Adding Case Study 02
+## Published studies
 
-1. Create `content/sora-residence.ts` with `publication` block  
-2. Register in `registry.ts`  
+| # | Slug | Atmosphere | Family |
+|---|------|------------|--------|
+| ۰۱ | `atelier-noir` | dark | macro |
+| ۰۲ | `sora-residence` | light | architecture |
+| ۰۵ | `auren-clinic` | light | negative-space |
+
+## Adding a case study
+
+1. Create `content/[slug].ts` with `publication` block  
+2. Register in `registry.ts` **and** `atmosphere.ts`  
 3. Choose one `imageFamily`  
-4. Do not fork the view — extend motifs only if needed  
+4. Wire prev/next among **published** studies only  
+5. Do not fork the view — extend motifs only if reusable  
 
 See also:
 
 - [PROCESS-PHILOSOPHY.md](./PROCESS-PHILOSOPHY.md) — Sprint 6 process publication  
 - [STUDIO-PHILOSOPHY.md](./STUDIO-PHILOSOPHY.md) — Sprint 7 studio manifesto  
 - [GLOBAL-EXPERIENCE-AUDIT.md](./GLOBAL-EXPERIENCE-AUDIT.md) — Sprint 8 continuity audit  
-

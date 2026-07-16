@@ -42,9 +42,13 @@ Every study picks **one dominant family**:
 `material` · `geometry` · `typography` · `architecture` · `macro` · `texture` · `negative-space`
 
 Atelier Noir dominant: **macro** (with material/geometry accents).  
-Sora Residence dominant: **architecture** (with material / negative-space accents).
+Sora Residence dominant: **architecture** (with material / negative-space accents).  
+Auren Clinic dominant: **negative-space** (with material / typography accents).
 
-Architecture motifs: `plan` · `elevation` · `aperture` · `timber` · `shadow-cast` · `threshold`.
+Architecture motifs: `plan` · `elevation` · `aperture` · `timber` · `shadow-cast` · `threshold`.  
+Care / soft-space motifs: `veil` · `linen` · `mist` · `void`.
+
+Screen frames (care): `suite` · `consult` — reusable for calm clinical / wellness publications.
 
 Authoring:
 
@@ -73,7 +77,10 @@ Authoring:
 | `publication.editorial.screensTitle` | Chapter label (e.g. قاب‌های فضایی) |
 | `figures.*.family` | Per-plate override of dominant `imageFamily` |
 
-**Proven pair:** Atelier Noir = dark · macro. Sora Residence = light · architecture.
+**Proven set:**  
+Atelier Noir = dark · macro.  
+Sora Residence = light · architecture.  
+Auren Clinic = light · negative-space (care).
 
 ---
 

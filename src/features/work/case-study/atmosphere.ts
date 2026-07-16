@@ -7,6 +7,7 @@ export type CaseAtmosphere = "light" | "dark";
 const atmospheres: Record<string, CaseAtmosphere> = {
   "atelier-noir": "dark",
   "sora-residence": "light",
+  "auren-clinic": "light",
 };
 
 export function getCaseAtmosphere(

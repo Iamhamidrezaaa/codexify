@@ -18,6 +18,7 @@ export {
   getCaseStudySlugs,
   atelierNoirCaseStudy,
   soraResidenceCaseStudy,
+  aurenClinicCaseStudy,
 } from "./registry";
 export { getCaseAtmosphere } from "./atmosphere";
 export type { CaseAtmosphere } from "./atmosphere";
