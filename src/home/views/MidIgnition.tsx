@@ -2,65 +2,57 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
+/** Risk: monumental empty field — content crushed into ~12% corner. */
 export function MidIgnition() {
   const reduce = useReducedMotion();
 
   return (
     <section
-      className="relative -mt-[18vh] min-h-[110svh] overflow-visible pt-[8vh]"
+      className="relative -mt-[14vh] min-h-[100svh] overflow-visible"
       aria-labelledby="home-mid"
     >
-      {/* Persistent numeral — crosses into night */}
       <motion.span
         aria-hidden
-        className="pointer-events-none absolute start-0 top-[8%] z-0 select-none font-black leading-none text-[#0A0A0A]/[0.06] md:top-[4%]"
-        style={{
-          fontSize: "clamp(12rem, 38vw, 30rem)",
-          marginInlineStart: "-0.06em",
-        }}
+        className="pointer-events-none absolute -start-[0.05em] top-[-8%] select-none font-black leading-none text-[#0A0A0A]/[0.045]"
+        style={{ fontSize: "clamp(18rem, 55vw, 42rem)" }}
         initial={reduce ? false : { opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1.1 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 1.2 }}
       >
         ۰۲
       </motion.span>
 
-      <div className="relative z-[1] grid min-h-[100svh] grid-rows-[1fr_auto_1fr] px-[var(--margin-mobile)] md:px-[var(--margin-desktop)]">
-        <div aria-hidden />
-
+      <div className="relative z-[1] flex min-h-[100svh] items-end justify-start px-[var(--margin-mobile)] pb-[clamp(2.5rem,8vh,4.5rem)] md:justify-end md:px-[var(--margin-desktop)]">
         <motion.div
-          className="max-w-[34rem] justify-self-end border-t border-[#0A0A0A]/15 pt-10 md:max-w-[28rem]"
+          className="w-full max-w-[16rem] md:max-w-[18rem]"
           initial={reduce ? false : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1 }}
         >
-          <p className="type-overline mb-8 tracking-[0.2em] text-[#0A0A0A]/35">
+          <p className="mb-5 text-[0.58rem] tracking-[0.28em] text-[#0A0A0A]/40">
             ۰۲
           </p>
           <h2
             id="home-mid"
             className="font-semibold text-[#0A0A0A]"
             style={{
-              fontSize: "clamp(1.85rem, 3.6vw, 3.15rem)",
-              lineHeight: 1.2,
+              fontSize: "clamp(1.15rem, 1.9vw, 1.55rem)",
+              lineHeight: 1.35,
             }}
           >
             خودِ صفحه باید پیش از آثار، طراحی را ثابت کند.
           </h2>
-          <p className="mt-10 max-w-[22em] text-[0.8rem] leading-relaxed tracking-wide text-[#0A0A0A]/42">
+          <p className="mt-8 max-w-[14em] text-[0.62rem] leading-relaxed tracking-[0.04em] text-[#0A0A0A]/38">
             سکوت اندازه‌گیری می‌شود. جرم تصادفی نیست.
           </p>
         </motion.div>
-
-        <div aria-hidden />
       </div>
 
-      {/* Statement edge continues downward into night plane */}
       <p
         aria-hidden
-        className="pointer-events-none absolute bottom-[-6vh] end-[var(--margin-mobile)] z-[2] max-w-[12em] text-end text-[0.68rem] tracking-[0.18em] text-[#0A0A0A]/25 md:end-[var(--margin-desktop)]"
+        className="pointer-events-none absolute bottom-[-5vh] start-[var(--margin-mobile)] z-[2] text-[0.58rem] tracking-[0.22em] text-[#0A0A0A]/22 md:start-auto md:end-[var(--margin-desktop)]"
       >
         میدانِ شب
       </p>

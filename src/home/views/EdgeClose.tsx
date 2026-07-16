@@ -2,60 +2,65 @@
 
 import Link from "next/link";
 
+/** Risk: heavy corner compression — statement pinned to one corner, rest void. */
 export function EdgeClose() {
   const year = new Date().getFullYear();
 
   return (
     <section
-      className="relative -mt-[8vh] min-h-[95svh]"
+      className="relative -mt-[6vh] min-h-[100svh]"
       aria-labelledby="home-close"
     >
-      <div className="flex min-h-[95svh] flex-col px-[var(--margin-mobile)] md:px-[var(--margin-desktop)]">
-        <div className="flex flex-1 items-end justify-start pb-[clamp(3rem,10vh,6rem)] pt-24 md:items-center md:justify-center md:pb-0">
+      <div className="relative flex min-h-[100svh] flex-col px-[var(--margin-mobile)] md:px-[var(--margin-desktop)]">
+        <div className="flex flex-1 items-end justify-start pb-[clamp(5rem,14vh,8rem)]">
           <h2
             id="home-close"
-            className="max-w-[14em] font-semibold text-[#0A0A0A] md:text-center"
+            className="max-w-[8em] font-black text-[#0A0A0A]"
             style={{
-              fontSize: "clamp(2.25rem, 5.5vw, 4.75rem)",
-              lineHeight: 1.15,
-              textWrap: "balance",
+              fontSize: "clamp(3rem, 9vw, 7rem)",
+              lineHeight: 0.95,
+              letterSpacing: "-0.03em",
             }}
           >
-            ادامه، در آثار است.
+            ادامه،
+            <br />
+            در آثار
+            <br />
+            است.
           </h2>
         </div>
 
-        <footer className="grid gap-8 border-t border-[#0A0A0A]/10 py-10 md:grid-cols-[1fr_auto] md:items-end">
+        <footer className="mt-auto grid gap-6 border-t border-[#0A0A0A]/10 py-8 md:grid-cols-[1fr_auto] md:items-end">
           <nav
-            className="flex flex-wrap gap-x-8 gap-y-3"
+            className="flex flex-wrap gap-x-7 gap-y-2"
             aria-label="پیوندهای پایانی"
           >
             <Link
               href="/work"
-              className="text-[0.75rem] tracking-[0.04em] text-[#0A0A0A]/55 transition-opacity hover:opacity-100"
+              className="text-[0.62rem] tracking-[0.08em] text-[#0A0A0A]/50 transition-opacity hover:opacity-100"
             >
               آثار
             </Link>
             <Link
               href="/process"
-              className="text-[0.75rem] tracking-[0.04em] text-[#0A0A0A]/55 transition-opacity hover:opacity-100"
+              className="text-[0.62rem] tracking-[0.08em] text-[#0A0A0A]/50 transition-opacity hover:opacity-100"
             >
               فرآیند
             </Link>
             <Link
               href="/studio"
-              className="text-[0.75rem] tracking-[0.04em] text-[#0A0A0A]/55 transition-opacity hover:opacity-100"
+              className="text-[0.62rem] tracking-[0.08em] text-[#0A0A0A]/50 transition-opacity hover:opacity-100"
             >
               استودیو
             </Link>
             <Link
               href="mailto:hello@codexify.studio"
-              className="font-latin text-[0.75rem] tracking-[0.06em] text-[#0A0A0A]/55 transition-opacity hover:opacity-100"
+              className="font-latin text-[0.62rem] tracking-[0.1em] text-[#0A0A0A]/50 transition-opacity hover:opacity-100"
             >
               hello@codexify.studio
             </Link>
           </nav>
-          <p className="text-[0.68rem] text-[#0A0A0A]/35 md:text-end">
+          <p className="text-[0.58rem] text-[#0A0A0A]/32 md:text-end">
             © {year} کدکسیفای
           </p>
         </footer>
