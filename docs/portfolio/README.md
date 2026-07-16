@@ -7,6 +7,7 @@
 | [CASE-STUDY-ARCHITECTURE.md](./CASE-STUDY-ARCHITECTURE.md) | Shared storytelling spine |
 | [CONTENT-STRUCTURE.md](./CONTENT-STRUCTURE.md) | Field checklist for every case study |
 | [WORK-PAGE-NAVIGATION.md](./WORK-PAGE-NAVIGATION.md) | Future `/work` exhibition strategy |
+| [EXHIBITION-DECISIONS.md](./EXHIBITION-DECISIONS.md) | Sprint 2 — why the Work page is built this way |
 | [VISUAL-DIRECTION-OVERVIEW.md](./VISUAL-DIRECTION-OVERVIEW.md) | Cross-project visual system |
 
 ### Project identities

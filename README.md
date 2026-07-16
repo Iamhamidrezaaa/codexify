@@ -58,4 +58,5 @@ Modules: `src/lab/interactions/` · Docs: `src/lab/docs/README.md`
 - [x] Sprint 0.8 — Experience language
 - [x] Sprint 0.9 — Interaction Lab (R&D)
 - [x] Sprint 1 — Portfolio strategy & case study architecture
-- [ ] Sprint 2 — Work exhibition + case study implementation
+- [x] Sprint 2 — Work exhibition experience
+- [ ] Sprint 3 — Case study pages
