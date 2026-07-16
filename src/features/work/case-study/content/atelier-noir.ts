@@ -14,6 +14,29 @@ export const atelierNoirCaseStudy: CaseStudyContent = {
     statement: "سالن دیجیتالی برای ساعت‌هایی که فریاد نمی‌زنند.",
   },
 
+  publication: {
+    imageFamily: "macro",
+    theme: {
+      ground: "#0B0B0C",
+      surface: "#161618",
+      ink: "#EDEAE4",
+      muted: "#8A9199",
+      accent: "#8A9199",
+      signal: "#5C1F24",
+    },
+    chapters: [
+      { id: "hero", index: "۰۱", title: "آغاز" },
+      { id: "challenge", index: "۰۲", title: "چالش" },
+      { id: "discovery", index: "۰۳", title: "کشف" },
+      { id: "direction", index: "۰۴", title: "جهت خلاقانه" },
+      { id: "system", index: "۰۵", title: "سامانهٔ طراحی" },
+      { id: "screens", index: "۰۶", title: "صفحات منتخب" },
+      { id: "interactions", index: "۰۷", title: "تعامل‌های مؤثر" },
+      { id: "reflection", index: "۰۸", title: "بازاندیشی" },
+      { id: "outcome", index: "۰۹", title: "نتیجه" },
+    ],
+  },
+
   challenge: {
     title: "چالش",
     body: [
@@ -125,6 +148,7 @@ export const atelierNoirCaseStudy: CaseStudyContent = {
       breakpoint: "desktop",
       caption: "یک قطعه در مرکز. بدون شبکهٔ محصول.",
       motif: "hero-stage",
+      figure: "۰۴",
     },
     {
       id: "archive",
@@ -132,6 +156,7 @@ export const atelierNoirCaseStudy: CaseStudyContent = {
       breakpoint: "desktop",
       caption: "فهرست فصل‌بندی‌شده؛ نه قفسهٔ فروشگاهی.",
       motif: "archive",
+      figure: "۰۵",
     },
     {
       id: "detail-tablet",
@@ -139,6 +164,7 @@ export const atelierNoirCaseStudy: CaseStudyContent = {
       breakpoint: "tablet",
       caption: "ماکرو و مشخصات در دو ستون آرام.",
       motif: "detail",
+      figure: "۰۶",
     },
     {
       id: "inquiry-mobile",
@@ -146,6 +172,7 @@ export const atelierNoirCaseStudy: CaseStudyContent = {
       breakpoint: "mobile",
       caption: "فرم کوتاه. یک اقدام. بدون فشار.",
       motif: "inquiry",
+      figure: "۰۷",
     },
   ],
 
@@ -193,6 +220,24 @@ export const atelierNoirCaseStudy: CaseStudyContent = {
         text: "مشخصات فنی خوانا شدند؛ آرشیو بدون شلوغیِ فیلترهای رنگی کار می‌کند.",
       },
     ],
+  },
+
+  figures: {
+    afterHero: {
+      motif: "bezel",
+      caption: "ترکیب ماکرو — الهام از قاب و صفحه؛ بدون شبیه‌سازی دستگاه.",
+      figure: "۰۱",
+    },
+    afterDirection: {
+      motif: "steel",
+      caption: "بافت فلز سرد — پالت بدون طلا و بدون درخشش مصنوعی.",
+      figure: "۰۲",
+    },
+    closing: {
+      motif: "dial",
+      caption: "یک شیء. سکوت بسیار.",
+      figure: "۰۸",
+    },
   },
 
   next: { slug: "sora-residence", name: "Sora Residence" },

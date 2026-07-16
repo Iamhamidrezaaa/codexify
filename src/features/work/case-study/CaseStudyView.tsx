@@ -4,10 +4,16 @@ import { CaseStudySection } from "./components/CaseStudySection";
 import { CaseStudyNav } from "./components/CaseStudyNav";
 import { EditorialQuote } from "./components/EditorialQuote";
 import { ImageComposition } from "./components/ImageComposition";
+import type { CompositionMotif } from "./components/ImageComposition";
 import { DesignSystemBlock } from "./components/DesignSystemBlock";
 import { ScreenComposition } from "./components/ScreenComposition";
 import { ReflectionBlock } from "./components/ReflectionBlock";
 import { OutcomeBlock } from "./components/OutcomeBlock";
+import { Prose } from "./components/Prose";
+import { BreathingMoment } from "./components/BreathingMoment";
+import { ReadingProgress } from "./components/ReadingProgress";
+import { ChapterRail } from "./components/ChapterRail";
+import { MarginNote } from "./components/MarginNote";
 import type { CaseStudyContent } from "./types";
 
 type CaseStudyViewProps = {
@@ -15,81 +21,120 @@ type CaseStudyViewProps = {
 };
 
 /**
- * Shared case study publication layout — gold standard structure.
+ * Publication Engine v2 — assembles a case study as a magazine issue.
  */
 export function CaseStudyView({ study }: CaseStudyViewProps) {
+  const { publication: pub, meta, figures } = study;
+  const { theme, imageFamily, chapters } = pub;
+
   return (
-    <article>
-      <CaseStudyHero meta={study.meta} />
+    <article className="relative">
+      <ReadingProgress />
+      <ChapterRail chapters={chapters} />
 
-      <div className="border-b border-border">
-        <ImageComposition
-          variant="bezel"
-          caption="ترکیب هندسی — الهام از قاب و صفحه؛ بدون شبیه‌سازی دستگاه."
-          className="mx-auto max-w-[var(--container-wide)] px-[var(--margin-mobile)] md:px-[var(--margin-desktop)]"
-        />
-      </div>
+      <CaseStudyHero meta={meta} theme={theme} />
 
-      <CaseStudySection index="۰۲" title={study.challenge.title} expansive>
-        <div className="space-y-[var(--space-6)]">
-          {study.challenge.body.map((p) => (
-            <Reveal key={p.slice(0, 20)}>
-              <p className="type-body-lg max-w-[var(--measure)] text-muted">{p}</p>
-            </Reveal>
-          ))}
+      {figures ? (
+        <div className="border-b border-border bg-canvas">
+          <div className="mx-auto max-w-[var(--container-wide)] px-[var(--margin-mobile)] py-[var(--space-8)] md:px-[var(--margin-desktop)]">
+            <ImageComposition
+              family={imageFamily}
+              motif={figures.afterHero.motif as CompositionMotif}
+              figure={figures.afterHero.figure}
+              caption={figures.afterHero.caption}
+              ground={theme.ground}
+              accent={theme.accent}
+              ink={theme.ink}
+            />
+          </div>
+        </div>
+      ) : null}
+
+      <CaseStudySection
+        id="challenge"
+        index="۰۲"
+        title={study.challenge.title}
+        expansive
+      >
+        <div className="relative">
+          <Prose paragraphs={study.challenge.body} />
+          <MarginNote className="mt-[var(--space-6)] lg:mt-0 hidden xl:block">
+            مسئله، زیباتر کردن نبود — لمس‌پذیر کردنِ نادر بودن بود.
+          </MarginNote>
         </div>
       </CaseStudySection>
 
-      <CaseStudySection index="۰۳" title={study.discovery.title}>
+      <BreathingMoment size="sm" />
+
+      <CaseStudySection id="discovery" index="۰۳" title={study.discovery.title}>
         <ul className="divide-y divide-border border-y border-border">
           {study.discovery.items.map((item, i) => (
-            <Reveal key={item.label} delay={i * 0.05} as="li">
-              <div className="grid gap-[var(--space-3)] py-[var(--space-6)] md:grid-cols-12">
+            <Reveal key={item.label} delay={i * 0.04} as="li">
+              <div className="grid gap-[var(--space-3)] py-[var(--space-7)] md:grid-cols-12">
                 <p className="type-overline md:col-span-3">{item.label}</p>
-                <p className="type-body-lg text-muted md:col-span-8">{item.text}</p>
+                <p className="type-body-lg text-muted md:col-span-8">
+                  {item.text}
+                </p>
               </div>
             </Reveal>
           ))}
         </ul>
       </CaseStudySection>
 
-      <CaseStudySection index="۰۴" title={study.direction.title} expansive>
-        <div className="mb-[var(--space-6)] flex flex-wrap gap-x-[var(--space-4)] gap-y-2">
+      <CaseStudySection
+        id="direction"
+        index="۰۴"
+        title={study.direction.title}
+        expansive
+      >
+        <div className="mb-[var(--space-7)] flex flex-wrap gap-x-[var(--space-5)] gap-y-2">
           {study.direction.mood.map((word) => (
             <span key={word} className="type-overline text-ink">
               {word}
             </span>
           ))}
         </div>
-        <div className="space-y-[var(--space-6)]">
-          {study.direction.body.map((p) => (
-            <Reveal key={p.slice(0, 20)}>
-              <p className="type-body-lg max-w-[var(--measure)] text-muted">{p}</p>
-            </Reveal>
-          ))}
-        </div>
-        <EditorialQuote>{study.direction.quote}</EditorialQuote>
-        <ImageComposition
-          variant="steel"
-          caption="بافت فلز سرد — پالت بدون طلا و بدون درخشش مصنوعی."
-        />
+        <Prose paragraphs={study.direction.body} />
+        <EditorialQuote note="جهت خلاقانه">
+          {study.direction.quote}
+        </EditorialQuote>
+        {figures ? (
+          <ImageComposition
+            family="material"
+            motif={figures.afterDirection.motif as CompositionMotif}
+            figure={figures.afterDirection.figure}
+            caption={figures.afterDirection.caption}
+            ground={theme.ground}
+            accent={theme.accent}
+            ink={theme.ink}
+          />
+        ) : null}
       </CaseStudySection>
 
-      <CaseStudySection index="۰۵" title={study.system.title}>
+      <CaseStudySection id="system" index="۰۵" title={study.system.title}>
         <DesignSystemBlock system={study.system} />
       </CaseStudySection>
 
-      <CaseStudySection index="۰۶" title="صفحات منتخب" expansive>
-        <ScreenComposition screens={study.screens} />
+      <CaseStudySection
+        id="screens"
+        index="۰۶"
+        title="صفحات منتخب"
+        expansive
+      >
+        <ScreenComposition screens={study.screens} theme={theme} />
       </CaseStudySection>
 
-      <CaseStudySection index="۰۷" title="تعامل‌های مؤثر">
-        <ul className="space-y-[var(--space-8)]">
+      <CaseStudySection
+        id="interactions"
+        index="۰۷"
+        title="تعامل‌های مؤثر"
+      >
+        <ul className="space-y-[var(--space-9)]">
           {study.interactions.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.06}>
+            <Reveal key={item.title} delay={i * 0.05}>
               <div>
                 <h3 className="type-title text-ink">{item.title}</h3>
-                <p className="type-body-lg mt-[var(--space-3)] max-w-[var(--measure)] text-muted">
+                <p className="type-body-lg mt-[var(--space-4)] max-w-[var(--measure)] text-muted">
                   {item.why}
                 </p>
               </div>
@@ -98,27 +143,50 @@ export function CaseStudyView({ study }: CaseStudyViewProps) {
         </ul>
       </CaseStudySection>
 
-      <div className="bg-[#0B0B0C] py-section-expansive text-[#EDEAE4]">
-        <CaseStudySection
-          index="۰۸"
-          title={study.reflection.title}
-          className="[&_.type-overline]:text-[#8A9199] [&_.type-number]:text-[#8A9199] [&_.type-body-lg]:text-[#EDEAE4]/70 [&_.bg-border]:bg-[#8A919944]"
-        >
-          <ReflectionBlock paragraphs={study.reflection.body} />
-        </CaseStudySection>
-      </div>
+      <CaseStudySection
+        id="reflection"
+        index="۰۸"
+        title={study.reflection.title}
+        tone="inverse"
+        theme={{
+          ground: theme.ground,
+          ink: theme.ink,
+          muted: theme.muted,
+          accent: theme.accent,
+        }}
+        expansive
+      >
+        <ReflectionBlock paragraphs={study.reflection.body} />
+      </CaseStudySection>
 
-      <CaseStudySection index="۰۹" title={study.outcome.title} expansive>
+      <CaseStudySection
+        id="outcome"
+        index="۰۹"
+        title={study.outcome.title}
+        expansive
+      >
         <OutcomeBlock items={study.outcome.items} />
       </CaseStudySection>
 
-      <ImageComposition
-        variant="dial"
-        caption="یک شیء. سکوت بسیار."
-        className="mx-auto max-w-[var(--container-wide)] px-[var(--margin-mobile)] pb-section md:px-[var(--margin-desktop)]"
-      />
+      {figures ? (
+        <div className="mx-auto max-w-[var(--container-wide)] px-[var(--margin-mobile)] pb-section md:px-[var(--margin-desktop)]">
+          <ImageComposition
+            family="geometry"
+            motif={figures.closing.motif as CompositionMotif}
+            figure={figures.closing.figure}
+            caption={figures.closing.caption}
+            ground={theme.ground}
+            accent={theme.accent}
+            ink={theme.ink}
+          />
+        </div>
+      ) : null}
 
-      <CaseStudyNav prev={study.prev} next={study.next} />
+      <CaseStudyNav
+        prev={study.prev}
+        next={study.next}
+        projectName={meta.name}
+      />
     </article>
   );
 }

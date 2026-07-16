@@ -60,4 +60,5 @@ Modules: `src/lab/interactions/` · Docs: `src/lab/docs/README.md`
 - [x] Sprint 1 — Portfolio strategy & case study architecture
 - [x] Sprint 2 — Work exhibition experience
 - [x] Sprint 3 — Case Study 01 · Atelier Noir
-- [ ] Sprint 4 — Remaining case studies
+- [x] Sprint 4 — Publication Engine v2
+- [ ] Sprint 5 — Case Study 02 · Sora Residence

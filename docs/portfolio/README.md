@@ -7,6 +7,7 @@
 | [CASE-STUDY-ARCHITECTURE.md](./CASE-STUDY-ARCHITECTURE.md) | Shared storytelling spine |
 | [CONTENT-STRUCTURE.md](./CONTENT-STRUCTURE.md) | Field checklist for every case study |
 | [WORK-PAGE-NAVIGATION.md](./WORK-PAGE-NAVIGATION.md) | Future `/work` exhibition strategy |
+| [PUBLICATION-ENGINE.md](./PUBLICATION-ENGINE.md) | Sprint 4 — publishing house / engine v2 |
 | [CASE-STUDY-SYSTEM.md](./CASE-STUDY-SYSTEM.md) | Sprint 3 — reusable case study foundation |
 | [EXHIBITION-DECISIONS.md](./EXHIBITION-DECISIONS.md) | Sprint 2 — why the Work page is built this way |
 | [VISUAL-DIRECTION-OVERVIEW.md](./VISUAL-DIRECTION-OVERVIEW.md) | Cross-project visual system |

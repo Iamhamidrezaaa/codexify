@@ -1,56 +1,31 @@
-# Case Study System — Sprint 3
+# Case Study System
+
+> Superseded in detail by [PUBLICATION-ENGINE.md](./PUBLICATION-ENGINE.md) (Sprint 4).
 
 ## Gold standard
 
-**Atelier Noir** (`/work/atelier-noir`) is the reference implementation.  
-Future studies reuse the same components and narrative spine — only content and visual motifs change.
+**Atelier Noir** (`/work/atelier-noir`) remains the reference story.  
+Publication Engine v2 is the reference **system**.
 
 ## Architecture
 
 ```
 src/features/work/case-study/
-  components/     # Reusable publication blocks
+  components/     # Publication primitives + blocks
   content/        # Per-project editorial copy
+  chapters.ts     # Canonical chapter spine
   CaseStudyView.tsx
   registry.ts
-  types.ts
+  types.ts        # Includes publication.theme + imageFamily
 ```
 
-Route: `src/app/work/[slug]/page.tsx`  
-`generateStaticParams` expands as new studies are registered.
-
-## Components
-
-| Component | Role |
-|-----------|------|
-| `CaseStudyHero` | Monumental opening, no CTA |
-| `CaseStudySection` | Indexed editorial chapter |
-| `EditorialQuote` | Pull quote |
-| `ImageComposition` | Geometry / material art — no devices |
-| `DesignSystemBlock` | Grid, color, type, principles |
-| `ColorPalette` | Swatches + roles |
-| `TypographyShowcase` | Type roles |
-| `ScreenComposition` | Selected frames without chrome |
-| `ReflectionBlock` | Lessons |
-| `OutcomeBlock` | Qualitative outcomes |
-| `CaseStudyNav` | Back / prev / next |
-
-## Writing rules (enforced in Atelier Noir)
-
-- Persian, editorial, quiet
-- No fake KPIs
-- No marketing buzzwords
-- Explain *why* on interactions, not *how*
-
-## Visual rules
-
-- Immersive dark field in hero (brand atmosphere)
-- Codexify Header/Footer remain for studio authorship
-- Abstract compositions stand in for photography until real assets exist
+Route: `src/app/work/[slug]/page.tsx`
 
 ## Adding Case Study 02
 
-1. Create `content/sora-residence.ts`
-2. Register in `registry.ts`
-3. Optionally add project-specific motifs to `ImageComposition` / `ScreenComposition`
-4. Rebuild — static param appears automatically
+1. Create `content/sora-residence.ts` with `publication` block  
+2. Register in `registry.ts`  
+3. Choose one `imageFamily`  
+4. Do not fork the view — extend motifs only if needed  
+
+See Publication Engine v2 for the full authoring contract.
