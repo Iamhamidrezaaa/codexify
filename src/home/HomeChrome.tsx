@@ -16,7 +16,7 @@ export function HomeChrome() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 48);
+    const onScroll = () => setSolid(window.scrollY > 64);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -30,23 +30,21 @@ export function HomeChrome() {
   }, [open]);
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,opacity] duration-500",
-        solid
-          ? "border-b border-ink/10 bg-[#F7F6F2]/95 opacity-100"
-          : "border-b border-transparent bg-transparent opacity-40 hover:opacity-90",
-      )}
-    >
+    <header className="fixed inset-x-0 top-0 z-50">
       <div
         className={cn(
-          "mx-auto flex max-w-[96rem] items-center justify-between px-[var(--margin-mobile)] py-5 md:px-[var(--margin-desktop)] md:py-6",
-          !solid && "mix-blend-difference",
+          "mx-auto flex max-w-[96rem] items-start justify-between px-[var(--margin-mobile)] pt-6 transition-all duration-500 md:px-[var(--margin-desktop)] md:pt-8",
+          solid
+            ? "border-b border-ink/8 bg-[#F7F6F2]/90 py-4 pt-4 backdrop-blur-sm"
+            : "mix-blend-difference",
         )}
       >
         <Link
           href="/"
-          className={cn("type-wordmark", solid ? "text-ink" : "text-white")}
+          className={cn(
+            "type-wordmark transition-opacity duration-300",
+            solid ? "text-ink opacity-100" : "text-white opacity-50 hover:opacity-100",
+          )}
           aria-current="page"
           onClick={() => setOpen(false)}
         >
@@ -54,7 +52,7 @@ export function HomeChrome() {
         </Link>
 
         <nav
-          className="hidden items-center gap-8 md:flex lg:gap-10"
+          className="hidden flex-col items-end gap-3 md:flex"
           aria-label="منوی اصلی"
         >
           {LINKS.map((link) => (
@@ -62,8 +60,8 @@ export function HomeChrome() {
               key={link.href}
               href={link.href}
               className={cn(
-                "type-nav transition-opacity hover:opacity-60",
-                solid ? "text-ink" : "text-white",
+                "text-[0.68rem] tracking-[0.12em] transition-opacity hover:opacity-50",
+                solid ? "text-ink" : "text-white opacity-50 hover:opacity-100",
               )}
             >
               {link.label}
@@ -81,14 +79,14 @@ export function HomeChrome() {
           <span
             className={cn(
               "block h-px w-5 transition-transform",
-              solid ? "bg-ink" : "bg-white",
+              solid ? "bg-ink" : "bg-white opacity-60",
               open && "translate-y-[3px] rotate-45",
             )}
           />
           <span
             className={cn(
               "block h-px w-5 transition-transform",
-              solid ? "bg-ink" : "bg-white",
+              solid ? "bg-ink" : "bg-white opacity-60",
               open && "-translate-y-[3px] -rotate-45",
             )}
           />
@@ -97,7 +95,7 @@ export function HomeChrome() {
 
       <div
         className={cn(
-          "fixed inset-0 top-[3.5rem] bg-[#F7F6F2] transition-opacity md:hidden",
+          "fixed inset-0 top-0 z-40 bg-[#F4F1EA] transition-opacity md:hidden",
           open
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0",
@@ -105,14 +103,14 @@ export function HomeChrome() {
         aria-hidden={!open}
       >
         <nav
-          className="flex h-full flex-col justify-center gap-8 px-[var(--margin-mobile)]"
+          className="flex h-full flex-col justify-center gap-10 px-[var(--margin-mobile)]"
           aria-label="منوی موبایل"
         >
           {LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="type-heading text-ink"
+              className="text-3xl font-semibold text-ink"
               tabIndex={open ? 0 : -1}
               onClick={() => setOpen(false)}
             >

@@ -16,44 +16,49 @@ export function ShearIndex() {
 
   return (
     <section
-      className="bg-[#EFECE5] py-[clamp(5rem,16vh,10rem)]"
+      className="relative bg-[#1F1C19] py-[clamp(5rem,14vh,9rem)] text-[#E8E2D6]"
       aria-labelledby="home-index"
     >
-      <div className="mx-auto max-w-[96rem] px-[var(--margin-mobile)] md:px-[var(--margin-desktop)]">
-        <h2 id="home-index" className="sr-only">
+      <div className="mx-auto grid max-w-[96rem] gap-16 px-[var(--margin-mobile)] md:grid-cols-12 md:gap-8 md:px-[var(--margin-desktop)]">
+        <h2
+          id="home-index"
+          className="type-overline tracking-[0.22em] text-[#E8E2D6]/35 md:col-span-3"
+        >
           فهرست کارها
         </h2>
 
-        <ul className="flex flex-col gap-[clamp(1.25rem,3vh,2rem)]">
+        <ol className="md:col-span-9 md:col-start-4">
           {ITEMS.map((item, i) => (
             <motion.li
               key={item.n}
-              className="flex items-baseline gap-5 md:gap-10"
-              style={{
-                marginInlineStart: `calc(${i} * clamp(0.5rem, 1.8vw, 2rem))`,
-              }}
-              initial={reduce ? false : { opacity: 0.25 }}
+              className="group grid grid-cols-[4.5rem_1fr] items-end border-t border-[#E8E2D6]/12 py-[clamp(1.6rem,4vh,2.8rem)] last:border-b"
+              initial={reduce ? false : { opacity: 0.2 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={{ once: true, amount: 0.35 }}
               transition={{
-                duration: 0.8,
-                delay: reduce ? 0 : i * 0.05,
+                duration: 0.7,
+                delay: reduce ? 0 : i * 0.04,
                 ease: [0.16, 1, 0.3, 1],
               }}
             >
-              <span className="type-number shrink-0 text-ink/50">{item.n}</span>
               <span
-                className="font-medium text-ink"
+                className="font-latin tabular-nums text-[#E8E2D6]/35"
+                style={{ fontSize: "0.7rem", letterSpacing: "0.14em" }}
+              >
+                {item.n}
+              </span>
+              <span
+                className="justify-self-start font-medium transition-transform duration-500 group-hover:-translate-x-1"
                 style={{
-                  fontSize: "clamp(1.75rem, 4.5vw, 3.75rem)",
-                  lineHeight: 1.15,
+                  fontSize: "clamp(1.6rem, 3.8vw, 3.25rem)",
+                  lineHeight: 1.05,
                 }}
               >
                 {item.t}
               </span>
             </motion.li>
           ))}
-        </ul>
+        </ol>
       </div>
     </section>
   );

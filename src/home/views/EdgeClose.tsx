@@ -7,53 +7,57 @@ export function EdgeClose() {
 
   return (
     <section
-      className="relative min-h-[70svh] bg-[#D8D3C9]"
+      className="relative min-h-[100svh] bg-[#F7F6F2]"
       aria-labelledby="home-close"
     >
-      <div className="flex min-h-[70svh] flex-col justify-between px-[var(--margin-mobile)] py-[clamp(3rem,10vh,6rem)] md:px-[var(--margin-desktop)]">
-        <h2
-          id="home-close"
-          className="max-w-[12em] self-end text-end font-semibold text-[#1C1A18] md:self-start md:text-start"
-          style={{
-            fontSize: "clamp(1.85rem, 3.4vw, 3rem)",
-            lineHeight: 1.2,
-            textWrap: "balance",
-          }}
-        >
-          ادامه، در آثار است.
-        </h2>
+      <div className="flex min-h-[100svh] flex-col px-[var(--margin-mobile)] md:px-[var(--margin-desktop)]">
+        <div className="flex flex-1 items-center justify-center">
+          <h2
+            id="home-close"
+            className="max-w-[14em] text-center font-semibold text-[#0A0A0A]"
+            style={{
+              fontSize: "clamp(2.25rem, 5.5vw, 4.75rem)",
+              lineHeight: 1.15,
+              textWrap: "balance",
+            }}
+          >
+            ادامه، در آثار است.
+          </h2>
+        </div>
 
-        <footer className="flex flex-col gap-8 border-t border-[#1C1A18]/15 pt-8 md:flex-row md:items-end md:justify-between">
+        <footer className="grid gap-8 border-t border-[#0A0A0A]/10 py-10 md:grid-cols-[1fr_auto] md:items-end">
           <nav
-            className="flex flex-wrap gap-x-7 gap-y-3"
+            className="flex flex-wrap gap-x-8 gap-y-3"
             aria-label="پیوندهای پایانی"
           >
             <Link
               href="/work"
-              className="type-nav text-[#1C1A18]/70 transition-opacity hover:opacity-100"
+              className="text-[0.75rem] tracking-[0.04em] text-[#0A0A0A]/55 transition-opacity hover:opacity-100"
             >
               آثار
             </Link>
             <Link
               href="/process"
-              className="type-nav text-[#1C1A18]/70 transition-opacity hover:opacity-100"
+              className="text-[0.75rem] tracking-[0.04em] text-[#0A0A0A]/55 transition-opacity hover:opacity-100"
             >
               فرآیند
             </Link>
             <Link
               href="/studio"
-              className="type-nav text-[#1C1A18]/70 transition-opacity hover:opacity-100"
+              className="text-[0.75rem] tracking-[0.04em] text-[#0A0A0A]/55 transition-opacity hover:opacity-100"
             >
               استودیو
             </Link>
             <Link
               href="mailto:hello@codexify.studio"
-              className="type-nav font-latin text-[#1C1A18]/70 transition-opacity hover:opacity-100"
+              className="font-latin text-[0.75rem] tracking-[0.06em] text-[#0A0A0A]/55 transition-opacity hover:opacity-100"
             >
               hello@codexify.studio
             </Link>
           </nav>
-          <p className="type-caption text-[#1C1A18]/40">© {year} کدکسیفای</p>
+          <p className="text-[0.68rem] text-[#0A0A0A]/35 md:text-end">
+            © {year} کدکسیفای
+          </p>
         </footer>
       </div>
     </section>

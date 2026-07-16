@@ -2,60 +2,67 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 
-const STOREYS = [
-  "وب‌سایت",
-  "پورتفولیو",
-  "است.",
-] as const;
-
 export function StoreyManifest() {
   const reduce = useReducedMotion();
 
   return (
     <section
-      className="relative min-h-[100svh] overflow-hidden bg-[#F7F6F2]"
+      className="relative min-h-[100svh] overflow-hidden bg-[#E7E2D8]"
       aria-labelledby="home-storey"
     >
-      <div className="flex min-h-[100svh] flex-col justify-center px-[var(--margin-mobile)] py-24 md:px-[var(--margin-desktop)]">
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-[-5%] top-[42%] overflow-hidden"
+        initial={reduce ? false : { opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.5 }}
+      >
+        <span
+          className="block select-none text-center font-black leading-none text-[#0A0A0A]/[0.07]"
+          style={{ fontSize: "clamp(5rem, 18vw, 14rem)" }}
+        >
+          پورتفولیو
+        </span>
+      </motion.div>
+
+      <div className="relative z-[1] flex min-h-[100svh] flex-col justify-between px-[var(--margin-mobile)] py-[clamp(4.5rem,12vh,7.5rem)] md:px-[var(--margin-desktop)]">
         <h2 id="home-storey" className="sr-only">
           خودِ وب‌سایت پورتفولیو است.
         </h2>
 
-        <div className="flex flex-col gap-[clamp(0.35rem,1.2vh,0.75rem)]">
-          {STOREYS.map((line, i) => (
-            <motion.p
-              key={line}
-              className="font-bold text-ink"
-              style={{
-                fontSize:
-                  i === 1
-                    ? "clamp(3.5rem, 12vw, 9rem)"
-                    : "clamp(2.25rem, 7vw, 5.5rem)",
-                lineHeight: 0.95,
-                marginInlineStart:
-                  i === 0
-                    ? "0"
-                    : i === 1
-                      ? "clamp(1rem, 6vw, 5rem)"
-                      : "clamp(2rem, 12vw, 10rem)",
-              }}
-              initial={reduce ? false : { opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.5 }}
-              transition={{
-                duration: 0.9,
-                delay: reduce ? 0 : i * 0.12,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-            >
-              {line}
-            </motion.p>
-          ))}
-        </div>
+        <motion.p
+          className="font-semibold text-[#0A0A0A]"
+          style={{
+            fontSize: "clamp(2.5rem, 6vw, 5rem)",
+            lineHeight: 1.05,
+          }}
+          initial={reduce ? false : { opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+        >
+          وب‌سایت
+        </motion.p>
 
-        <p className="type-essay mt-[clamp(3rem,8vh,5rem)] max-w-[20em] text-ink/45">
-          هر جزئیات باید پیش از بارگذاری اولین اثر، این را ثابت کند.
-        </p>
+        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+          <p className="type-essay max-w-[22em] text-[#0A0A0A]/50">
+            هر جزئیات باید پیش از بارگذاری اولین اثر، این را ثابت کند.
+          </p>
+          <motion.p
+            className="self-end font-semibold text-[#0A0A0A] md:self-auto"
+            style={{
+              fontSize: "clamp(2.5rem, 6vw, 5rem)",
+              lineHeight: 1.05,
+            }}
+            initial={reduce ? false : { opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.08 }}
+          >
+            است.
+          </motion.p>
+        </div>
       </div>
     </section>
   );
