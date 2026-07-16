@@ -5,58 +5,61 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 
 const SERVICES = [
   {
-    index: "01",
-    title: "Website Design",
-    description: "Editorial layouts, bespoke compositions, timeless aesthetics.",
+    index: "۰۱",
+    title: "طراحی وب‌سایت",
+    description:
+      "چیدمان‌های ادیتوریال، ترکیب‌بندی اختصاصی، زیبایی‌شناسی ماندگار.",
   },
   {
-    index: "02",
-    title: "Web Development",
-    description: "Performance-first engineering with meticulous attention to detail.",
+    index: "۰۲",
+    title: "توسعه وب",
+    description:
+      "مهندسی با اولویت عملکرد و وسواس نسبت به جزئیات.",
   },
   {
-    index: "03",
-    title: "UI / UX",
-    description: "Intuitive interfaces rooted in research and human behavior.",
+    index: "۰۳",
+    title: "رابط و تجربه کاربری",
+    description:
+      "رابط‌هایی شهودی، ریشه در پژوهش و رفتار انسان.",
   },
   {
-    index: "04",
-    title: "Branding",
-    description: "Visual identity systems that translate seamlessly to digital.",
+    index: "۰۴",
+    title: "برندینگ",
+    description:
+      "سامانه‌های هویت بصری که بی‌درنگ به دیجیتال ترجمه می‌شوند.",
   },
   {
-    index: "05",
-    title: "Motion Design",
-    description: "Slow, elegant animation that elevates — never distracts.",
+    index: "۰۵",
+    title: "طراحی موشن",
+    description:
+      "حرکت آرام و ظریف که ارتقا می‌دهد — نه منحرف می‌کند.",
   },
   {
-    index: "06",
-    title: "Interactive Experiences",
-    description: "Immersive web experiences that reward exploration.",
+    index: "۰۶",
+    title: "تجربه‌های تعاملی",
+    description:
+      "تجربه‌های وب غوطه‌ور که کنجکاوی را پاداش می‌دهند.",
   },
 ] as const;
 
 export function Services() {
   return (
     <section className="py-section" aria-labelledby="services-heading">
-      <Grid className="mb-16">
-        <div className="col-span-4 md:col-span-6 lg:col-span-4">
+      <Grid className="mb-[var(--space-9)]">
+        <div className="col-span-4 md:col-span-5 lg:col-span-4">
           <FadeIn>
-            <SectionLabel index="03" label="Services" />
+            <SectionLabel index="۰۳" label="خدمات" />
           </FadeIn>
-          <FadeIn delay={0.1} className="mt-8">
-            <h2
-              id="services-heading"
-              className="font-serif text-display-md tracking-tight text-ink"
-            >
-              What we do
+          <FadeIn delay={0.1} className="mt-[var(--space-6)]">
+            <h2 id="services-heading" className="type-heading text-ink">
+              چه می‌کنیم
             </h2>
           </FadeIn>
         </div>
 
-        <div className="col-span-4 mt-6 md:col-span-6 md:mt-0 lg:col-span-4 lg:col-start-9 lg:flex lg:items-end lg:justify-end">
+        <div className="col-span-4 mt-[var(--space-5)] md:col-span-3 md:col-start-6 md:mt-0 md:flex md:items-end md:justify-start lg:col-span-3 lg:col-start-10">
           <FadeIn delay={0.15}>
-            <LinkArrow href="/contact">Discuss your project</LinkArrow>
+            <LinkArrow href="/contact">درباره پروژه‌تان حرف بزنیم</LinkArrow>
           </FadeIn>
         </div>
       </Grid>
@@ -67,22 +70,20 @@ export function Services() {
             key={service.index}
             as="li"
             delay={i * 0.05}
-            className="group col-span-4 grid grid-cols-4 gap-x-4 border-b border-border py-8 transition-colors duration-400 hover:bg-ink/[0.02] md:col-span-8 md:grid-cols-8 lg:col-span-12 lg:grid-cols-12"
+            className="group col-span-4 grid grid-cols-4 gap-x-[var(--gutter-mobile)] border-b border-border py-[var(--space-6)] transition-colors duration-base ease-out hover:bg-ink/[0.015] md:col-span-8 md:grid-cols-8 md:gap-x-[var(--gutter-tablet)] lg:col-span-12 lg:grid-cols-12 lg:gap-x-[var(--gutter-desktop)]"
           >
-            <span className="col-span-1 font-mono text-caption text-accent">
-              {service.index}
-            </span>
-            <h3 className="col-span-3 font-serif text-2xl tracking-tight text-ink md:col-span-3 lg:col-span-4">
+            <span className="type-number col-span-1">{service.index}</span>
+            <h3 className="type-title col-span-3 text-ink md:col-span-3 lg:col-span-4">
               {service.title}
             </h3>
-            <p className="col-span-4 mt-3 font-sans text-sm leading-relaxed text-muted md:col-span-4 md:mt-0 lg:col-span-5">
+            <p className="type-body col-span-4 mt-[var(--space-3)] text-sm text-muted md:col-span-4 md:mt-0 lg:col-span-5">
               {service.description}
             </p>
             <span
-              className="col-span-4 mt-4 font-mono text-caption text-muted opacity-0 transition-opacity duration-400 group-hover:opacity-100 md:col-span-1 md:mt-0 md:text-right lg:col-span-2"
+              className="col-span-4 mt-[var(--space-4)] type-number text-muted opacity-0 transition-opacity duration-base ease-out group-hover:opacity-100 md:col-span-1 md:mt-0 md:text-start lg:col-span-2"
               aria-hidden
             >
-              →
+              ←
             </span>
           </FadeIn>
         ))}

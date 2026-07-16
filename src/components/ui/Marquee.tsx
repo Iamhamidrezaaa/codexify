@@ -11,7 +11,7 @@ type MarqueeProps = {
 
 export function Marquee({ items, className, speed = "slow" }: MarqueeProps) {
   const prefersReducedMotion = useReducedMotion();
-  const duration = speed === "slow" ? "50s" : "30s";
+  const duration = speed === "slow" ? "55s" : "35s";
   const repeated = [...items, ...items];
 
   return (
@@ -21,7 +21,7 @@ export function Marquee({ items, className, speed = "slow" }: MarqueeProps) {
     >
       <div
         className={cn(
-          "flex w-max items-center gap-12 py-5",
+          "flex w-max items-center gap-[var(--space-9)] py-[var(--space-5)]",
           !prefersReducedMotion && "animate-marquee",
         )}
         style={
@@ -31,9 +31,12 @@ export function Marquee({ items, className, speed = "slow" }: MarqueeProps) {
         {repeated.map((item, index) => (
           <span
             key={`${item}-${index}`}
-            className="font-mono text-caption uppercase tracking-widest text-muted whitespace-nowrap"
+            className="type-overline whitespace-nowrap text-muted"
           >
             {item}
+            <span className="mx-[var(--space-9)] text-accent" aria-hidden>
+              ·
+            </span>
           </span>
         ))}
       </div>

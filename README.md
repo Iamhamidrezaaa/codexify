@@ -1,12 +1,13 @@
-# Codexify
+# Codexify / کدکسیفای
 
-Premium digital design studio website — Sprint 0 foundation.
+استودیوی طراحی دیجیتال پرمیوم — Sprint 0.5 · Art Direction (Persian / RTL)
 
 ## Stack
 
 - Next.js 16 · React 19 · TypeScript
 - Tailwind CSS v4
 - Framer Motion · Lenis
+- Peyda (local, `next/font/local`)
 
 ## Getting Started
 
@@ -17,39 +18,29 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Creative Direction
+## Design System
 
-See [`docs/CREATIVE-DIRECTION.md`](docs/CREATIVE-DIRECTION.md) for the full design system, motion language, and component philosophy.
+- [`docs/ART-DIRECTION.md`](docs/ART-DIRECTION.md) — source of truth for visual language
+- [`docs/CREATIVE-DIRECTION.md`](docs/CREATIVE-DIRECTION.md) — Sprint 0 brand brief
+- Tokens: `src/app/globals.css`
+- Font: `src/fonts/` (Peyda)
 
 ## Project Structure
 
 ```
 src/
-├── app/              # Next.js App Router
+├── app/                 # App Router · tokens · RTL layout
+├── fonts/peyda/         # Local Peyda weights
 ├── components/
-│   ├── layout/       # Header, Footer, Grid
-│   ├── providers/    # Lenis smooth scroll
-│   ├── sections/     # Page sections (Hero, Philosophy, Services)
-│   └── ui/           # Reusable primitives (TextReveal, FadeIn, Marquee)
-├── lib/              # Utils, motion tokens
-└── styles/           # (tokens in globals.css)
+│   ├── layout/          # Header, Footer, Grid
+│   ├── providers/       # Lenis
+│   ├── sections/        # Hero, Marquee, Philosophy, Services
+│   └── ui/              # TextReveal, FadeIn, LinkArrow, Marquee
+└── lib/                 # motion · utils
 ```
 
-## Sprint 0 Deliverables
+## Sprint Status
 
-- [x] Creative direction document
-- [x] Design token system (primitive → semantic)
-- [x] Typography: Instrument Serif + IBM Plex Sans/Mono
-- [x] 12-column asymmetric grid
-- [x] Motion language with Framer Motion + Lenis
-- [x] Home page foundation (Hero, Marquee, Philosophy, Services, Footer)
-- [x] Accessibility: skip link, focus states, reduced motion
-- [x] SEO metadata
-
-## Next Sprints
-
-- Work / case studies
-- Studio / about page
-- Contact flow
-- Page transitions
-- GSAP scroll sequences (where needed)
+- [x] Sprint 0 — Technical foundation
+- [x] Sprint 0.5 — Art Direction · Peyda · RTL · Design tokens
+- [ ] Sprint 1 — Work / case studies

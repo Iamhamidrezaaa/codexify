@@ -1,6 +1,10 @@
 # Codexify — Creative Direction
 ## Sprint 0 Foundation
 
+> **Sprint 0.5 update:** The live site is **Persian / RTL**.  
+> Visual system of record: [`ART-DIRECTION.md`](./ART-DIRECTION.md)  
+> Typeface: **Peyda** (local). Google Fonts removed.
+
 ---
 
 ## Brand Essence

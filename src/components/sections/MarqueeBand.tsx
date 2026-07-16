@@ -1,12 +1,12 @@
 import { Marquee } from "@/components/ui/Marquee";
 
 const SERVICES = [
-  "Website Design",
-  "Web Development",
-  "UI / UX",
-  "Branding",
-  "Motion Design",
-  "Interactive Experiences",
+  "طراحی وب‌سایت",
+  "توسعه وب",
+  "رابط و تجربه کاربری",
+  "برندینگ",
+  "طراحی موشن",
+  "تجربه‌های تعاملی",
 ];
 
 export function MarqueeBand() {

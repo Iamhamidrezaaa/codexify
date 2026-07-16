@@ -17,7 +17,7 @@ export function LinkArrow({
   external = false,
 }: LinkArrowProps) {
   const linkClass = cn(
-    "group inline-flex items-center gap-3 font-sans text-sm tracking-wide text-ink transition-colors duration-400 hover:text-accent",
+    "group inline-flex items-center gap-[var(--space-3)] type-button text-ink transition-colors duration-base ease-out hover:text-accent",
     className,
   );
 
@@ -26,15 +26,15 @@ export function LinkArrow({
       <span className="relative">
         {children}
         <span
-          className="absolute -bottom-0.5 left-0 h-px w-0 bg-accent transition-all duration-400 ease-premium group-hover:w-full"
+          className="absolute -bottom-0.5 inset-inline-start-0 h-px w-0 bg-accent transition-all duration-base ease-out group-hover:w-full"
           aria-hidden
         />
       </span>
       <span
-        className="inline-block transition-transform duration-400 ease-premium group-hover:translate-x-1"
+        className="inline-block transition-transform duration-base ease-out group-hover:-translate-x-1"
         aria-hidden
       >
-        →
+        ←
       </span>
     </>
   );

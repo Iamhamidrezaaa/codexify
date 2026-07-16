@@ -12,6 +12,10 @@ type TextRevealProps = {
   id?: string;
 };
 
+/**
+ * Editorial text reveal — word/line stagger with mask.
+ * Works for Persian word boundaries (space-separated).
+ */
 export function TextReveal({
   text,
   className,
@@ -20,8 +24,7 @@ export function TextReveal({
   id,
 }: TextRevealProps) {
   const prefersReducedMotion = useReducedMotion();
-  const units =
-    splitBy === "lines" ? text.split("\n") : text.split(" ");
+  const units = splitBy === "lines" ? text.split("\n") : text.split(" ");
 
   if (prefersReducedMotion) {
     return (
@@ -32,7 +35,7 @@ export function TextReveal({
   }
 
   return (
-    <Tag id={id} className={cn("flex flex-wrap", className)} aria-label={text}>
+    <Tag id={id} className={cn(className)} aria-label={text}>
       <motion.span
         className="flex flex-wrap"
         variants={staggerContainer}

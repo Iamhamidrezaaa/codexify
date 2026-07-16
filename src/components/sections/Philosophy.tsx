@@ -8,34 +8,33 @@ export function Philosophy() {
       <Grid>
         <div className="col-span-4 md:col-span-8 lg:col-span-3">
           <FadeIn>
-            <SectionLabel index="02" label="Philosophy" />
+            <SectionLabel index="۰۲" label="فلسفه" />
           </FadeIn>
         </div>
 
-        <div className="col-span-4 mt-10 md:col-span-7 md:col-start-2 md:mt-0 lg:col-span-7 lg:col-start-5">
+        <div className="col-span-4 mt-[var(--space-8)] md:col-span-7 md:col-start-2 md:mt-0 lg:col-span-7 lg:col-start-5">
           <FadeIn delay={0.1}>
             <blockquote>
               <p
                 id="philosophy-heading"
-                className="font-serif text-display-lg leading-[1.1] tracking-tight text-ink"
+                className="type-heading text-ink"
               >
-                The website itself
+                خودِ وب‌سایت
                 <br />
-                is the portfolio.
+                پورتفولیو است.
                 <span className="text-muted">
                   {" "}
-                  Every detail — typography, motion, silence — must prove we
-                  know design before a single case study loads.
+                  هر جزئیات — تایپوگرافی، حرکت، سکوت — باید پیش از بارگذاری
+                  اولین اثر ثابت کند که طراحی را می‌شناسیم.
                 </span>
               </p>
             </blockquote>
           </FadeIn>
 
-          <FadeIn delay={0.2} className="mt-12 max-w-lg">
-            <p className="font-sans text-body-lg leading-relaxed text-muted">
-              We work with founders, luxury brands, and agencies who understand
-              that exceptional digital presence is not decoration — it is
-              strategy made visible.
+          <FadeIn delay={0.2} className="mt-[var(--space-9)] max-w-lg">
+            <p className="type-body-lg text-muted">
+              با بنیان‌گذاران، برندهای لوکس و آژانس‌هایی کار می‌کنیم که می‌دانند
+              حضور دیجیتال استثنایی تزئین نیست — استراتژیِ دیده‌شدنی است.
             </p>
           </FadeIn>
         </div>

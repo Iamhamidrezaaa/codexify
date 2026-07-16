@@ -15,52 +15,60 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : 80]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0.4]);
+  const y = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, prefersReducedMotion ? 0 : 64],
+  );
+  const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0.35]);
 
   return (
     <section
       ref={ref}
-      className="relative min-h-[100svh] pt-28 pb-section md:pt-36"
+      className="relative min-h-[100svh] pb-section pt-[7.5rem] md:pt-[9rem]"
       aria-labelledby="hero-heading"
     >
       <motion.div style={{ y, opacity }}>
-        <Grid className="min-h-[70svh] items-end">
+        <Grid className="min-h-[68svh] items-end">
+          {/* Index column — inline-start in RTL */}
           <div className="col-span-1 hidden lg:block">
-            <span className="font-mono text-caption text-accent">01</span>
-            <div className="mt-4 h-24 w-px bg-border" aria-hidden />
+            <span className="type-number">۰۱</span>
+            <div
+              className="mt-[var(--space-4)] h-24 w-px bg-border"
+              aria-hidden
+            />
           </div>
 
           <div className="col-span-4 md:col-span-7 lg:col-span-7">
-            <p className="mb-8 font-mono text-caption uppercase tracking-widest text-muted">
-              Digital Design Studio
+            <p className="type-overline mb-[var(--space-6)]">
+              استودیوی طراحی دیجیتال
             </p>
 
             <TextReveal
               as="h1"
               id="hero-heading"
-              text="We craft digital experiences that feel inevitable."
-              className="font-serif text-display-xl leading-[0.92] tracking-tight text-ink"
+              text="تجربه‌هایی می‌سازیم که انگار همیشه همین‌طور بوده‌اند."
+              className="type-display text-ink"
             />
           </div>
 
-          <div className="col-span-4 mt-12 md:col-span-6 md:col-start-3 md:mt-16 lg:col-span-4 lg:col-start-9 lg:mt-0">
+          <div className="col-span-4 mt-[var(--space-8)] md:col-span-5 md:col-start-3 md:mt-[var(--space-9)] lg:col-span-3 lg:col-start-10 lg:mt-0">
             <motion.div
               variants={lineReveal}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              className="mb-8 h-px w-16 bg-accent"
+              className="mb-[var(--space-6)] h-px w-14 bg-accent"
               aria-hidden
             />
 
-            <p className="max-w-sm font-sans text-body-lg leading-relaxed text-muted">
-              Codexify is a premium studio for founders, startups, and brands
-              who refuse to look ordinary on the web.
+            <p className="type-body-lg max-w-[18rem] text-muted">
+              کدکسیفای برای بنیان‌گذاران، استارتاپ‌ها و برندهایی است که حاضر
+              نیستند در وب معمولی به‌نظر برسند.
             </p>
 
-            <div className="mt-10">
-              <LinkArrow href="/contact">Start a project</LinkArrow>
+            <div className="mt-[var(--space-8)]">
+              <LinkArrow href="/contact">شروع پروژه</LinkArrow>
             </div>
           </div>
         </Grid>

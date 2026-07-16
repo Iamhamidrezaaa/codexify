@@ -1,29 +1,44 @@
 import type { Transition, Variants } from "framer-motion";
 
-export const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+/**
+ * Motion language — calm, confident, invisible.
+ * All timings align with CSS custom properties in globals.css.
+ */
+
+export const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+export const EASE_IN_OUT = [0.65, 0, 0.35, 1] as const;
 
 export const DURATION = {
-  slow: 1.4,
-  medium: 0.8,
-  fast: 0.4,
+  instant: 0.1,
+  fast: 0.28,
+  base: 0.48,
+  slow: 0.8,
+  slower: 1.2,
+  reveal: 1.4,
+} as const;
+
+export const STAGGER = {
+  tight: 0.05,
+  base: 0.08,
+  loose: 0.12,
 } as const;
 
 export const transition: Transition = {
-  duration: DURATION.medium,
-  ease: EASE_PREMIUM,
+  duration: DURATION.base,
+  ease: EASE_OUT,
 };
 
 export const fadeInUp: Variants = {
   hidden: {
     opacity: 0,
-    y: 24,
+    y: 20,
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: DURATION.slow,
-      ease: EASE_PREMIUM,
+      duration: DURATION.reveal,
+      ease: EASE_OUT,
     },
   },
 };
@@ -32,8 +47,8 @@ export const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
+      staggerChildren: STAGGER.base,
+      delayChildren: 0.08,
     },
   },
 };
@@ -41,28 +56,29 @@ export const staggerContainer: Variants = {
 export const textReveal: Variants = {
   hidden: {
     opacity: 0,
-    y: "100%",
+    y: "110%",
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: DURATION.slow,
-      ease: EASE_PREMIUM,
+      duration: DURATION.reveal,
+      ease: EASE_OUT,
     },
   },
 };
 
+/** Line grows from inline-start (right in RTL) */
 export const lineReveal: Variants = {
   hidden: {
     scaleX: 0,
-    originX: 0,
+    originX: 1,
   },
   visible: {
     scaleX: 1,
     transition: {
-      duration: DURATION.medium,
-      ease: EASE_PREMIUM,
+      duration: DURATION.slow,
+      ease: EASE_OUT,
     },
   },
 };
