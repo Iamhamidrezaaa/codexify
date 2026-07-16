@@ -15,8 +15,8 @@ type CaseStudyHeroProps = {
 };
 
 /**
- * Quiet monumental opening — no CTA.
- * Framing shifts with atmosphere: night salon vs daylight plan.
+ * Case study opening — iconic poster field per atmosphere.
+ * Holds as a still without motion.
  */
 export function CaseStudyHero({
   meta,
@@ -30,7 +30,7 @@ export function CaseStudyHero({
     <header
       id="chapter-hero"
       className={cn(
-        "relative overflow-hidden scroll-mt-header pt-publication-chrome pb-[clamp(5rem,16vh,10rem)]",
+        "relative overflow-hidden scroll-mt-header pt-publication-chrome pb-[clamp(5.5rem,18vh,11rem)]",
         light && "md:pb-[clamp(7rem,22vh,14rem)]",
         className,
       )}
@@ -41,43 +41,61 @@ export function CaseStudyHero({
         aria-hidden
       />
 
-      {light ? (
-        <>
-          <div
-            className="pointer-events-none absolute inset-x-0 top-[32%] -z-10 h-px opacity-30"
-            style={{ backgroundColor: theme.ink }}
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute inset-y-[18%] start-[12%] -z-10 w-px opacity-20"
-            style={{ backgroundColor: theme.ink }}
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute inset-y-[28%] end-[18%] top-auto bottom-[24%] -z-10 w-[min(28%,220px)] border opacity-40"
-            style={{ borderColor: theme.accent }}
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute inset-x-[18%] bottom-[16%] -z-10 h-[18%] opacity-50"
-            style={{ backgroundColor: "#D9E0E4" }}
-            aria-hidden
-          />
-        </>
-      ) : (
-        <>
-          <div
-            className="pointer-events-none absolute inset-x-[10%] top-[38%] bottom-[22%] -z-10 border opacity-30"
-            style={{ borderColor: theme.accent }}
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute left-1/2 top-[50%] h-px w-[26%] -translate-x-1/2 -z-10"
-            style={{ backgroundColor: theme.accent }}
-            aria-hidden
-          />
-        </>
-      )}
+      {/* Registration / material field */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+        <div
+          className="absolute inset-x-[7%] top-[26%] h-px opacity-25"
+          style={{ backgroundColor: theme.ink }}
+        />
+        <div
+          className="absolute inset-x-[7%] bottom-[12%] h-px opacity-20"
+          style={{ backgroundColor: theme.ink }}
+        />
+        <div
+          className="absolute inset-y-[20%] start-[7%] w-px opacity-20"
+          style={{ backgroundColor: theme.ink }}
+        />
+
+        {light ? (
+          <>
+            <div
+              className="absolute end-[8%] top-[34%] bottom-[18%] w-[min(26%,260px)] border opacity-45"
+              style={{ borderColor: theme.accent }}
+            />
+            <div
+              className="absolute end-[8%] top-[34%] h-px w-[min(26%,260px)]"
+              style={{ backgroundColor: theme.accent, opacity: 0.7 }}
+            />
+            <div
+              className="absolute inset-x-[18%] bottom-[12%] h-[16%] opacity-40"
+              style={{ backgroundColor: theme.surface }}
+            />
+            <div
+              className="absolute bottom-[12%] start-[7%] h-2 w-2 opacity-40"
+              style={{ backgroundColor: theme.accent }}
+            />
+          </>
+        ) : (
+          <>
+            <div
+              className="absolute inset-x-[12%] top-[36%] bottom-[20%] border opacity-30"
+              style={{ borderColor: theme.accent }}
+            />
+            <div
+              className="absolute left-1/2 top-[48%] h-px w-[22%] -translate-x-1/2"
+              style={{ backgroundColor: theme.accent }}
+            />
+            <div
+              className="absolute left-1/2 top-[46%] h-2 w-2 -translate-x-1/2 rounded-full opacity-80"
+              style={{ backgroundColor: theme.ink }}
+            />
+            <div
+              className="absolute end-[12%] top-[36%] h-[18%] w-[14%] opacity-15"
+              style={{ backgroundColor: theme.accent }}
+            />
+          </>
+        )}
+      </div>
 
       <Grid>
         <div
@@ -90,7 +108,7 @@ export function CaseStudyHero({
         >
           <Reveal>
             <p
-              className="type-number mb-[var(--space-5)]"
+              className="type-number mb-[var(--space-5)] tracking-[0.1em]"
               style={{ color: theme.accent }}
             >
               {meta.number}
@@ -119,7 +137,7 @@ export function CaseStudyHero({
                   ? "max-w-[var(--measure)]"
                   : "max-w-[var(--measure-wide)]",
               )}
-              style={{ color: theme.ink, opacity: light ? 0.55 : 0.7 }}
+              style={{ color: theme.ink, opacity: light ? 0.55 : 0.72 }}
             >
               {meta.statement}
             </p>

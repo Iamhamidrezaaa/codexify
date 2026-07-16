@@ -22,7 +22,7 @@ export function EditorialQuote({
       variants={editorialDissolve}
       as="blockquote"
       className={cn(
-        "my-[var(--space-10)] border-s-2 border-accent ps-[var(--space-5)] md:ps-[var(--space-6)]",
+        "my-[var(--space-10)] border-s border-[color:var(--hairline-strong)] ps-[var(--space-5)] md:ps-[var(--space-6)]",
         className,
       )}
     >

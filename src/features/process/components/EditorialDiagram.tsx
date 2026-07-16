@@ -32,7 +32,7 @@ export function EditorialDiagram({
 
   const plate = (
     <motion.div
-      className="relative aspect-[16/10] w-full overflow-hidden md:aspect-[2/1]"
+      className="composition-frame relative aspect-[16/10] w-full overflow-hidden shadow-architectural md:aspect-[2/1]"
       style={{ backgroundColor: ground }}
       initial={prefersReducedMotion ? false : { opacity: 0.25 }}
       whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
@@ -41,6 +41,11 @@ export function EditorialDiagram({
       role="img"
       aria-label={caption ?? motif}
     >
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ backgroundColor: ink, mixBlendMode: "soft-light", opacity: 0.03 }}
+        aria-hidden
+      />
       <Motif motif={motif} ink={ink} accent={accent} />
     </motion.div>
   );

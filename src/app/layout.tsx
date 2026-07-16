@@ -56,6 +56,7 @@ export default function RootLayout({
       className={`${peyda.variable} ${geist.variable} h-full`}
     >
       <body className={`${peyda.className} min-h-full bg-canvas text-ink antialiased`}>
+        <div className="paper-grain" aria-hidden />
         <SmoothScroll>
           <a
             href="#main-content"

@@ -39,7 +39,7 @@ export function ScreenComposition({
         const plate = (
           <div
             className={cn(
-              "relative w-full overflow-hidden border border-border",
+              "relative w-full overflow-hidden border border-[color:var(--hairline)] shadow-architectural",
               screen.breakpoint === "desktop" && "aspect-[16/10]",
               screen.breakpoint === "tablet" && "aspect-[4/3] max-w-2xl",
               screen.breakpoint === "mobile" && "aspect-[9/16] max-w-xs",

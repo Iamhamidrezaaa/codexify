@@ -13,7 +13,7 @@ export function MarginNote({ children, className }: MarginNoteProps) {
     <aside
       className={cn(
         "type-caption text-muted",
-        "mt-[var(--space-4)] max-w-[14rem]",
+        "mt-[var(--space-4)] max-w-[14rem] border-t border-[color:var(--hairline)] pt-[var(--space-3)]",
         "lg:mt-0 lg:absolute lg:end-0 lg:top-0 lg:translate-x-0",
         "xl:end-[-1rem] xl:max-w-[11rem]",
         className,

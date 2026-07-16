@@ -18,7 +18,7 @@ export function Marquee({ items, className, speed = "slow" }: MarqueeProps) {
 
   return (
     <div
-      className={cn("overflow-hidden border-y border-border", className)}
+      className={cn("overflow-hidden border-y border-[color:var(--hairline)]", className)}
       role="presentation"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -45,9 +45,10 @@ export function Marquee({ items, className, speed = "slow" }: MarqueeProps) {
             <span className="px-[var(--space-6)] md:px-[var(--space-8)]">
               {item}
             </span>
-            <span className="text-[0.5rem] text-border-strong" aria-hidden>
-              ●
-            </span>
+            <span
+              className="mx-1 h-px w-3 bg-[color:var(--hairline-strong)]"
+              aria-hidden
+            />
           </span>
         ))}
       </div>
