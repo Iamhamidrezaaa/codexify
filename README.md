@@ -59,4 +59,5 @@ Modules: `src/lab/interactions/` · Docs: `src/lab/docs/README.md`
 - [x] Sprint 0.9 — Interaction Lab (R&D)
 - [x] Sprint 1 — Portfolio strategy & case study architecture
 - [x] Sprint 2 — Work exhibition experience
-- [ ] Sprint 3 — Case study pages
+- [x] Sprint 3 — Case Study 01 · Atelier Noir
+- [ ] Sprint 4 — Remaining case studies
