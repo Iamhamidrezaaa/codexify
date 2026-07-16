@@ -57,4 +57,5 @@ Modules: `src/lab/interactions/` · Docs: `src/lab/docs/README.md`
 - [x] Sprint 0.7 — Creative polish
 - [x] Sprint 0.8 — Experience language
 - [x] Sprint 0.9 — Interaction Lab (R&D)
-- [ ] Sprint 1 — Work / case studies
+- [x] Sprint 1 — Portfolio strategy & case study architecture
+- [ ] Sprint 2 — Work exhibition + case study implementation
