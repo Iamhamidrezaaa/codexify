@@ -1,0 +1,12 @@
+/* Aggregated design-system stylesheet — imported once from app/globals.css */
+@import "../colors/colors.css";
+@import "../spacing/spacing.css";
+@import "../typography/tokens.css";
+@import "../typography/roles.css";
+@import "../grid/grid.css";
+@import "../radius/radius.css";
+@import "../borders/borders.css";
+@import "../shadows/shadows.css";
+@import "../utilities/layers.css";
+@import "../utilities/layout.css";
+@import "../motion/motion.css";

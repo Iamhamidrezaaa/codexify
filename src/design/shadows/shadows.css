@@ -1,0 +1,5 @@
+/* Elevation is intentionally minimal — no decorative shadows */
+:root {
+  --elevation-none: none;
+  --elevation-subtle: 0 1px 0 color-mix(in srgb, var(--fg) 6%, transparent);
+}

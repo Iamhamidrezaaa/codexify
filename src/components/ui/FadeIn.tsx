@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { fadeInUp } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { fadeUp } from "@/design/motion";
+import { cn } from "@/design/utilities/cn";
 
 type FadeInProps = {
   children: React.ReactNode;
@@ -28,7 +28,7 @@ export function FadeIn({
   return (
     <Component
       className={cn(className)}
-      variants={fadeInUp}
+      variants={fadeUp}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}

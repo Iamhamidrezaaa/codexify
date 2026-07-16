@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { Grid } from "@/components/layout/Grid";
 import { LinkArrow } from "@/components/ui/LinkArrow";
 import { TextReveal } from "@/components/ui/TextReveal";
-import { lineReveal } from "@/lib/motion";
+import { lineReveal } from "@/design/motion";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);

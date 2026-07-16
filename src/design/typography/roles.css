@@ -1,0 +1,84 @@
+/* Type roles — compose size + weight + leading from tokens only */
+
+.type-display {
+  font-family: var(--font-peyda), "Peyda", Tahoma, Arial, sans-serif;
+  font-size: var(--text-display);
+  font-weight: var(--weight-extrabold);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+
+.type-heading {
+  font-family: var(--font-peyda), "Peyda", Tahoma, Arial, sans-serif;
+  font-size: var(--text-heading);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+}
+
+.type-title {
+  font-family: var(--font-peyda), "Peyda", Tahoma, Arial, sans-serif;
+  font-size: var(--text-title);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-title);
+  letter-spacing: var(--tracking-heading);
+}
+
+.type-body-lg {
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+}
+
+.type-body {
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+}
+
+.type-caption {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-caption);
+  color: var(--fg-muted);
+}
+
+.type-overline {
+  font-size: var(--text-overline);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-caption);
+  letter-spacing: var(--tracking-overline);
+  color: var(--fg-muted);
+}
+
+.type-label {
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+}
+
+.type-button {
+  font-size: var(--text-button);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+}
+
+.type-number {
+  font-size: var(--text-number);
+  font-weight: var(--weight-medium);
+  line-height: 1;
+  letter-spacing: var(--tracking-number);
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+}
+
+.type-nav {
+  font-size: var(--text-nav);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-tight);
+}
+
+/* Latin / English passages — Geist */
+.font-latin {
+  font-family: var(--font-geist), "Geist", system-ui, sans-serif;
+}

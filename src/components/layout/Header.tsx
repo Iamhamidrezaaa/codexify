@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/design/utilities/cn";
 import { Grid } from "@/components/layout/Grid";
 
 const NAV_LINKS = [

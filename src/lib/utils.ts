@@ -1,3 +1,7 @@
+/**
+ * Shared non-visual helpers.
+ * Prefer `@/design/utilities/cn` when styling; this re-export stays for convenience.
+ */
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 

@@ -1,13 +1,13 @@
 # Codexify / کدکسیفای
 
-استودیوی طراحی دیجیتال پرمیوم — Sprint 0.5 · Art Direction (Persian / RTL)
+استودیوی طراحی دیجیتال پرمیوم
 
 ## Stack
 
 - Next.js 16 · React 19 · TypeScript
 - Tailwind CSS v4
 - Framer Motion · Lenis
-- Peyda (local, `next/font/local`)
+- Peyda (Persian) + Geist (Latin) — local via `next/font/local`
 
 ## Getting Started
 
@@ -16,31 +16,36 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Design System
-
-- [`docs/ART-DIRECTION.md`](docs/ART-DIRECTION.md) — source of truth for visual language
-- [`docs/CREATIVE-DIRECTION.md`](docs/CREATIVE-DIRECTION.md) — Sprint 0 brand brief
-- Tokens: `src/app/globals.css`
-- Font: `src/fonts/` (Peyda)
-
-## Project Structure
+## Architecture
 
 ```
 src/
-├── app/                 # App Router · tokens · RTL layout
-├── fonts/peyda/         # Local Peyda weights
-├── components/
-│   ├── layout/          # Header, Footer, Grid
-│   ├── providers/       # Lenis
-│   ├── sections/        # Hero, Marquee, Philosophy, Services
-│   └── ui/              # TextReveal, FadeIn, LinkArrow, Marquee
-└── lib/                 # motion · utils
+├── app/                 # Routes only
+├── components/          # UI primitives + layout chrome
+├── sections/            # Page compositions
+├── features/            # Domain modules (future)
+├── design/              # Design system (tokens, motion, art direction)
+├── fonts/               # Peyda + Geist
+└── lib/                 # Shared non-visual utilities
 ```
+
+### Design layer
+
+Visual identity lives in `src/design/`.  
+Art direction: `src/design/art-direction/`  
+Public API: `import { … } from "@/design"`
+
+## Scripts
+
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Development |
+| `npm run build` | Production build |
+| `npm run lint` | ESLint |
 
 ## Sprint Status
 
-- [x] Sprint 0 — Technical foundation
-- [x] Sprint 0.5 — Art Direction · Peyda · RTL · Design tokens
+- [x] Sprint 0 — Foundation
+- [x] Sprint 0.5 — Persian / RTL art direction
+- [x] Sprint 0.6 — Design system architecture
 - [ ] Sprint 1 — Work / case studies

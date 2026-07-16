@@ -1,0 +1,12 @@
+/* Layout spacing utilities — token-backed only */
+.pt-section {
+  padding-top: var(--space-section);
+}
+
+.pb-section {
+  padding-bottom: var(--space-section);
+}
+
+.py-section {
+  padding-block: var(--space-section);
+}

@@ -1,0 +1,25 @@
+/* Color primitives + semantic aliases */
+:root {
+  --color-white: #f7f6f2;
+  --color-black: #0a0a0a;
+  --color-stone-50: #f0efeb;
+  --color-stone-100: #e4e3de;
+  --color-stone-200: #d0cfc8;
+  --color-stone-300: #a8a79f;
+  --color-stone-400: #7a7972;
+  --color-stone-500: #5a5954;
+  --color-stone-600: #3d3c38;
+  --color-terracotta: #b8472a;
+  --color-terracotta-soft: #c96a52;
+
+  --bg: var(--color-white);
+  --bg-subtle: var(--color-stone-50);
+  --fg: var(--color-black);
+  --fg-muted: var(--color-stone-400);
+  --fg-subtle: var(--color-stone-300);
+  --border: var(--color-stone-200);
+  --border-strong: var(--color-stone-300);
+  --accent: var(--color-terracotta);
+  --accent-hover: var(--color-terracotta-soft);
+  --focus-ring: var(--color-terracotta);
+}

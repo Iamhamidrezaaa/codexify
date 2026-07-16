@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { staggerContainer, textReveal } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { staggerContainer, textReveal } from "@/design/motion";
+import { cn } from "@/design/utilities/cn";
 
 type TextRevealProps = {
   text: string;

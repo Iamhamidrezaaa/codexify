@@ -1,9 +1,9 @@
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
-import { Hero } from "@/components/sections/Hero";
-import { MarqueeBand } from "@/components/sections/MarqueeBand";
-import { Philosophy } from "@/components/sections/Philosophy";
-import { Services } from "@/components/sections/Services";
+import { Hero } from "@/sections/Hero";
+import { MarqueeBand } from "@/sections/MarqueeBand";
+import { Philosophy } from "@/sections/Philosophy";
+import { Services } from "@/sections/Services";
 
 export default function Home() {
   return (

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { peyda } from "@/fonts";
+import { geist, peyda } from "@/fonts";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import "./globals.css";
 
@@ -51,7 +51,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl" className={`${peyda.variable} h-full`}>
+    <html
+      lang="fa"
+      dir="rtl"
+      className={`${peyda.variable} ${geist.variable} h-full`}
+    >
       <body className={`${peyda.className} min-h-full bg-canvas text-ink antialiased`}>
         <SmoothScroll>
           <a
