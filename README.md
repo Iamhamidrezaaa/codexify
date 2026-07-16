@@ -20,11 +20,12 @@ npm run dev
 
 ```
 src/
-├── app/                 # Routes only
+├── app/                 # Routes (/ · /lab)
 ├── components/          # UI primitives + layout chrome
 ├── sections/            # Page compositions
 ├── features/            # Domain modules (future)
-├── design/              # Design system (tokens, motion, art direction)
+├── design/              # Design system
+├── lab/                 # Internal Interaction Laboratory
 ├── fonts/               # Peyda + Geist
 └── lib/                 # Shared non-visual utilities
 ```
@@ -34,6 +35,11 @@ src/
 Visual identity lives in `src/design/`.  
 Art direction: `src/design/art-direction/`  
 Public API: `import { … } from "@/design"`
+
+### Interaction Lab
+
+Internal R&D at `/lab` (`noindex`).  
+Modules: `src/lab/interactions/` · Docs: `src/lab/docs/README.md`
 
 ## Scripts
 
@@ -50,4 +56,5 @@ Public API: `import { … } from "@/design"`
 - [x] Sprint 0.6 — Design system architecture
 - [x] Sprint 0.7 — Creative polish
 - [x] Sprint 0.8 — Experience language
+- [x] Sprint 0.9 — Interaction Lab (R&D)
 - [ ] Sprint 1 — Work / case studies
