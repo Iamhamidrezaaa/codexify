@@ -22,6 +22,8 @@ export {
 export {
   heroPresence,
   editorialDissolve,
+  processSettle,
+  chapterArrive,
   discoverySettle,
   quietArrive,
   indexCrossfade,

@@ -125,7 +125,7 @@ export function CaseStudyView({ study }: CaseStudyViewProps) {
                 <p
                   className={
                     openBreath
-                      ? "type-body-lg leading-[1.75] text-muted md:col-span-7"
+                      ? "type-essay text-muted md:col-span-7"
                       : "type-body-lg text-muted md:col-span-8"
                   }
                 >
@@ -210,7 +210,7 @@ export function CaseStudyView({ study }: CaseStudyViewProps) {
                 <p
                   className={
                     openBreath
-                      ? "type-body-lg mt-[var(--space-5)] max-w-[var(--measure-narrow)] leading-[1.75] text-muted"
+                      ? "type-essay mt-[var(--space-5)] max-w-[var(--measure-narrow)] text-muted"
                       : "type-body-lg mt-[var(--space-4)] max-w-[var(--measure)] text-muted"
                   }
                 >

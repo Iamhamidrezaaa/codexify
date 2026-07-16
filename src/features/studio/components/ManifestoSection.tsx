@@ -9,7 +9,6 @@ type ManifestoSectionProps = {
   title?: string;
   children: React.ReactNode;
   className?: string;
-  /** Opening / closing use a quieter spine */
   spine?: "chapter" | "essay";
 };
 
@@ -30,7 +29,7 @@ export function ManifestoSection({
   return (
     <section
       id={`chapter-${id}`}
-      className={cn("py-section-expansive scroll-mt-28", className)}
+      className={cn("py-section-expansive scroll-mt-header", className)}
       aria-labelledby={title ? `manifesto-heading-${id}` : undefined}
     >
       <Grid>
@@ -38,9 +37,7 @@ export function ManifestoSection({
           <div className="col-span-4 md:col-span-3 lg:col-span-3">
             <Reveal variants={editorialDissolve}>
               <div className="flex items-center gap-[var(--space-3)] lg:sticky lg:top-[32vh]">
-                {index ? (
-                  <span className="type-number text-muted">{index}</span>
-                ) : null}
+                {index ? <span className="type-number">{index}</span> : null}
                 {index && title ? (
                   <span className="h-px w-5 bg-border" aria-hidden />
                 ) : null}

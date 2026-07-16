@@ -1,5 +1,25 @@
 /* Layout spacing — rhythm variants for scroll storytelling */
 
+:root {
+  --scroll-margin-header: 7rem;
+  --publication-chrome-pt: 8.5rem;
+  --publication-chrome-pt-md: 10rem;
+}
+
+.scroll-mt-header {
+  scroll-margin-top: var(--scroll-margin-header);
+}
+
+.pt-publication-chrome {
+  padding-top: var(--publication-chrome-pt);
+}
+
+@media (min-width: 768px) {
+  .pt-publication-chrome {
+    padding-top: var(--publication-chrome-pt-md);
+  }
+}
+
 .pt-section {
   padding-top: var(--space-section);
 }

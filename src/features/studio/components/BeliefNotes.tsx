@@ -10,15 +10,19 @@ type BeliefNotesProps = {
 
 /**
  * Editorial belief notes — pencil marks in a book margin.
- * Static and quiet; the memorable interaction lives on the opening statement.
  */
 export function BeliefNotes({ items, className }: BeliefNotesProps) {
   return (
     <ul className={cn("space-y-[var(--space-8)]", className)}>
       {items.map((item, i) => (
-        <Reveal key={item.id} variants={editorialDissolve} delay={i * 0.04} as="li">
+        <Reveal
+          key={item.id}
+          variants={editorialDissolve}
+          delay={i * 0.04}
+          as="li"
+        >
           <div className="border-s border-border ps-[var(--space-5)]">
-            <p className="type-body-lg max-w-[var(--measure)] leading-[1.75] text-muted">
+            <p className="type-essay max-w-[var(--measure)] text-muted">
               {item.text}
             </p>
           </div>

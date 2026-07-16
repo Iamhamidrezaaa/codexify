@@ -5,25 +5,31 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cn } from "@/design/utilities/cn";
 import { Grid } from "@/components/layout/Grid";
-import { getCaseStudy } from "@/features/work/case-study/registry";
+import { getCaseAtmosphere } from "@/features/work/case-study/atmosphere";
 
 const NAV_LINKS = [
   { href: "/work", label: "آثار" },
   { href: "/process", label: "فرآیند" },
   { href: "/studio", label: "استودیو" },
-  { href: "/contact", label: "تماس" },
+  { href: "mailto:hello@codexify.studio", label: "تماس" },
 ] as const;
+
+const CHROME_INVERT = "text-[color:var(--chrome-invert,#EDEAE4)]";
+const CHROME_INVERT_BG = "bg-[color:var(--chrome-invert,#EDEAE4)]";
+
+function isNavCurrent(pathname: string | null, href: string) {
+  if (!pathname || href.startsWith("mailto:")) return false;
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 export function Header() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  /** Dark publication heroes invert chrome until scroll; light ones stay ink-on-paper. */
   const caseSlug = pathname?.match(/^\/work\/([^/]+)/)?.[1];
-  const atmosphere = caseSlug
-    ? getCaseStudy(caseSlug)?.publication.atmosphere
-    : undefined;
+  const atmosphere = getCaseAtmosphere(caseSlug);
   const inverted = atmosphere === "dark" && !scrolled && !menuOpen;
 
   useEffect(() => {
@@ -58,9 +64,10 @@ export function Header() {
             href="/"
             className={cn(
               "type-wordmark transition-opacity duration-fast ease-out hover:opacity-[var(--opacity-hover)]",
-              inverted ? "text-[#EDEAE4]" : "text-ink",
+              inverted ? CHROME_INVERT : "text-ink",
             )}
             onClick={() => setMenuOpen(false)}
+            aria-current={pathname === "/" ? "page" : undefined}
           >
             کدکسیفای
           </Link>
@@ -70,27 +77,34 @@ export function Header() {
           className="hidden items-center justify-end gap-[var(--space-7)] md:col-span-5 md:flex lg:col-span-8 lg:gap-[var(--space-9)]"
           aria-label="منوی اصلی"
         >
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "group relative type-nav transition-colors duration-fast ease-out",
-                inverted
-                  ? "text-[#EDEAE4] hover:text-[#EDEAE4]/70"
-                  : "text-ink hover:text-muted",
-              )}
-            >
-              {link.label}
-              <span
+          {NAV_LINKS.map((link) => {
+            const current = isNavCurrent(pathname, link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={current ? "page" : undefined}
                 className={cn(
-                  "absolute -bottom-1 inset-inline-start-0 h-px w-0 transition-all duration-base ease-out group-hover:w-full",
-                  inverted ? "bg-[#EDEAE4]" : "bg-ink",
+                  "group relative type-nav transition-colors duration-fast ease-out",
+                  inverted
+                    ? cn(CHROME_INVERT, "hover:opacity-70")
+                    : current
+                      ? "text-ink"
+                      : "text-ink hover:text-muted",
                 )}
-                aria-hidden
-              />
-            </Link>
-          ))}
+              >
+                {link.label}
+                <span
+                  className={cn(
+                    "absolute -bottom-1 inset-inline-start-0 h-px transition-all duration-base ease-out",
+                    inverted ? CHROME_INVERT_BG : "bg-ink",
+                    current ? "w-full opacity-100" : "w-0 opacity-60 group-hover:w-full",
+                  )}
+                  aria-hidden
+                />
+              </Link>
+            );
+          })}
         </nav>
 
         <button
@@ -104,14 +118,14 @@ export function Header() {
           <span
             className={cn(
               "block h-px w-5 transition-all duration-base ease-out",
-              inverted ? "bg-[#EDEAE4]" : "bg-ink",
+              inverted ? CHROME_INVERT_BG : "bg-ink",
               menuOpen && "translate-y-[3.5px] rotate-45",
             )}
           />
           <span
             className={cn(
               "block h-px w-5 transition-all duration-base ease-out",
-              inverted ? "bg-[#EDEAE4]" : "bg-ink",
+              inverted ? CHROME_INVERT_BG : "bg-ink",
               menuOpen && "-translate-y-[3.5px] -rotate-45",
             )}
           />
@@ -132,17 +146,24 @@ export function Header() {
           className="flex h-full flex-col justify-center gap-[var(--space-7)] px-[var(--margin-mobile)]"
           aria-label="منوی موبایل"
         >
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="type-heading text-ink transition-opacity duration-fast ease-out hover:opacity-[var(--opacity-hover)]"
-              onClick={() => setMenuOpen(false)}
-              tabIndex={menuOpen ? 0 : -1}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const current = isNavCurrent(pathname, link.href);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={current ? "page" : undefined}
+                className={cn(
+                  "type-heading transition-opacity duration-fast ease-out hover:opacity-[var(--opacity-hover)]",
+                  current ? "text-ink" : "text-ink/70",
+                )}
+                onClick={() => setMenuOpen(false)}
+                tabIndex={menuOpen ? 0 : -1}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
       </div>
     </header>

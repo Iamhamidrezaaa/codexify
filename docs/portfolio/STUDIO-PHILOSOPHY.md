@@ -53,8 +53,17 @@ Trust rises without persuasion.
 | `PrincipleBlock` | **v2** — manifesto scale (index, statement, body, aside) |
 | `BeliefNotes` | Short reflections as margin marks |
 
-`PrincipleBlock` in `process/` remains **v1** (compact workflow principles).  
-Studio **v2** is for belief systems with stronger typographic weight.
+## PrincipleBlock
+
+One component: `src/components/editorial/PrincipleBlock.tsx`
+
+| Variant | Used by | Scale |
+|---------|---------|--------|
+| `plate` | Process | Compact title + label |
+| `manifesto` | Studio | Index + heading + aside |
+
+Process and Studio folders re-export this module — do not fork again.
+
 
 Shared from publication engine: `ReadingProgress`, `MarginNote`, `BreathingMoment`.  
 Shared from process: `EditorialDiagram` (paper / type plates only).

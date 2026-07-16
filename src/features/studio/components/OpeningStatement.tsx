@@ -13,8 +13,7 @@ type OpeningStatementProps = {
 
 /**
  * Manifesto opening — one memorable interaction:
- * words clarify from near-invisible ink to full presence (slow editorial reveal).
- * No slogan layout. No CTA.
+ * words clarify from near-invisible ink to full presence.
  */
 export function OpeningStatement({
   overline,
@@ -29,7 +28,7 @@ export function OpeningStatement({
     <header
       id="chapter-opening"
       className={cn(
-        "scroll-mt-28 border-b border-border pt-[8.5rem] pb-[clamp(5rem,18vh,11rem)] md:pt-[10rem]",
+        "scroll-mt-header border-b border-border pt-publication-chrome pb-[clamp(5rem,18vh,11rem)]",
         className,
       )}
     >
@@ -40,10 +39,7 @@ export function OpeningStatement({
         </div>
 
         <div className="col-span-4 mt-[var(--space-10)] md:col-span-8 md:col-start-3 md:mt-0 lg:col-span-8 lg:col-start-4">
-          <h1
-            className="type-heading font-medium leading-[1.65] text-ink md:text-[clamp(1.35rem,2.4vw,1.85rem)]"
-            aria-label={statement}
-          >
+          <h1 className="type-statement text-ink" aria-label={statement}>
             {prefersReducedMotion
               ? statement
               : words.map((word, i) => (

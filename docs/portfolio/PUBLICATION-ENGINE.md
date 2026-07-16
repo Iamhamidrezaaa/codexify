@@ -114,6 +114,15 @@ case-study/
 
 ---
 
-## Quality bar for Sprint 5+
+## Motion family (Sprint 8)
 
-If building Sora Residence takes mostly **content authoring** and almost no layout invention, this sprint succeeded.
+| Context | Preset |
+|---------|--------|
+| Philosophy / Studio chapters | `editorialDissolve` |
+| Process chapters | `processSettle` |
+| Case study chapters | `chapterArrive` |
+| Services / discovery lists | `discoverySettle` |
+| Footer / quiet plates | `quietArrive` |
+
+Do not invent a fourth dissolve. Pick from this family.
+

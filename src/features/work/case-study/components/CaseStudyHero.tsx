@@ -30,7 +30,7 @@ export function CaseStudyHero({
     <header
       id="chapter-hero"
       className={cn(
-        "relative overflow-hidden scroll-mt-28 pt-[8.5rem] pb-[clamp(5rem,16vh,10rem)] md:pt-[10rem]",
+        "relative overflow-hidden scroll-mt-header pt-publication-chrome pb-[clamp(5rem,16vh,10rem)]",
         light && "md:pb-[clamp(7rem,22vh,14rem)]",
         className,
       )}
@@ -114,9 +114,9 @@ export function CaseStudyHero({
             </h1>
             <p
               className={cn(
-                "type-heading mt-[var(--space-9)] font-medium",
+                "type-statement mt-[var(--space-9)]",
                 light
-                  ? "max-w-[var(--measure)] leading-[1.55]"
+                  ? "max-w-[var(--measure)]"
                   : "max-w-[var(--measure-wide)]",
               )}
               style={{ color: theme.ink, opacity: light ? 0.55 : 0.7 }}

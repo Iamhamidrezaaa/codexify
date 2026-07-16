@@ -13,34 +13,32 @@ const SERVICES = [
   {
     index: "۰۱",
     title: "طراحی وب‌سایت",
-    description:
-      "چیدمان‌های ادیتوریال، ترکیب‌بندی اختصاصی، زیبایی‌شناسی ماندگار.",
+    description: "چیدمان ادیتوریال، ترکیب اختصاصی، زیبایی ماندگار.",
   },
   {
     index: "۰۲",
     title: "توسعه وب",
-    description: "مهندسی با اولویت عملکرد و وسواس نسبت به جزئیات.",
+    description: "مهندسی با اولویت عملکرد و دقت در جزئیات.",
   },
   {
     index: "۰۳",
     title: "رابط و تجربه کاربری",
-    description: "رابط‌هایی شهودی، ریشه در پژوهش و رفتار انسان.",
+    description: "رابط‌هایی روشن، مبتنی بر رفتار واقعی کاربر.",
   },
   {
     index: "۰۴",
     title: "برندینگ",
-    description:
-      "سامانه‌های هویت بصری که بی‌درنگ به دیجیتال ترجمه می‌شوند.",
+    description: "سامانهٔ هویت که در صفحه هم خوانا بماند.",
   },
   {
     index: "۰۵",
     title: "طراحی موشن",
-    description: "حرکت آرام و ظریف که ارتقا می‌دهد — نه منحرف می‌کند.",
+    description: "حرکت آرام که معنا می‌افزاید — نه حواس‌پرتی.",
   },
   {
     index: "۰۶",
     title: "تجربه‌های تعاملی",
-    description: "تجربه‌های وب غوطه‌ور که کنجکاوی را پاداش می‌دهند.",
+    description: "تعامل‌هایی که کنجکاوی را پاداش می‌دهند، نه هیجان کاذب.",
   },
 ] as const;
 
@@ -74,7 +72,9 @@ export function Services() {
 
         <div className="col-span-4 md:col-span-3 md:col-start-6 lg:col-span-3 lg:col-start-10 lg:pb-[0.35em]">
           <Reveal variants={discoverySettle} delay={0.12}>
-            <LinkArrow href="/contact">گفتگو درباره پروژه</LinkArrow>
+            <LinkArrow href="mailto:hello@codexify.studio">
+              گفتگو درباره پروژه
+            </LinkArrow>
           </Reveal>
         </div>
       </Grid>

@@ -32,6 +32,23 @@
   line-height: var(--leading-body);
 }
 
+/** Publication essay measure — slightly tighter than UI body */
+.type-essay {
+  font-size: var(--text-body-lg);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-essay);
+}
+
+/** Opening / closing editorial statement */
+.type-statement {
+  font-family: var(--font-peyda), "Peyda", Tahoma, Arial, sans-serif;
+  font-size: var(--text-heading);
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-statement);
+  letter-spacing: var(--tracking-heading);
+  text-wrap: balance;
+}
+
 .type-body {
   font-size: var(--text-body);
   font-weight: var(--weight-regular);
@@ -71,6 +88,10 @@
   line-height: 1;
   letter-spacing: var(--tracking-number);
   font-variant-numeric: tabular-nums;
+  color: var(--fg-muted);
+}
+
+.type-number-accent {
   color: var(--accent);
 }
 

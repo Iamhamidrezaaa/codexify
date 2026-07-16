@@ -14,13 +14,33 @@ export const heroPresence: Variants = {
   },
 };
 
-/** Philosophy — slow editorial dissolve */
+/** Philosophy / manifesto — slow editorial dissolve */
 export const editorialDissolve: Variants = {
   hidden: { opacity: 0, y: 28 },
   visible: {
     opacity: 1,
     y: 0,
     transition: { duration: 1.8, ease: easing.out },
+  },
+};
+
+/** Process chapters — staged lateral settle (distinct from manifesto) */
+export const processSettle: Variants = {
+  hidden: { opacity: 0, x: 12 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: duration.slow, ease: easing.out },
+  },
+};
+
+/** Case study chapters — quiet vertical arrival */
+export const chapterArrive: Variants = {
+  hidden: { opacity: 0, y: 14 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: duration.reveal, ease: easing.out },
   },
 };
 

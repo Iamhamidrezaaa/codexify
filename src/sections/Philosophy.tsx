@@ -14,7 +14,6 @@ import { editorialDissolve } from "@/design/motion";
 
 /**
  * Philosophy identity: slow · editorial · reading experience
- * Sticky label stays while the text is read — magazine composition.
  */
 export function Philosophy() {
   const ref = useRef<HTMLElement>(null);
@@ -47,29 +46,27 @@ export function Philosophy() {
 
         <div className="col-span-4 mt-[var(--space-10)] md:col-span-7 md:col-start-2 lg:col-span-8 lg:col-start-4 lg:mt-0">
           <motion.div style={{ opacity: quoteOpacity }}>
-            <Reveal variants={editorialDissolve} delay={0.1}>
-              <blockquote className="max-w-[var(--measure-wide)]">
-                <p id="philosophy-heading" className="type-heading text-ink">
-                  خودِ وب‌سایت
-                  <br />
-                  پورتفولیو است.
-                </p>
-                <p className="type-heading mt-[var(--space-5)] font-medium text-muted">
-                  هر جزئیات — تایپوگرافی، حرکت، سکوت — باید پیش از بارگذاری
-                  اولین اثر ثابت کند که طراحی را می‌شناسیم.
-                </p>
-              </blockquote>
-            </Reveal>
+            <blockquote className="max-w-[var(--measure-wide)]">
+              <h2 id="philosophy-heading" className="type-heading text-ink">
+                خودِ وب‌سایت
+                <br />
+                پورتفولیو است.
+              </h2>
+              <p className="type-statement mt-[var(--space-5)] text-muted">
+                هر جزئیات — تایپوگرافی، حرکت، سکوت — باید پیش از بارگذاری اولین
+                اثر ثابت کند که طراحی را می‌شناسیم.
+              </p>
+            </blockquote>
           </motion.div>
 
           <Reveal
             variants={editorialDissolve}
-            delay={0.22}
+            delay={0.18}
             className="mt-[clamp(4rem,12vh,8rem)]"
           >
-            <p className="type-body-lg max-w-[var(--measure-narrow)] text-muted">
-              با بنیان‌گذاران، برندهای لوکس و آژانس‌هایی کار می‌کنیم که می‌دانند
-              حضور دیجیتال استثنایی، استراتژیِ دیده‌شدنی است — نه تزئین.
+            <p className="type-essay max-w-[var(--measure-narrow)] text-muted">
+              با برندهایی کار می‌کنیم که حضور دیجیتال را بخشی از اعتبار می‌دانند
+              — نه پوشش تزئینی.
             </p>
           </Reveal>
         </div>

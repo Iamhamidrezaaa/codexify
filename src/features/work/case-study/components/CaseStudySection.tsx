@@ -1,7 +1,7 @@
 import { cn } from "@/design/utilities/cn";
 import { Grid } from "@/components/layout/Grid";
 import { Reveal } from "@/components/ui/Reveal";
-import { editorialDissolve } from "@/design/motion";
+import { chapterArrive } from "@/design/motion";
 
 type CaseStudySectionProps = {
   id: string;
@@ -36,7 +36,7 @@ export function CaseStudySection({
       id={`chapter-${id}`}
       className={cn(
         expansive ? "py-section-expansive" : "py-section",
-        "scroll-mt-28",
+        "scroll-mt-header",
         className,
       )}
       style={
@@ -48,7 +48,7 @@ export function CaseStudySection({
     >
       <Grid>
         <div className="col-span-4 md:col-span-3 lg:col-span-3">
-          <Reveal variants={editorialDissolve}>
+          <Reveal variants={chapterArrive}>
             <div className="flex items-center gap-[var(--space-3)] lg:sticky lg:top-[32vh]">
               <span
                 className="type-number"

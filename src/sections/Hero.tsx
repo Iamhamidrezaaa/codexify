@@ -46,7 +46,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] flex-col justify-end pb-[clamp(4rem,12vh,8rem)] pt-[8rem] md:pt-[10rem]"
+      className="relative flex min-h-[100svh] flex-col justify-end pb-[clamp(4rem,12vh,8rem)] pt-publication-chrome"
       aria-labelledby="hero-heading"
     >
       <Grid className="items-end gap-y-[var(--space-11)]">
@@ -55,7 +55,7 @@ export function Hero() {
           style={{ y: headlineY, opacity: headlineOpacity }}
         >
           <div className="mb-[var(--space-7)] flex items-center gap-[var(--space-4)]">
-            <span className="type-number">۰۱</span>
+            <span className="type-number type-number-accent">۰۱</span>
             <span
               className={
                 prefersReducedMotion
@@ -94,7 +94,7 @@ export function Hero() {
           </p>
 
           <div className="mt-[var(--space-8)]">
-            <LinkArrow href="/contact">شروع پروژه</LinkArrow>
+            <LinkArrow href="mailto:hello@codexify.studio">شروع گفتگو</LinkArrow>
           </div>
         </motion.div>
       </Grid>

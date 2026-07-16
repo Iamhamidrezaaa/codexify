@@ -1,7 +1,7 @@
+import { Reveal } from "@/components/ui/Reveal";
+import { processSettle } from "@/design/motion";
 import { cn } from "@/design/utilities/cn";
 import { Grid } from "@/components/layout/Grid";
-import { Reveal } from "@/components/ui/Reveal";
-import { editorialDissolve } from "@/design/motion";
 
 type ProcessSectionProps = {
   id: string;
@@ -27,12 +27,12 @@ export function ProcessSection({
   return (
     <section
       id={`chapter-${id}`}
-      className={cn("py-section-expansive scroll-mt-28", className)}
+      className={cn("py-section-expansive scroll-mt-header", className)}
       aria-labelledby={`process-heading-${id}`}
     >
       <Grid>
         <div className="col-span-4 md:col-span-3 lg:col-span-3">
-          <Reveal variants={editorialDissolve}>
+          <Reveal variants={processSettle}>
             <div className="lg:sticky lg:top-[28vh]">
               <p
                 className="type-display font-latin tabular-nums tracking-tight text-ink/90"

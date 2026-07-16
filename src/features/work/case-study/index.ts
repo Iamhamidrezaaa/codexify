@@ -19,6 +19,8 @@ export {
   atelierNoirCaseStudy,
   soraResidenceCaseStudy,
 } from "./registry";
+export { getCaseAtmosphere } from "./atmosphere";
+export type { CaseAtmosphere } from "./atmosphere";
 export { buildChapters, PUBLICATION_CHAPTER_IDS } from "./chapters";
 
 export { CaseStudyHero } from "./components/CaseStudyHero";

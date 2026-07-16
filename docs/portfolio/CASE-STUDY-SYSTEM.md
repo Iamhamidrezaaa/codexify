@@ -32,4 +32,5 @@ See also:
 
 - [PROCESS-PHILOSOPHY.md](./PROCESS-PHILOSOPHY.md) — Sprint 6 process publication  
 - [STUDIO-PHILOSOPHY.md](./STUDIO-PHILOSOPHY.md) — Sprint 7 studio manifesto  
+- [GLOBAL-EXPERIENCE-AUDIT.md](./GLOBAL-EXPERIENCE-AUDIT.md) — Sprint 8 continuity audit  
 

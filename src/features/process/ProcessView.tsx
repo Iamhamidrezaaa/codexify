@@ -73,7 +73,7 @@ export function ProcessView() {
 
       <section
         id="chapter-principles"
-        className="scroll-mt-28 border-y border-border py-section-expansive"
+        className="scroll-mt-header border-y border-border py-section-expansive"
         aria-labelledby="process-principles-heading"
       >
         <Grid>
@@ -97,7 +97,7 @@ export function ProcessView() {
 
       <section
         id="chapter-closing"
-        className="scroll-mt-28 py-section-expansive"
+        className="scroll-mt-header py-section-expansive"
         aria-labelledby="process-closing-heading"
       >
         <Grid>
@@ -124,10 +124,10 @@ export function ProcessView() {
             <p className="type-caption mt-[var(--space-6)] text-muted">
               یا{" "}
               <Link
-                href="/contact"
+                href="mailto:hello@codexify.studio"
                 className="text-ink underline-offset-4 transition-opacity hover:opacity-70 hover:underline"
               >
-                دربارهٔ پروژه صحبت کنیم
+                دربارهٔ پروژه بنویسید
               </Link>
               .
             </p>

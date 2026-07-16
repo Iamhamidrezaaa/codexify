@@ -46,9 +46,9 @@ export function StudioView() {
             motif="paper"
             figure="۰۱"
             caption="کاغذ و جوهر — میدان خالی پیش از تصمیم."
-            ground="#F4F2EE"
-            ink="#1A1A1A"
-            accent="#6B6560"
+            ground="var(--bg-subtle, #F4F2EE)"
+            ink="var(--fg, #1A1A1A)"
+            accent="var(--fg-muted, #6B6560)"
           />
         </div>
       </ManifestoSection>
@@ -94,9 +94,9 @@ export function StudioView() {
             motif="typography"
             figure="۰۲"
             caption="تایپ به‌مثابهٔ ساختار — نه تزئین."
-            ground="#F4F2EE"
-            ink="#1A1A1A"
-            accent="#6B6560"
+            ground="var(--bg-subtle, #F4F2EE)"
+            ink="var(--fg, #1A1A1A)"
+            accent="var(--fg-muted, #6B6560)"
           />
         </div>
       </ManifestoSection>
@@ -114,7 +114,7 @@ export function StudioView() {
       <BreathingMoment size="lg" />
 
       <ManifestoSection id="closing" spine="essay" className="border-t border-border">
-        <p className="type-heading max-w-[var(--measure-wide)] font-medium leading-[1.65] text-ink/80">
+        <p className="type-statement max-w-[var(--measure-wide)] text-ink/80">
           {closing.thought}
         </p>
       </ManifestoSection>
