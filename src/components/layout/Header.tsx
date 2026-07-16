@@ -31,6 +31,9 @@ export function Header() {
   const caseSlug = pathname?.match(/^\/work\/([^/]+)/)?.[1];
   const atmosphere = getCaseAtmosphere(caseSlug);
   const inverted = atmosphere === "dark" && !scrolled && !menuOpen;
+  /** Home Hero v2 — nav nearly invisible until scroll (Atlas N04). */
+  const homeQuiet =
+    pathname === "/" && !scrolled && !menuOpen && !inverted;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -49,7 +52,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-[var(--z-header)] transition-[background-color,border-color,color] duration-base ease-out",
+        "fixed inset-x-0 top-0 z-[var(--z-header)] transition-[background-color,border-color,color,opacity] duration-base ease-out",
         scrolled || menuOpen
           ? "border-b border-border/60 bg-canvas/95"
           : "border-b border-transparent bg-transparent",
@@ -65,6 +68,7 @@ export function Header() {
             className={cn(
               "type-wordmark transition-opacity duration-fast ease-out hover:opacity-[var(--opacity-hover)]",
               inverted ? CHROME_INVERT : "text-ink",
+              homeQuiet && "opacity-[0.28]",
             )}
             onClick={() => setMenuOpen(false)}
             aria-current={pathname === "/" ? "page" : undefined}
@@ -91,6 +95,7 @@ export function Header() {
                     : current
                       ? "text-ink"
                       : "text-ink hover:text-muted",
+                  homeQuiet && "opacity-[0.22]",
                 )}
               >
                 {link.label}
@@ -99,6 +104,7 @@ export function Header() {
                     "absolute -bottom-1 inset-inline-start-0 h-px transition-all duration-base ease-out",
                     inverted ? CHROME_INVERT_BG : "bg-ink",
                     current ? "w-full opacity-100" : "w-0 opacity-60 group-hover:w-full",
+                    homeQuiet && !current && "opacity-0",
                   )}
                   aria-hidden
                 />
@@ -109,7 +115,10 @@ export function Header() {
 
         <button
           type="button"
-          className="col-span-2 flex flex-col items-start justify-center gap-[6px] md:hidden"
+          className={cn(
+            "col-span-2 flex flex-col items-start justify-center gap-[6px] md:hidden",
+            homeQuiet && "opacity-[0.28]",
+          )}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           aria-label={menuOpen ? "بستن منو" : "باز کردن منو"}
