@@ -1,13 +1,70 @@
 import Link from "next/link";
 import { Grid } from "@/components/layout/Grid";
 import { LinkArrow } from "@/components/ui/LinkArrow";
+import { cn } from "@/design/utilities/cn";
+
+type FooterProps = {
+  /** Home colophon — sparse, no second hero. Other pages keep default close. */
+  variant?: "default" | "colophon";
+};
 
 /**
- * Footer — quiet closing gesture.
+ * Footer — quiet closing gesture / book colophon.
  * Server component; no motion chrome in the global shell.
  */
-export function Footer() {
+export function Footer({ variant = "default" }: FooterProps) {
   const year = new Date().getFullYear();
+
+  if (variant === "colophon") {
+    return (
+      <footer
+        className={cn(
+          "border-t border-[color:var(--hairline)]",
+          "pb-[var(--space-10)] pt-[clamp(3.5rem,10vh,5.5rem)]",
+        )}
+      >
+        <div className="mx-auto flex w-full max-w-[var(--container-wide)] flex-col gap-[var(--space-9)] px-[var(--margin-mobile)] md:flex-row md:items-end md:justify-between md:px-[var(--margin-desktop)]">
+          <div className="flex flex-col gap-[var(--space-5)]">
+            <p className="type-wordmark text-ink/80">کدکسیفای</p>
+            <nav
+              className="flex flex-wrap gap-x-[var(--space-7)] gap-y-[var(--space-3)]"
+              aria-label="پیوندهای پایانی"
+            >
+              <Link
+                href="/work"
+                className="type-nav text-ink/55 transition-colors duration-fast ease-out hover:text-ink"
+              >
+                آثار
+              </Link>
+              <Link
+                href="/process"
+                className="type-nav text-ink/55 transition-colors duration-fast ease-out hover:text-ink"
+              >
+                فرآیند
+              </Link>
+              <Link
+                href="/studio"
+                className="type-nav text-ink/55 transition-colors duration-fast ease-out hover:text-ink"
+              >
+                استودیو
+              </Link>
+              <Link
+                href="mailto:hello@codexify.studio"
+                className="type-nav font-latin text-ink/55 transition-colors duration-fast ease-out hover:text-ink"
+              >
+                hello@codexify.studio
+              </Link>
+            </nav>
+          </div>
+
+          <div className="flex flex-col gap-[var(--space-2)] md:items-end">
+            <p className="type-caption text-ink/40">© {year}</p>
+            <p className="type-caption text-ink/35">طراحی دیجیتال</p>
+          </div>
+        </div>
+      </footer>
+    );
+  }
 
   return (
     <footer className="border-t border-[color:var(--hairline)] pb-[var(--space-10)] pt-[clamp(7rem,20vh,14rem)]">

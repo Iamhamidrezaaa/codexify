@@ -1,76 +1,35 @@
-"use client";
-
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { useRef } from "react";
-import { Grid } from "@/components/layout/Grid";
-import { Reveal } from "@/components/ui/Reveal";
-import { SectionLabel } from "@/components/ui/SectionLabel";
-import { editorialDissolve } from "@/design/motion";
-
 /**
- * Philosophy identity: slow · editorial · reading experience
+ * Philosophy — Home manifesto spread
+ * Directive 02 · L3 Monumental Type · L1 · L2
+ * Type is the mass. No Object. No service list.
  */
 export function Philosophy() {
-  const ref = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const quoteOpacity = useTransform(
-    scrollYProgress,
-    [0.15, 0.35, 0.65, 0.85],
-    prefersReducedMotion ? [1, 1, 1, 1] : [0.35, 1, 1, 0.45],
-  );
-
   return (
     <section
-      ref={ref}
-      className="py-section-expansive"
+      className="relative flex min-h-[100svh] flex-col justify-center bg-canvas py-[clamp(5rem,14vh,9rem)]"
       aria-labelledby="philosophy-heading"
     >
-      <Grid className="items-start">
-        <div className="col-span-4 md:col-span-8 lg:col-span-2 lg:min-h-[70vh]">
-          <div className="lg:sticky lg:top-[32vh]">
-            <Reveal variants={editorialDissolve}>
-              <SectionLabel index="۰۲" label="فلسفه" />
-            </Reveal>
-          </div>
-        </div>
+      <div
+        className="pointer-events-none absolute inset-x-[var(--margin-mobile)] top-[22%] h-px bg-ink/[0.08] md:inset-x-[var(--margin-desktop)]"
+        aria-hidden
+      />
 
-        <div className="col-span-4 mt-[var(--space-10)] md:col-span-7 md:col-start-2 lg:col-span-8 lg:col-start-4 lg:mt-0">
-          <motion.div style={{ opacity: quoteOpacity }}>
-            <blockquote className="max-w-[var(--measure-wide)]">
-              <h2 id="philosophy-heading" className="type-heading text-ink">
-                خودِ وب‌سایت
-                <br />
-                پورتفولیو است.
-              </h2>
-              <p className="type-statement mt-[var(--space-5)] text-muted">
-                هر جزئیات — تایپوگرافی، حرکت، سکوت — باید پیش از بارگذاری اولین
-                اثر ثابت کند که طراحی را می‌شناسیم.
-              </p>
-            </blockquote>
-          </motion.div>
+      <div className="relative mx-auto w-full max-w-[var(--container-wide)] px-[var(--margin-mobile)] md:px-[var(--margin-desktop)]">
+        <p className="type-overline mb-[var(--space-9)] tracking-[0.14em] text-ink/40">
+          فلسفه
+        </p>
 
-          <Reveal
-            variants={editorialDissolve}
-            delay={0.18}
-            className="mt-[clamp(4rem,12vh,8rem)]"
-          >
-            <p className="type-essay max-w-[var(--measure-narrow)] text-muted">
-              با برندهایی کار می‌کنیم که حضور دیجیتال را بخشی از اعتبار می‌دانند
-              — نه پوشش تزئینی.
-            </p>
-          </Reveal>
-        </div>
-      </Grid>
+        <h2
+          id="philosophy-heading"
+          className="type-display max-w-[14em] text-ink"
+        >
+          خودِ وب‌سایت پورتفولیو است.
+        </h2>
+
+        <p className="type-statement mt-[var(--space-9)] max-w-[22em] text-ink/55">
+          هر ترکیب باید پیش از اولین اثر ثابت کند که طراحی را می‌شناسیم.
+        </p>
+      </div>
     </section>
   );
 }
