@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { cn } from "@/design/utilities/cn";
 import { Grid } from "@/components/layout/Grid";
+import { getCaseStudy } from "@/features/work/case-study/registry";
 
 const NAV_LINKS = [
   { href: "/work", label: "آثار" },
@@ -17,10 +18,12 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  /** Case study heroes may open on a dark field — invert chrome until scroll. */
-  const darkHero =
-    Boolean(pathname?.startsWith("/work/")) && pathname !== "/work";
-  const inverted = darkHero && !scrolled && !menuOpen;
+  /** Dark publication heroes invert chrome until scroll; light ones stay ink-on-paper. */
+  const caseSlug = pathname?.match(/^\/work\/([^/]+)/)?.[1];
+  const atmosphere = caseSlug
+    ? getCaseStudy(caseSlug)?.publication.atmosphere
+    : undefined;
+  const inverted = atmosphere === "dark" && !scrolled && !menuOpen;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);

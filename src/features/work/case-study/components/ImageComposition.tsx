@@ -15,7 +15,12 @@ export type CompositionMotif =
   | "columns"
   | "mist"
   | "letter"
-  | "grain";
+  | "grain"
+  | "aperture"
+  | "elevation"
+  | "timber"
+  | "shadow-cast"
+  | "threshold";
 
 type ImageCompositionProps = {
   family: ImageFamily;
@@ -29,13 +34,13 @@ type ImageCompositionProps = {
 };
 
 const FAMILY_DEFAULT_MOTIF: Record<ImageFamily, CompositionMotif> = {
-  material: "steel",
+  material: "timber",
   geometry: "dial",
   typography: "letter",
   architecture: "plan",
   macro: "bezel",
   texture: "grain",
-  "negative-space": "void",
+  "negative-space": "aperture",
 };
 
 /**
@@ -54,20 +59,30 @@ export function ImageComposition({
 }: ImageCompositionProps) {
   const prefersReducedMotion = useReducedMotion();
   const resolved = motif || FAMILY_DEFAULT_MOTIF[family];
+  const slow = family === "architecture" || family === "negative-space";
 
   const plate = (
     <motion.div
-      className="relative aspect-[16/10] w-full overflow-hidden md:aspect-[2/1]"
+      className={cn(
+        "relative w-full overflow-hidden",
+        slow ? "aspect-[3/2] md:aspect-[21/9]" : "aspect-[16/10] md:aspect-[2/1]",
+      )}
       style={{ backgroundColor: ground }}
-      initial={prefersReducedMotion ? false : { opacity: 0.35 }}
+      initial={prefersReducedMotion ? false : { opacity: 0.2 }}
       whileInView={prefersReducedMotion ? undefined : { opacity: 1 }}
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{
+        duration: slow ? 1.8 : 1.2,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       role="img"
       aria-label={caption ?? family}
     >
       <Motif resolved={resolved} accent={accent} ink={ink} />
-      <span className="absolute top-4 end-4 type-overline opacity-40" style={{ color: ink }}>
+      <span
+        className="absolute top-4 end-4 type-overline opacity-40"
+        style={{ color: ink }}
+      >
         {family}
       </span>
     </motion.div>
@@ -126,7 +141,7 @@ function Motif({
           <div
             className="absolute left-1/2 top-1/2 h-[70%] w-[70%] max-h-[340px] max-w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full"
             style={{
-              background: `conic-gradient(from 0deg, #161618 0deg, ${accent} 40deg, #161618 80deg, ${accent}66 140deg, ${groundFallback(accent)} 200deg, ${accent} 280deg, #161618 360deg)`,
+              background: `conic-gradient(from 0deg, #161618 0deg, ${accent} 40deg, #161618 80deg, ${accent}66 140deg, #0B0B0C 200deg, ${accent} 280deg, #161618 360deg)`,
             }}
           />
           <div
@@ -161,16 +176,128 @@ function Motif({
       return (
         <>
           <div
-            className="absolute inset-x-[12%] top-[28%] h-px"
+            className="absolute inset-x-[10%] top-[22%] h-px"
+            style={{ backgroundColor: ink, opacity: 0.2 }}
+          />
+          <div
+            className="absolute inset-x-[10%] top-[50%] h-px"
+            style={{ backgroundColor: ink, opacity: 0.12 }}
+          />
+          <div
+            className="absolute inset-y-[14%] start-[22%] w-px"
+            style={{ backgroundColor: ink, opacity: 0.2 }}
+          />
+          <div
+            className="absolute inset-y-[14%] end-[28%] w-px"
+            style={{ backgroundColor: ink, opacity: 0.12 }}
+          />
+          <div
+            className="absolute bottom-[20%] end-[18%] top-[36%] w-[34%] border"
+            style={{ borderColor: accent, opacity: 0.85 }}
+          />
+          <div
+            className="absolute bottom-[20%] start-[22%] h-[18%] w-[16%] border border-dashed"
+            style={{ borderColor: accent, opacity: 0.45 }}
+          />
+        </>
+      );
+    case "aperture":
+      return (
+        <>
+          <div
+            className="absolute inset-[18%_22%]"
+            style={{
+              boxShadow: `inset 0 0 0 1px ${ink}18`,
+              background: `linear-gradient(180deg, ${accent}08 0%, transparent 45%, ${ink}06 100%)`,
+            }}
+          />
+          <div
+            className="absolute inset-x-[22%] top-[18%] h-px"
+            style={{ backgroundColor: accent, opacity: 0.35 }}
+          />
+          <div
+            className="absolute inset-y-[18%] start-[22%] w-px"
+            style={{ backgroundColor: accent, opacity: 0.35 }}
+          />
+        </>
+      );
+    case "elevation":
+      return (
+        <>
+          <div
+            className="absolute inset-x-[16%] bottom-[18%] top-[30%] border"
+            style={{ borderColor: `${ink}28` }}
+          />
+          <div
+            className="absolute inset-x-[28%] bottom-[18%] top-[42%] border-x"
+            style={{ borderColor: accent, opacity: 0.5 }}
+          />
+          <div
+            className="absolute inset-x-[16%] top-[30%] h-[8%]"
+            style={{
+              background: `linear-gradient(90deg, transparent, ${accent}33, transparent)`,
+            }}
+          />
+          <div
+            className="absolute inset-x-[12%] bottom-[14%] h-px"
+            style={{ backgroundColor: ink, opacity: 0.35 }}
+          />
+        </>
+      );
+    case "timber":
+      return (
+        <>
+          <div
+            className="absolute inset-y-[14%] start-[10%] w-[42%]"
+            style={{
+              background: `repeating-linear-gradient(0deg, ${accent}18, ${accent}18 1px, transparent 1px, transparent 14px)`,
+            }}
+          />
+          <div
+            className="absolute inset-y-[20%] end-[12%] start-[58%] border"
+            style={{ borderColor: `${ink}22` }}
+          />
+          <div
+            className="absolute bottom-[20%] end-[12%] start-[58%] h-[12%]"
+            style={{ backgroundColor: `${accent}28` }}
+          />
+        </>
+      );
+    case "shadow-cast":
+      return (
+        <>
+          <div
+            className="absolute inset-y-[16%] start-[14%] w-[38%] border"
+            style={{ borderColor: `${ink}20` }}
+          />
+          <div
+            className="absolute inset-y-[16%] start-[14%] w-[38%]"
+            style={{
+              background: `linear-gradient(115deg, transparent 40%, ${ink}10 41%, ${ink}18 100%)`,
+            }}
+          />
+          <div
+            className="absolute inset-y-[28%] end-[16%] w-px"
+            style={{ backgroundColor: accent, opacity: 0.4 }}
+          />
+        </>
+      );
+    case "threshold":
+      return (
+        <>
+          <div
+            className="absolute inset-y-[12%] start-[48%] w-px"
             style={{ backgroundColor: ink, opacity: 0.25 }}
           />
           <div
-            className="absolute inset-y-[18%] start-[18%] w-px"
-            style={{ backgroundColor: ink, opacity: 0.25 }}
+            className="absolute inset-y-[20%] start-[18%] end-[52%] border"
+            style={{ borderColor: `${accent}55` }}
           />
           <div
-            className="absolute bottom-[22%] end-[16%] top-[34%] w-[38%] border"
-            style={{ borderColor: accent }}
+            className="absolute inset-y-[20%] start-[52%] end-[18%]"
+            style={{
+              background: `linear-gradient(90deg, ${ink}08, transparent 60%)`,
+            }}
           />
         </>
       );
@@ -243,8 +370,4 @@ function Motif({
     default:
       return null;
   }
-}
-
-function groundFallback(_accent: string) {
-  return "#0B0B0C";
 }

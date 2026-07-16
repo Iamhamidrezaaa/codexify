@@ -9,6 +9,8 @@ type ScreenCompositionProps = {
   screens: CaseStudyScreen[];
   theme?: PublicationTheme;
   className?: string;
+  /** Wider vertical pauses — architectural monograph rhythm */
+  spacing?: "default" | "open";
 };
 
 /**
@@ -19,13 +21,20 @@ export function ScreenComposition({
   screens,
   theme,
   className,
+  spacing = "default",
 }: ScreenCompositionProps) {
   const ground = theme?.ground ?? "#0B0B0C";
   const accent = theme?.accent ?? "#8A9199";
   const ink = theme?.ink ?? "#EDEAE4";
+  const surface = theme?.surface ?? ground;
 
   return (
-    <div className={cn("space-y-[var(--space-10)]", className)}>
+    <div
+      className={cn(
+        spacing === "open" ? "space-y-[var(--space-12)]" : "space-y-[var(--space-10)]",
+        className,
+      )}
+    >
       {screens.map((screen, i) => {
         const plate = (
           <div
@@ -39,7 +48,12 @@ export function ScreenComposition({
             role="img"
             aria-label={screen.label}
           >
-            <ScreenMotif motif={screen.motif} accent={accent} ink={ink} />
+            <ScreenMotif
+              motif={screen.motif}
+              accent={accent}
+              ink={ink}
+              surface={surface}
+            />
             <span
               className="absolute bottom-4 start-4 type-caption"
               style={{ color: accent }}
@@ -78,10 +92,12 @@ function ScreenMotif({
   motif,
   accent,
   ink,
+  surface,
 }: {
   motif: CaseStudyScreen["motif"];
   accent: string;
   ink: string;
+  surface: string;
 }) {
   if (motif === "hero-stage") {
     return (
@@ -136,6 +152,105 @@ function ScreenMotif({
     );
   }
 
+  if (motif === "corridor") {
+    return (
+      <>
+        <div
+          className="absolute inset-y-[14%] start-[18%] end-[18%] border-x"
+          style={{ borderColor: `${ink}18` }}
+        />
+        <div
+          className="absolute inset-x-[18%] top-[36%] bottom-[22%]"
+          style={{
+            background: `linear-gradient(180deg, ${surface} 0%, transparent 55%)`,
+          }}
+        />
+        <div
+          className="absolute inset-x-[28%] bottom-[22%] top-[48%] border"
+          style={{ borderColor: `${accent}50` }}
+        />
+        <div
+          className="absolute inset-x-[12%] bottom-[14%] h-px"
+          style={{ backgroundColor: `${ink}28` }}
+        />
+      </>
+    );
+  }
+
+  if (motif === "monograph") {
+    return (
+      <>
+        {[0, 1, 2, 3, 4].map((row) => (
+          <div
+            key={row}
+            className="absolute start-[12%] end-[40%] h-px"
+            style={{
+              top: `${24 + row * 12}%`,
+              backgroundColor: `${ink}16`,
+            }}
+          />
+        ))}
+        <div
+          className="absolute end-[12%] top-[24%] bottom-[20%] w-[22%]"
+          style={{ backgroundColor: `${accent}22` }}
+        />
+        <div
+          className="absolute end-[12%] top-[24%] w-[22%] h-px"
+          style={{ backgroundColor: accent }}
+        />
+      </>
+    );
+  }
+
+  if (motif === "section-cut") {
+    return (
+      <>
+        <div
+          className="absolute inset-x-[14%] bottom-[16%] top-[26%] border"
+          style={{ borderColor: `${ink}20` }}
+        />
+        <div
+          className="absolute inset-x-[14%] top-[40%] h-px"
+          style={{ backgroundColor: accent, opacity: 0.55 }}
+        />
+        <div
+          className="absolute inset-y-[26%] start-[42%] w-px"
+          style={{ backgroundColor: `${ink}30` }}
+        />
+        <div
+          className="absolute start-[14%] end-[58%] top-[26%] bottom-[50%]"
+          style={{
+            background: `linear-gradient(90deg, ${accent}14, transparent)`,
+          }}
+        />
+      </>
+    );
+  }
+
+  if (motif === "threshold") {
+    return (
+      <>
+        <div
+          className="absolute inset-y-[16%] start-[50%] w-px"
+          style={{ backgroundColor: `${ink}25` }}
+        />
+        <div
+          className="absolute inset-y-[22%] start-[14%] end-[50%] border"
+          style={{ borderColor: `${accent}40` }}
+        />
+        <div
+          className="absolute inset-x-[14%] bottom-[18%] h-px"
+          style={{ backgroundColor: `${accent}55` }}
+        />
+        <div
+          className="absolute end-[18%] bottom-[22%] start-[56%] h-10"
+          style={{ backgroundColor: `${accent}30` }}
+        />
+      </>
+    );
+  }
+
+  /* inquiry — default contact frame */
   return (
     <>
       <div

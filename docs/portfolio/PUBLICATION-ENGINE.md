@@ -41,7 +41,10 @@ Every study picks **one dominant family**:
 
 `material` · `geometry` · `typography` · `architecture` · `macro` · `texture` · `negative-space`
 
-Atelier Noir dominant: **macro** (with material/geometry accents).
+Atelier Noir dominant: **macro** (with material/geometry accents).  
+Sora Residence dominant: **architecture** (with material / negative-space accents).
+
+Architecture motifs: `plan` · `elevation` · `aperture` · `timber` · `shadow-cast` · `threshold`.
 
 Authoring:
 
@@ -59,11 +62,26 @@ Authoring:
 
 ---
 
+## Atmosphere & editorial dials (Sprint 5)
+
+| Field | Purpose |
+|-------|---------|
+| `publication.atmosphere` | `dark` inverts site header on hero; `light` keeps ink chrome |
+| `publication.editorial.breath` | `open` = longer pauses, airier lists (Sora); `compact` = denser (Atelier) |
+| `publication.editorial.marginNote` | Optional xl+ annotation — omit to hide |
+| `publication.editorial.reflectionField` | `ground` or `surface` for inverse chapter |
+| `publication.editorial.screensTitle` | Chapter label (e.g. قاب‌های فضایی) |
+| `figures.*.family` | Per-plate override of dominant `imageFamily` |
+
+**Proven pair:** Atelier Noir = dark · macro. Sora Residence = light · architecture.
+
+---
+
 ## Authoring a new case study (easier path)
 
-1. Copy `content/atelier-noir.ts` → `content/[slug].ts`  
-2. Fill `meta` + `publication.theme` + `publication.imageFamily`  
-3. Keep chapter titles aligned with the spine  
+1. Copy an existing content file closest in atmosphere — not always Atelier  
+2. Fill `meta` + `theme` + `imageFamily` + `atmosphere`  
+3. Tune `editorial` for rhythm; omit features that don't serve the story  
 4. Register in `registry.ts`  
 5. Do **not** fork `CaseStudyView` — extend motifs only if the family needs a new plate  
 

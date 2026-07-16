@@ -15,6 +15,7 @@ export const atelierNoirCaseStudy: CaseStudyContent = {
   },
 
   publication: {
+    atmosphere: "dark",
     imageFamily: "macro",
     theme: {
       ground: "#0B0B0C",
@@ -23,6 +24,11 @@ export const atelierNoirCaseStudy: CaseStudyContent = {
       muted: "#8A9199",
       accent: "#8A9199",
       signal: "#5C1F24",
+    },
+    editorial: {
+      breath: "compact",
+      marginNote: "مسئله، زیباتر کردن نبود — لمس‌پذیر کردنِ نادر بودن بود.",
+      reflectionField: "ground",
     },
     chapters: [
       { id: "hero", index: "۰۱", title: "آغاز" },

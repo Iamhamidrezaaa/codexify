@@ -7,10 +7,18 @@ export type {
   ImageFamily,
   PublicationTheme,
   PublicationChapter,
+  PublicationAtmosphere,
+  PublicationEditorial,
+  PublicationFigure,
 } from "./types";
 
 export { CaseStudyView } from "./CaseStudyView";
-export { getCaseStudy, getCaseStudySlugs, atelierNoirCaseStudy } from "./registry";
+export {
+  getCaseStudy,
+  getCaseStudySlugs,
+  atelierNoirCaseStudy,
+  soraResidenceCaseStudy,
+} from "./registry";
 export { buildChapters, PUBLICATION_CHAPTER_IDS } from "./chapters";
 
 export { CaseStudyHero } from "./components/CaseStudyHero";

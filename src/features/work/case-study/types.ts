@@ -18,7 +18,15 @@ export type CaseStudyScreen = {
   label: string;
   breakpoint: "desktop" | "tablet" | "mobile";
   caption: string;
-  motif: "hero-stage" | "archive" | "detail" | "inquiry";
+  motif:
+    | "hero-stage"
+    | "archive"
+    | "detail"
+    | "inquiry"
+    | "corridor"
+    | "monograph"
+    | "section-cut"
+    | "threshold";
   figure?: string;
 };
 
@@ -47,6 +55,33 @@ export type PublicationTheme = {
   signal?: string;
 };
 
+/** Hero chrome: dark inverts the site header; light keeps ink on paper. */
+export type PublicationAtmosphere = "light" | "dark";
+
+/**
+ * Per-study editorial dials — same engine, different rhythm.
+ * Omit freely; defaults preserve Atelier-era assembly.
+ */
+export type PublicationEditorial = {
+  /** Challenge margin annotation (xl+); omit to hide */
+  marginNote?: string;
+  reflectionTone?: "default" | "inverse";
+  /** Which theme field paints inverse reflection */
+  reflectionField?: "ground" | "surface";
+  screensTitle?: string;
+  proseMeasure?: "narrow" | "default" | "wide";
+  /** `open` inserts longer visual pauses between chapters */
+  breath?: "compact" | "open";
+};
+
+export type PublicationFigure = {
+  motif: string;
+  caption: string;
+  figure: string;
+  /** Override study-dominant family for this plate */
+  family?: ImageFamily;
+};
+
 export type PublicationChapter = {
   id: string;
   index: string;
@@ -62,7 +97,9 @@ export type CaseStudyContent = {
   publication: {
     theme: PublicationTheme;
     imageFamily: ImageFamily;
+    atmosphere: PublicationAtmosphere;
     chapters: PublicationChapter[];
+    editorial?: PublicationEditorial;
   };
   challenge: {
     title: string;
@@ -98,9 +135,9 @@ export type CaseStudyContent = {
     items: { label: string; text: string }[];
   };
   figures?: {
-    afterHero: { motif: string; caption: string; figure: string };
-    afterDirection: { motif: string; caption: string; figure: string };
-    closing: { motif: string; caption: string; figure: string };
+    afterHero: PublicationFigure;
+    afterDirection: PublicationFigure;
+    closing: PublicationFigure;
   };
   next?: { slug: string; name: string };
   prev?: { slug: string; name: string };
