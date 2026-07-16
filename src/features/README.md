@@ -2,10 +2,14 @@
 
 Domain-specific modules for Codexify.
 
-Examples for future sprints:
+| Feature | Role |
+|---------|------|
+| `work/` | Exhibition + case-study publication engine |
+| `process/` | Editorial process publication (`/process`) |
+
+Examples for later:
 
 - `contact/` — form state, validation, submission
-- `work/` — case study data loaders and filters
-- `studio/` — team / about content
+- `studio/` — studio / about content
 
 Keep UI primitives in `components/`, page composition in `sections/`, and visual tokens in `design/`.

@@ -31,6 +31,7 @@ export function Footer() {
               hello@codexify.studio
             </LinkArrow>
             <LinkArrow href="/contact">شروع پروژه</LinkArrow>
+            <LinkArrow href="/process">فرآیند کار</LinkArrow>
           </div>
 
           <div className="col-span-2 flex flex-col gap-[var(--space-4)] md:col-span-2 lg:col-span-2">

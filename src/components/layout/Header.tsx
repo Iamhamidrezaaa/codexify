@@ -9,6 +9,7 @@ import { getCaseStudy } from "@/features/work/case-study/registry";
 
 const NAV_LINKS = [
   { href: "/work", label: "آثار" },
+  { href: "/process", label: "فرآیند" },
   { href: "/studio", label: "استودیو" },
   { href: "/contact", label: "تماس" },
 ] as const;

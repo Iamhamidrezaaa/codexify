@@ -28,4 +28,4 @@ Route: `src/app/work/[slug]/page.tsx`
 3. Choose one `imageFamily`  
 4. Do not fork the view — extend motifs only if needed  
 
-See Publication Engine v2 for the full authoring contract.
+See also: [PROCESS-PHILOSOPHY.md](./PROCESS-PHILOSOPHY.md) — Sprint 6 process publication.
