@@ -1,8 +1,0 @@
-/* Elevation — architectural contact, never decorative glow */
-:root {
-  --elevation-none: none;
-  --elevation-subtle: 0 1px 0 color-mix(in srgb, var(--fg) 6%, transparent);
-  --elevation-plate: 0 1px 0 color-mix(in srgb, var(--fg) 5%, transparent),
-    0 14px 36px -30px color-mix(in srgb, var(--fg) 20%, transparent);
-}
-

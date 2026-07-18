@@ -1,2 +1,0 @@
-/** Future gallery bench */
-export {};

@@ -1,2 +1,0 @@
-/** Future motion bench */
-export {};
