@@ -2,7 +2,10 @@ import { SERVICES } from "@/lib/constants";
 
 export function Services() {
   return (
-    <section id="services" className="bg-bg px-5 py-24 md:px-16 lg:px-20">
+    <section
+      id="services"
+      className="relative bg-bg px-5 pt-8 pb-24 md:px-16 md:pt-12 lg:px-20"
+    >
       <div className="mx-auto max-w-[1360px]">
         <p className="text-sm text-muted">( Services )</p>
         <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-fg md:text-5xl">

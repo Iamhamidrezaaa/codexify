@@ -1,3 +1,8 @@
+export const SITE = {
+  name: "Codexify",
+  nameFa: "کدکسیفای",
+} as const;
+
 export const WHATSAPP_E164 = "989101962026";
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_E164}`;
 export const WHATSAPP_DISPLAY = "۰۹۱۰۱۹۶۲۰۲۶";
@@ -8,7 +13,6 @@ export const NAV_LINKS = [
   { href: "#about", label: "درباره" },
   { href: "#pricing", label: "قیمت" },
   { href: "#insights", label: "اینسایت‌ها" },
-  { href: "#contact", label: "تماس" },
 ] as const;
 
 export const SERVICES = [

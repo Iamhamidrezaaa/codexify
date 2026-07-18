@@ -17,7 +17,8 @@ type Props = {
 export function FlagSpotlight({ x, y, active, className = "" }: Props) {
   const cx = `${x * 100}%`;
   const cy = `${y * 100}%`;
-  const mask = `radial-gradient(circle 240px at ${cx} ${cy}, #000 0%, #000 32%, transparent 72%)`;
+  /* Soft flag reveal only — must not read as the custom cursor */
+  const mask = `radial-gradient(circle 160px at ${cx} ${cy}, #000 0%, #000 28%, transparent 68%)`;
 
   return (
     <div
@@ -34,7 +35,7 @@ export function FlagSpotlight({ x, y, active, className = "" }: Props) {
           maskImage: mask,
         }}
       >
-        <FlagGraphic className="absolute inset-0 opacity-[0.22]" />
+        <FlagGraphic className="absolute inset-0 opacity-[0.14]" />
       </div>
     </div>
   );

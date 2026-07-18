@@ -1,3 +1,4 @@
+import { Header } from "@/components/Header";
 import { About } from "@/components/home/About";
 import { Contact } from "@/components/home/Contact";
 import { Hero } from "@/components/home/Hero";
@@ -10,6 +11,7 @@ import { Work } from "@/components/home/Work";
 export default function HomePage() {
   return (
     <main>
+      <Header />
       <Hero />
       <ScrollScene />
       <Services />

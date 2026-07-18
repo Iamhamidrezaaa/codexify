@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { FlagSpotlight } from "@/components/FlagSpotlight";
-import { Header } from "@/components/Header";
+import { MagneticTitle } from "@/components/MagneticTitle";
 
 export function Hero() {
   const [pos, setPos] = useState({ x: 0.6, y: 0.45 });
@@ -26,10 +26,8 @@ export function Hero() {
       className="relative flex min-h-dvh flex-col overflow-hidden bg-bg"
     >
       <FlagSpotlight x={pos.x} y={pos.y} active={active} />
-      <Header />
 
-      {/* Vertically centered, right-aligned title block (RTL: items-start = right) */}
-      <div className="relative z-10 flex flex-1 flex-col justify-center px-5 pb-24 pt-28 md:px-16 lg:px-20">
+      <div className="relative z-10 flex flex-1 flex-col justify-center px-5 pb-32 pt-28 md:px-16 lg:px-20">
         <div className="mx-auto flex w-full max-w-[1360px] flex-col items-start">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -41,17 +39,22 @@ export function Hero() {
             طراح وبسایت — مخاطب فارسی‌زبان
           </motion.div>
 
-          <motion.h1
+          <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-            className="flex w-full flex-col items-start gap-10 text-right md:gap-14"
+            className="w-full"
           >
-            <span className="hero-title block w-full text-fg">وب‌سایتی که</span>
-            <span className="hero-title-line2 block w-full">
-              آیندهٔ دیجیتال تو را می‌سازد
-            </span>
-          </motion.h1>
+            <MagneticTitle
+              lines={[
+                { text: "وب‌سایتی که", className: "hero-title text-fg" },
+                {
+                  text: "آیندهٔ دیجیتال تو را می‌سازد",
+                  className: "hero-title-line2",
+                },
+              ]}
+            />
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 18 }}
@@ -70,6 +73,12 @@ export function Hero() {
           SCROLL TO EXPLORE
         </p>
       </div>
+
+      {/* Soft fade into next section — no hard seam */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-40 bg-gradient-to-b from-transparent via-bg/55 to-bg"
+      />
     </section>
   );
 }
