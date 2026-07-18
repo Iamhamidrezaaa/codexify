@@ -64,6 +64,39 @@ html.has-custom-cursor * {
   cursor: none !important;
 }
 
+/* Site-wide custom cursor — above header, sticky stages, everything */
+.custom-cursor-root {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  pointer-events: none;
+}
+
+.custom-cursor-ring,
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.custom-cursor-ring {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(245, 245, 245, 0.92);
+  background: transparent;
+}
+
+.custom-cursor-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(245, 245, 245, 0.95);
+}
+
+
 .hero-title {
   font-size: clamp(3.25rem, 9.5vw, 8.75rem);
   line-height: 0.95;

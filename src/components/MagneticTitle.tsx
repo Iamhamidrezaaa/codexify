@@ -10,7 +10,6 @@ type Line = {
 const TATWEEL = "ـ";
 const ZWNJ = "\u200c";
 
-/** Does not join to the following character */
 const NO_JOIN_AFTER = new Set([
   "ا",
   "أ",
@@ -45,24 +44,26 @@ function isLetter(ch: string) {
   return ch !== " " && ch !== ZWNJ && ch !== TATWEEL;
 }
 
-/** Stretch with tatweel: end → before letter; start/middle → after letter */
+function isStickyLetter(ch: string) {
+  return NO_JOIN_AFTER.has(ch) && isLetter(ch);
+}
+
+/**
+ * Insert a single tatweel into the SAME string so Arabic shaping stays intact:
+ * می + hover → مـی  (never م ـ ی)
+ */
 function withKashida(word: string, index: number): string {
   const chars = [...word];
   if (index < 0 || index >= chars.length || !isLetter(chars[index])) return word;
+  if (isStickyLetter(chars[index])) return word;
 
   const next = chars[index + 1];
   const atEnd = index === chars.length - 1 || next === " ";
   const stretchAfter = !atEnd && joinsToNext(chars[index], next);
-  const k = [TATWEEL, TATWEEL];
+  const insertAt = stretchAfter ? index + 1 : index;
 
-  if (stretchAfter) chars.splice(index + 1, 0, ...k);
-  else chars.splice(index, 0, ...k);
-
+  chars.splice(insertAt, 0, TATWEEL);
   return chars.join("");
-}
-
-function isStickyLetter(ch: string) {
-  return NO_JOIN_AFTER.has(ch) && isLetter(ch);
 }
 
 type Group = { text: string; start: number; sticky: boolean };
@@ -89,12 +90,13 @@ function joinGroups(word: string): Group[] {
   return groups;
 }
 
-type Active = {
+type Stretch = {
   line: number;
   word: number;
   char: number;
   dir: number;
-} | null;
+  open: boolean;
+};
 
 export function MagneticTitle({
   lines,
@@ -103,68 +105,50 @@ export function MagneticTitle({
   lines: Line[];
   className?: string;
 }) {
-  const [active, setActive] = useState<Active>(null);
+  const [stretch, setStretch] = useState<Stretch | null>(null);
   const rootRef = useRef<HTMLHeadingElement>(null);
   const lastX = useRef(0);
+  const leaveTimer = useRef<number | null>(null);
 
-  const onLeave = useCallback(() => setActive(null), []);
+  const onLeave = useCallback(() => {
+    setStretch((s) => (s ? { ...s, open: false } : null));
+    if (leaveTimer.current) window.clearTimeout(leaveTimer.current);
+    leaveTimer.current = window.setTimeout(() => setStretch(null), 320);
+  }, []);
 
   const onMove = useCallback((e: React.PointerEvent) => {
+    if (leaveTimer.current) {
+      window.clearTimeout(leaveTimer.current);
+      leaveTimer.current = null;
+    }
+
     const dir = e.movementX || e.clientX - lastX.current;
     lastX.current = e.clientX;
 
-    const doc = document as Document & {
-      caretPositionFromPoint?: (
-        x: number,
-        y: number,
-      ) => { offsetNode: Node; offset: number } | null;
-      caretRangeFromPoint?: (x: number, y: number) => Range | null;
-    };
-
-    let node: Node | null = null;
-    let offset = 0;
-
-    if (doc.caretPositionFromPoint) {
-      const pos = doc.caretPositionFromPoint(e.clientX, e.clientY);
-      if (pos) {
-        node = pos.offsetNode;
-        offset = pos.offset;
-      }
-    } else if (doc.caretRangeFromPoint) {
-      const range = doc.caretRangeFromPoint(e.clientX, e.clientY);
-      if (range) {
-        node = range.startContainer;
-        offset = range.startOffset;
-      }
-    }
-
-    if (!node || node.nodeType !== Node.TEXT_NODE) return;
-
-    const wordEl = (node.parentElement as HTMLElement | null)?.closest(
-      "[data-hero-word]",
-    ) as HTMLElement | null;
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const wordEl = el?.closest("[data-hero-word]") as HTMLElement | null;
     if (!wordEl || !rootRef.current?.contains(wordEl)) return;
 
     const line = Number(wordEl.dataset.line);
     const word = Number(wordEl.dataset.wi);
     const original = wordEl.dataset.original ?? "";
-    const text = node.textContent ?? "";
+    const chars = [...original];
+    if (!chars.length) return;
 
-    // Map caret in (possibly stretched) text → original grapheme index
-    let oi = 0;
-    let ti = 0;
-    const target = Math.min(offset, text.length);
-    while (ti < target && oi < original.length) {
-      if (text[ti] === TATWEEL) {
-        ti++;
-        continue;
-      }
-      ti++;
-      oi++;
-    }
-    const char = Math.max(0, Math.min(original.length - 1, oi > 0 ? oi - 1 : 0));
+    const rect = wordEl.getBoundingClientRect();
+    const rel = Math.min(
+      1,
+      Math.max(0, (e.clientX - rect.left) / Math.max(rect.width, 1)),
+    );
+    const rtlRel = 1 - rel;
+    let char = Math.min(
+      chars.length - 1,
+      Math.max(0, Math.floor(rtlRel * chars.length)),
+    );
+    while (char < chars.length - 1 && !isLetter(chars[char]!)) char++;
+    while (char > 0 && !isLetter(chars[char]!)) char--;
 
-    setActive({ line, word, char, dir });
+    setStretch({ line, word, char, dir, open: true });
   }, []);
 
   return (
@@ -187,15 +171,16 @@ export function MagneticTitle({
 
               wordCounter += 1;
               const wi = wordCounter;
-              const isHot = active?.line === li && active.word === wi;
-              const chars = [...token];
-              const hoverCh = isHot ? chars[active.char] : null;
+              const hot =
+                stretch?.line === li && stretch.word === wi ? stretch : null;
+              const hoverCh = hot ? [...token][hot.char] : null;
               const stickyHover = !!(hoverCh && isStickyLetter(hoverCh));
 
-              // Connecting letters → single text node + kashida (keeps joining)
-              if (!isHot || !stickyHover) {
+              if (!hot || !stickyHover) {
+                // One text node only — keeps مـی joined
                 const shown =
-                  isHot && !stickyHover ? withKashida(token, active.char) : token;
+                  hot && hot.open ? withKashida(token, hot.char) : token;
+
                 return (
                   <span
                     key={`${li}-w-${ti}`}
@@ -203,17 +188,17 @@ export function MagneticTitle({
                     data-line={li}
                     data-wi={wi}
                     data-original={token}
-                    className="inline-block whitespace-nowrap transition-all duration-200 ease-out"
+                    className={`inline-block whitespace-nowrap transition-[letter-spacing] duration-300 ease-out ${
+                      hot?.open ? "tracking-[0.01em]" : ""
+                    }`}
                   >
                     {shown}
                   </span>
                 );
               }
 
-              // Non-joining letter (ز، د، …) → stick toward neighbor by mouse dir
               const groups = joinGroups(token);
-              // screen-right (+) → toward left neighbor → negative translate in LTR inline
-              const pull = -Math.sign(active.dir || 0) * 12;
+              const pull = -Math.sign(hot.dir || 0) * 12;
 
               return (
                 <span
@@ -226,13 +211,13 @@ export function MagneticTitle({
                 >
                   {groups.map((g, gi) => {
                     const inGroup =
-                      active.char >= g.start &&
-                      active.char < g.start + [...g.text].length;
-                    const move = g.sticky && inGroup ? pull : 0;
+                      hot.char >= g.start &&
+                      hot.char < g.start + [...g.text].length;
+                    const move = g.sticky && inGroup && hot.open ? pull : 0;
                     return (
                       <span
                         key={gi}
-                        className="inline-block transition-transform duration-200 ease-out will-change-transform"
+                        className="inline-block transition-transform duration-300 ease-out will-change-transform"
                         style={{
                           transform: move
                             ? `translate3d(${move}px, 0, 0)`

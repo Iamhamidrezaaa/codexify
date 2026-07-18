@@ -68,17 +68,17 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="pointer-events-none absolute bottom-7 right-5 z-10 text-right md:right-16">
-        <p className="text-[11px] tracking-[0.18em] text-muted/80">
+      {/* Thin seam fade only — must not cover flag red band or scroll label */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-16 bg-gradient-to-b from-transparent to-bg/80"
+      />
+
+      <div className="pointer-events-none absolute bottom-7 right-5 z-30 text-right md:right-16">
+        <p className="text-[11px] tracking-[0.18em] text-fg/55">
           SCROLL TO EXPLORE
         </p>
       </div>
-
-      {/* Soft fade into next section — no hard seam */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-40 bg-gradient-to-b from-transparent via-bg/55 to-bg"
-      />
     </section>
   );
 }
