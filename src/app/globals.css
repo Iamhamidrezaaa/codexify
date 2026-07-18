@@ -59,6 +59,11 @@ a {
   text-decoration: none;
 }
 
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
 .hero-title {
   font-size: clamp(3.25rem, 9.5vw, 8.75rem);
   line-height: 0.95;

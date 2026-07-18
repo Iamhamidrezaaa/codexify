@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CustomCursor } from "@/components/CustomCursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl" className="h-full antialiased">
-      <body className="min-h-full bg-bg font-sans text-fg">{children}</body>
+      <body className="min-h-full bg-bg font-sans text-fg">
+        <CustomCursor />
+        {children}
+      </body>
     </html>
   );
 }

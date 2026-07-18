@@ -7,6 +7,7 @@ export const NAV_LINKS = [
   { href: "#work", label: "نمونه‌کارها" },
   { href: "#about", label: "درباره" },
   { href: "#pricing", label: "قیمت" },
+  { href: "#insights", label: "اینسایت‌ها" },
   { href: "#contact", label: "تماس" },
 ] as const;
 
