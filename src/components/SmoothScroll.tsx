@@ -11,6 +11,9 @@ export function SmoothScroll() {
       touchMultiplier: 1.2,
     });
 
+    /* Allow programmatic scroll (anchors / tests) without fighting Lenis */
+    (window as Window & { __lenis?: Lenis }).__lenis = lenis;
+
     let raf = 0;
     const loop = (time: number) => {
       lenis.raf(time);
@@ -20,6 +23,7 @@ export function SmoothScroll() {
 
     return () => {
       cancelAnimationFrame(raf);
+      delete (window as Window & { __lenis?: Lenis }).__lenis;
       lenis.destroy();
     };
   }, []);

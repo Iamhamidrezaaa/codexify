@@ -5,7 +5,7 @@ import { Hero } from "@/components/home/Hero";
 import { Insights } from "@/components/home/Insights";
 import { Pricing } from "@/components/home/Pricing";
 import { ScrollScene } from "@/components/home/ScrollScene";
-import { Services } from "@/components/home/Services";
+import { ServicesReveal } from "@/components/home/ServicesReveal";
 import { Work } from "@/components/home/Work";
 
 export default function HomePage() {
@@ -14,7 +14,7 @@ export default function HomePage() {
       <Header />
       <Hero />
       <ScrollScene />
-      <Services />
+      <ServicesReveal />
       <Work />
       <About />
       <Pricing />
