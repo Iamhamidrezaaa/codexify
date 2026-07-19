@@ -20,23 +20,41 @@ export const SERVICES = [
     num: "01",
     title: "طراحی وبسایت",
     desc: "لندینگ، شرکتی، پورتفolio — با هویت و موشن اختصاصی",
+    slug: "web-design",
+    href: "/services/web-design",
+    card: "lime" as const,
   },
   {
     num: "02",
     title: "فروشگاه آنلاین",
     desc: "تجربه خرید روان، صفحه محصول قوی، مسیر تبدیل واضح",
+    slug: "ecommerce",
+    href: "/services/ecommerce",
+    card: "blue" as const,
   },
   {
     num: "03",
     title: "UI / UX",
     desc: "ساختار، جریان کاربر، و جزئیاتی که حس حرفه‌ای می‌دهد",
+    slug: "ui-ux",
+    href: "/services/ui-ux",
+    card: "cyan" as const,
   },
   {
     num: "04",
     title: "ریدیزاین",
     desc: "بازطراحی سایت فعلی برای سرعت، زیبایی و نتیجه بهتر",
+    slug: "redesign",
+    href: "/services/redesign",
+    card: "violet" as const,
   },
 ] as const;
+
+export type ServiceItem = (typeof SERVICES)[number];
+
+export function getServiceBySlug(slug: string) {
+  return SERVICES.find((s) => s.slug === slug);
+}
 
 export const PROJECTS = [
   {

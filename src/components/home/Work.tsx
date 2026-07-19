@@ -18,12 +18,16 @@ function WorkCard({
   progress: MotionValue<number>;
   index: number;
 }) {
-  /* آبشار زود تمام شود؛ بقیهٔ پین هولد پررنگ (بدون محو شدن) */
-  const start = 0.08 + index * 0.04;
-  const end = Math.min(start + 0.07, 0.38);
+  /* کارت اول از ابتدای پین پیدا؛ بقیه آبشار کوتاه بدون extrapolate منفی */
+  const start = 0.01 + index * 0.028;
+  const end = Math.min(start + 0.05, 0.24);
 
-  const opacity = useTransform(progress, [start, end], [0, 1]);
-  const y = useTransform(progress, [start, end], [80, 0]);
+  const opacity = useTransform(
+    progress,
+    [0, start, end],
+    [index === 0 ? 0.7 : 0, index === 0 ? 0.85 : 0, 1],
+  );
+  const y = useTransform(progress, [0, start, end], [28, 28, 0]);
 
   const inner = (
     <article className="group flex h-full flex-col rounded-2xl border border-line bg-card p-3.5 transition hover:border-lime/40 md:p-4">
@@ -72,12 +76,17 @@ export function Work() {
   const ref = useRef<HTMLElement>(null);
   const scrollYProgress = useLenisProgress(ref);
 
-  const titleOp = useTransform(scrollYProgress, [0.02, 0.1], [0, 1]);
-  const titleY = useTransform(scrollYProgress, [0.02, 0.1], [72, 0]);
+  /* از لحظهٔ پین دیده شود تا handoff مشکی نباشد */
+  const titleOp = useTransform(scrollYProgress, [0, 0.04], [0.85, 1]);
+  const titleY = useTransform(scrollYProgress, [0, 0.04], [24, 0]);
 
   return (
-    <section ref={ref} id="work" className="relative z-30 h-[420vh] bg-bg">
-      {/* بعد از آبشار (~۰٫۳۸) تا آخر پین پررنگ می‌ماند ≈ یک اسکرول اضافه */}
+    <section
+      ref={ref}
+      id="work"
+      className="relative z-30 -mt-[50dvh] h-[320vh] bg-bg"
+    >
+      {/* هم‌پوشانی فقط در خروج Services — وسط لیست خدمات را نمی‌دزدد */}
       <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-bg px-5 pt-[5.25rem] pb-4 md:px-16 md:pb-5 lg:px-20">
         <div className="mx-auto flex w-full max-w-[1360px] min-h-0 flex-1 flex-col">
           <motion.h2
