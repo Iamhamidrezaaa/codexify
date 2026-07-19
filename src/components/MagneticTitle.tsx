@@ -49,21 +49,33 @@ function isStickyLetter(ch: string) {
 }
 
 /**
- * Insert a single tatweel into the SAME string so Arabic shaping stays intact:
- * می + hover → مـی  (never م ـ ی)
+ * کشدیه فقط بین دو حرفی که واقعاً به هم می‌چسبند:
+ * می → مـی
+ * ا+ل (مثل دیجیتال) → هیچ ـای قبل از ل نگذار (ـل غلط است)
  */
 function withKashida(word: string, index: number): string {
   const chars = [...word];
   if (index < 0 || index >= chars.length || !isLetter(chars[index])) return word;
   if (isStickyLetter(chars[index])) return word;
 
+  const ch = chars[index]!;
   const next = chars[index + 1];
-  const atEnd = index === chars.length - 1 || next === " ";
-  const stretchAfter = !atEnd && joinsToNext(chars[index], next);
-  const insertAt = stretchAfter ? index + 1 : index;
+  const prev = index > 0 ? chars[index - 1] : undefined;
 
-  chars.splice(insertAt, 0, TATWEEL);
-  return chars.join("");
+  /* ترجیح: کشش به سمت حرف بعدی اگر به آن می‌چسبد */
+  if (next && isLetter(next) && joinsToNext(ch, next)) {
+    chars.splice(index + 1, 0, TATWEEL);
+    return chars.join("");
+  }
+
+  /* وگرنه: کشش از حرف قبلی اگر قبلی به این حرف می‌چسبد */
+  if (prev && isLetter(prev) && joinsToNext(prev, ch)) {
+    chars.splice(index, 0, TATWEEL);
+    return chars.join("");
+  }
+
+  /* جفتی مثل ا+ل: جای معتبر برای ـ نیست */
+  return word;
 }
 
 type Group = { text: string; start: number; sticky: boolean };
@@ -98,6 +110,9 @@ type Stretch = {
   open: boolean;
 };
 
+const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+const DUR = "480ms";
+
 export function MagneticTitle({
   lines,
   className = "",
@@ -113,7 +128,7 @@ export function MagneticTitle({
   const onLeave = useCallback(() => {
     setStretch((s) => (s ? { ...s, open: false } : null));
     if (leaveTimer.current) window.clearTimeout(leaveTimer.current);
-    leaveTimer.current = window.setTimeout(() => setStretch(null), 320);
+    leaveTimer.current = window.setTimeout(() => setStretch(null), 480);
   }, []);
 
   const onMove = useCallback((e: React.PointerEvent) => {
@@ -175,12 +190,15 @@ export function MagneticTitle({
                 stretch?.line === li && stretch.word === wi ? stretch : null;
               const hoverCh = hot ? [...token][hot.char] : null;
               const stickyHover = !!(hoverCh && isStickyLetter(hoverCh));
+              const kashidaForm =
+                hot && hot.open ? withKashida(token, hot.char) : token;
+              const canKashida = !!(hot?.open && kashidaForm !== token);
+              /* مثل ل بعد از ا: ـ نمی‌خورد، ولی باید از حرف پشتش فاصله بگیرد */
+              const gapFromPrev =
+                !!(hot?.open && !canKashida && !stickyHover && hot.char > 0);
 
-              if (!hot || !stickyHover) {
-                // One text node only — keeps مـی joined
-                const shown =
-                  hot && hot.open ? withKashida(token, hot.char) : token;
-
+              /* حروف متصل با جای معتبر برای کشدیه */
+              if (!hot || (canKashida && !stickyHover && !gapFromPrev)) {
                 return (
                   <span
                     key={`${li}-w-${ti}`}
@@ -188,17 +206,31 @@ export function MagneticTitle({
                     data-line={li}
                     data-wi={wi}
                     data-original={token}
-                    className={`inline-block whitespace-nowrap transition-[letter-spacing] duration-300 ease-out ${
-                      hot?.open ? "tracking-[0.01em]" : ""
-                    }`}
+                    className="inline-block whitespace-nowrap"
+                    style={{
+                      letterSpacing: hot?.open && canKashida ? "0.02em" : "0em",
+                      transition: `letter-spacing ${DUR} ${EASE}`,
+                    }}
                   >
-                    {shown}
+                    <span
+                      className="inline-block"
+                      style={{
+                        transform:
+                          hot?.open && canKashida ? "scaleX(1.02)" : "scaleX(1)",
+                        transformOrigin: "center",
+                        transition: `transform ${DUR} ${EASE}`,
+                      }}
+                    >
+                      {hot?.open && canKashida ? kashidaForm : token}
+                    </span>
                   </span>
                 );
               }
 
+              /* حروف جدا، یا جفت ا+ل: بدون ـ — گروه هاور از قبلی فاصله می‌گیرد */
               const groups = joinGroups(token);
-              const pull = -Math.sign(hot.dir || 0) * 12;
+              const pullDir = -Math.sign(hot.dir || -1);
+              const pull = pullDir * (stickyHover ? 12 : 16);
 
               return (
                 <span
@@ -213,15 +245,20 @@ export function MagneticTitle({
                     const inGroup =
                       hot.char >= g.start &&
                       hot.char < g.start + [...g.text].length;
-                    const move = g.sticky && inGroup && hot.open ? pull : 0;
+                    const shouldMove =
+                      hot.open &&
+                      inGroup &&
+                      (stickyHover ? g.sticky : gapFromPrev || g.sticky);
+                    const move = shouldMove ? pull : 0;
                     return (
                       <span
                         key={gi}
-                        className="inline-block transition-transform duration-300 ease-out will-change-transform"
+                        className="inline-block will-change-transform"
                         style={{
                           transform: move
                             ? `translate3d(${move}px, 0, 0)`
-                            : undefined,
+                            : "translate3d(0, 0, 0)",
+                          transition: `transform ${DUR} ${EASE}`,
                         }}
                       >
                         {g.text}

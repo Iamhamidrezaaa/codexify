@@ -54,9 +54,12 @@ body {
   color: var(--fg);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* داخل @layer base تا utilityهای text-* روی <a> بتوانند override کنند */
+@layer base {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
 }
 
 html.has-custom-cursor,

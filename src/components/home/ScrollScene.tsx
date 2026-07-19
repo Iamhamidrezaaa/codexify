@@ -101,13 +101,13 @@ function ShatterBand({
 
   const opacity = useTransform(
     progress,
-    [0.48, 0.52, 0.78, 0.9],
+    [0.48, 0.52, 0.7, 0.84],
     [0, 1, 1, 0],
   );
 
   const x = useTransform(
     progress,
-    [0.48, 0.56, 0.66, 0.78, 0.9],
+    [0.48, 0.56, 0.66, 0.74, 0.84],
     [
       base + band.jag * 0.25,
       base + band.jag * 0.7,
@@ -118,12 +118,12 @@ function ShatterBand({
   );
   const y = useTransform(
     progress,
-    [0.48, 0.56, 0.66, 0.78, 0.9],
+    [0.48, 0.56, 0.66, 0.74, 0.84],
     [0, index % 2 ? 4 : -3, 12 + index * 3, 80 + index * 22, 280 + index * 40],
   );
   const rotate = useTransform(
     progress,
-    [0.48, 0.58, 0.68, 0.82, 0.92],
+    [0.48, 0.58, 0.66, 0.76, 0.86],
     [0, tiltSign * 1.5, tiltSign * 5, dir * (8 + index * 1.2), dir * (14 + index * 2)],
   );
 
@@ -168,8 +168,7 @@ export function ScrollScene() {
   const REST = 168;
 
   /*
-   * Slow timeline (~3× scroll budget via section height):
-   * enter → long approach → hit → shake/flash → shatter → handoff
+   * enter → approach → hit → shake/flash → shatter → handoff به اسلاید ۳
    */
   const leftX = useTransform(
     scrollYProgress,
@@ -207,20 +206,20 @@ export function ScrollScene() {
 
   const tagOp = useTransform(
     scrollYProgress,
-    [0.5, 0.56, 0.7, 0.82],
+    [0.5, 0.56, 0.66, 0.78],
     [0, 1, 0.55, 0],
   );
   const tagY = useTransform(
     scrollYProgress,
-    [0.5, 0.64, 0.82],
+    [0.5, 0.62, 0.78],
     [0, 36, 100],
   );
 
-  /* Handoff to ServicesReveal */
-  const sceneFade = useTransform(scrollYProgress, [0.88, 0.97], [1, 0]);
+  /* هم‌پوشانی با ServicesReveal — بدون فاصلهٔ مشکی خالی */
+  const sceneFade = useTransform(scrollYProgress, [0.78, 0.9], [1, 0]);
 
   return (
-    <section ref={ref} className="relative z-10 h-[720vh] bg-bg">
+    <section ref={ref} className="relative z-10 h-[400vh] bg-bg">
       <motion.div
         style={{ x: shakeX, y: shakeY, opacity: sceneFade }}
         className="sticky top-0 flex h-dvh items-center justify-center overflow-hidden bg-bg"

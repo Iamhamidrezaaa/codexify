@@ -55,7 +55,7 @@ export function Header() {
               <a
                 key={l.href}
                 href={l.href}
-                className="whitespace-nowrap text-[12px] text-white/55 transition hover:text-white lg:text-[13px]"
+                className="whitespace-nowrap text-[12px] text-white/55 transition-colors duration-200 hover:text-lime lg:text-[13px]"
               >
                 {l.label}
               </a>
@@ -67,7 +67,7 @@ export function Header() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full bg-lime px-3.5 py-2 text-[13px] font-semibold text-black transition hover:brightness-110 md:px-4"
+              className="inline-flex items-center gap-1.5 rounded-full bg-lime px-3.5 py-2 text-[13px] font-semibold text-lime-ink transition duration-200 hover:bg-white hover:text-lime-ink md:px-4"
             >
               ارتباط با ما
               <span aria-hidden>↗</span>
@@ -110,7 +110,7 @@ export function Header() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="text-3xl font-semibold text-white"
+                  className="text-3xl font-semibold text-white transition-colors duration-200 hover:text-lime"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}

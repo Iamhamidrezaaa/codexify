@@ -20,8 +20,10 @@ const MARQUEE = [
   "هویت بصری",
 ] as const;
 
-/** دقیقاً زیر هدر شناور — نه زیر منو */
-const MARQUEE_DOCK = "6.75rem";
+/** همیشه زیر هدر شناور — بدون اسکرول به پشت هدر */
+const MARQUEE_DOCK = "5.75rem";
+/** سرویس‌ها دقیقاً زیر نوار مارکی */
+const SERVICES_BELOW_MARQUEE = "10.25rem";
 
 function ServiceRow({
   progress,
@@ -32,24 +34,12 @@ function ServiceRow({
   index: number;
   item: (typeof SERVICES)[number];
 }) {
-  const starts = [0.5, 0.58, 0.72, 0.82] as const;
-  const exits = [0.68, 0.76, 0.88, 0.94] as const;
-  const start = starts[index] ?? 0.9;
-  const exit = exits[index] ?? 0.94;
-  /* offsetها باید داخل [0, 1] باشند — وگرنه WAAPI کرش می‌کند */
-  const enterEnd = Math.min(start + 0.05, exit - 0.02);
-  const fadeEnd = Math.min(exit + 0.04, 1);
+  const starts = [0.28, 0.36, 0.44, 0.52] as const;
+  const start = starts[index] ?? 0.52;
+  const enterEnd = Math.min(start + 0.05, 0.99);
 
-  const opacity = useTransform(
-    progress,
-    [start, enterEnd, exit, fadeEnd],
-    [0, 1, 1, 0],
-  );
-  const y = useTransform(
-    progress,
-    [start, enterEnd, exit, fadeEnd],
-    [40, 0, 0, -28],
-  );
+  const opacity = useTransform(progress, [start, enterEnd], [0, 1]);
+  const y = useTransform(progress, [start, enterEnd], [36, 0]);
 
   return (
     <motion.li
@@ -72,11 +62,11 @@ function ServiceRow({
 }
 
 /**
- * 0.00–0.14  فقط مارکی (وسط)
- * 0.12–0.22  جمله زیر مارکی
- * 0.22–0.36  مارکی می‌چسبد زیر هدر
- * 0.36–0.46  جمله محو
- * 0.46+      طراحی وب (بدون Services)، متن سفید، خروج با محو
+ * بدون فاز «مارکی + صفحه سیاه»:
+ * 0.00–0.22  مارکی زیر هدر + جملهٔ pitch
+ * 0.18–0.30  pitch محو / لیست خدمات وارد (هم‌پوشان)
+ * 0.28–0.60  ردیف‌های ۰۱→۰۴
+ * 0.78–0.92  خروج به Work
  */
 export function ServicesReveal() {
   const ref = useRef<HTMLElement>(null);
@@ -85,41 +75,35 @@ export function ServicesReveal() {
     offset: ["start start", "end end"],
   });
 
-  const marqueeY = useTransform(
-    scrollYProgress,
-    [0, 0.14, 0.34, 1],
-    ["38vh", "38vh", "0vh", "0vh"],
-  );
   const marqueeOp = useTransform(
     scrollYProgress,
-    [0, 0.04, 0.68, 0.76],
+    [0, 0.02, 0.78, 0.88],
     [1, 1, 1, 0],
+  );
+  const marqueeX = useTransform(
+    scrollYProgress,
+    [0, 0.6, 1],
+    ["-33.333%", "0%", "0%"],
   );
 
   const pitchOp = useTransform(
     scrollYProgress,
-    [0, 0.12, 0.18, 0.36, 0.44],
-    [0, 0, 1, 1, 0],
+    [0, 0.04, 0.18, 0.28],
+    [0, 1, 1, 0],
   );
-  const pitchY = useTransform(
-    scrollYProgress,
-    [0.12, 0.2, 0.36, 0.44],
-    [28, 0, -24, -40],
-  );
-  const pitchVisibility = useTransform(scrollYProgress, (p) =>
-    p >= 0.45 || p < 0.1 ? "hidden" : "visible",
-  );
-  const cueOp = useTransform(scrollYProgress, [0.14, 0.2, 0.28], [0, 1, 0]);
+  const pitchY = useTransform(scrollYProgress, [0, 0.06, 0.28], [20, 0, -28]);
+  const cueOp = useTransform(scrollYProgress, [0.02, 0.08, 0.16], [0, 1, 0]);
 
+  /* ورود خدمات قبل از محو کامل pitch — بدون گپ مشکی */
   const servicesOp = useTransform(
     scrollYProgress,
-    [0.46, 0.54, 0.92, 1],
+    [0.2, 0.28, 0.78, 0.9],
     [0, 1, 1, 0],
   );
   const servicesY = useTransform(
     scrollYProgress,
-    [0.46, 0.54, 0.92, 1],
-    [56, 0, 0, -32],
+    [0.2, 0.28, 0.78, 0.9],
+    [40, 0, 0, -20],
   );
 
   const list = [...MARQUEE, ...MARQUEE, ...MARQUEE];
@@ -128,18 +112,20 @@ export function ServicesReveal() {
     <section
       ref={ref}
       id="services"
-      className="relative z-20 -mt-[80dvh] h-[520vh] bg-bg"
+      className="relative z-20 -mt-[130dvh] h-[340vh] bg-bg"
     >
       <div className="sticky top-0 h-dvh overflow-hidden bg-bg">
         <motion.div
           style={{
             top: MARQUEE_DOCK,
-            y: marqueeY,
             opacity: marqueeOp,
           }}
           className="pointer-events-none absolute inset-x-0 z-30 overflow-hidden border-y border-white/10 bg-bg py-3.5 md:py-4"
         >
-          <div className="marquee-track flex w-max gap-8 whitespace-nowrap">
+          <motion.div
+            style={{ x: marqueeX }}
+            className="flex w-max gap-8 whitespace-nowrap will-change-transform"
+          >
             {list.map((item, i) => (
               <span
                 key={`${item}-${i}`}
@@ -151,16 +137,12 @@ export function ServicesReveal() {
                 </span>
               </span>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
-          style={{
-            y: pitchY,
-            opacity: pitchOp,
-            visibility: pitchVisibility,
-          }}
-          className="pointer-events-none absolute inset-x-0 top-[52%] z-10 flex flex-col items-center px-6 text-center md:top-[54%] md:px-16"
+          style={{ y: pitchY, opacity: pitchOp }}
+          className="pointer-events-none absolute inset-x-0 top-[42%] z-10 flex flex-col items-center px-6 text-center md:top-[44%] md:px-16"
         >
           <motion.div
             style={{ opacity: cueOp }}
@@ -181,8 +163,12 @@ export function ServicesReveal() {
         </motion.div>
 
         <motion.div
-          style={{ y: servicesY, opacity: servicesOp }}
-          className="absolute inset-x-0 top-[18%] z-20 bg-bg px-5 md:top-[16%] md:px-16 lg:px-20"
+          style={{
+            top: SERVICES_BELOW_MARQUEE,
+            y: servicesY,
+            opacity: servicesOp,
+          }}
+          className="absolute inset-x-0 bottom-0 z-20 overflow-y-auto bg-bg px-5 pb-10 md:px-16 lg:px-20"
         >
           <div className="mx-auto max-w-[1360px]">
             <div className="max-w-2xl text-right md:mr-0 md:ml-auto">

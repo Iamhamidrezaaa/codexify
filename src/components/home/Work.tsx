@@ -1,51 +1,102 @@
+"use client";
+
+import {
+  motion,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import { useRef } from "react";
+import { useLenisProgress } from "@/hooks/useLenisProgress";
 import { PROJECTS } from "@/lib/constants";
 
-export function Work() {
+function WorkCard({
+  project,
+  progress,
+  index,
+}: {
+  project: (typeof PROJECTS)[number];
+  progress: MotionValue<number>;
+  index: number;
+}) {
+  /* آبشار زود تمام شود؛ بقیهٔ پین هولد پررنگ (بدون محو شدن) */
+  const start = 0.08 + index * 0.04;
+  const end = Math.min(start + 0.07, 0.38);
+
+  const opacity = useTransform(progress, [start, end], [0, 1]);
+  const y = useTransform(progress, [start, end], [80, 0]);
+
+  const inner = (
+    <article className="group flex h-full flex-col rounded-2xl border border-line bg-card p-3.5 transition hover:border-lime/40 md:p-4">
+      <div className="relative mb-2.5 h-14 overflow-hidden rounded-lg bg-[#141614] md:h-16">
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-lime" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,color-mix(in_srgb,var(--lime)_18%,transparent),transparent_55%)]" />
+      </div>
+      <p className="text-[11px] font-medium text-lime">{project.tag}</p>
+      <h3 className="mt-0.5 text-lg font-bold text-white md:text-xl">
+        {project.name}
+      </h3>
+      <p className="mt-0.5 text-xs text-white/70 md:text-sm" dir="ltr">
+        {project.host}
+        {!project.live && (
+          <span className="mr-2 text-[10px] text-white/45">(فعلاً آفلاین)</span>
+        )}
+      </p>
+    </article>
+  );
+
   return (
-    <section id="work" className="bg-bg px-5 py-24 md:px-16 lg:px-20">
-      <div className="mx-auto max-w-[1360px]">
-        <p className="text-sm text-muted">( Selected work )</p>
-        <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-fg md:text-5xl">
-          اثبات، نه وعده
-        </h2>
+    <motion.div
+      style={{ opacity, y }}
+      className={project.live ? "h-full" : "h-full opacity-80"}
+    >
+      {project.live ? (
+        <a
+          href={project.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block h-full"
+        >
+          {inner}
+        </a>
+      ) : (
+        inner
+      )}
+    </motion.div>
+  );
+}
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {PROJECTS.map((project) => {
-            const Card = (
-              <article className="group flex h-full flex-col rounded-[20px] border border-line bg-card p-5 transition hover:border-lime/40">
-                <div className="relative mb-4 h-28 overflow-hidden rounded-xl bg-[#141614]">
-                  <div className="absolute inset-x-0 top-0 h-[3px] bg-lime" />
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,color-mix(in_srgb,var(--lime)_18%,transparent),transparent_55%)]" />
-                </div>
-                <p className="text-xs font-medium text-lime">{project.tag}</p>
-                <h3 className="mt-1 text-xl font-bold text-fg">{project.name}</h3>
-                <p className="mt-1 text-sm text-muted" dir="ltr">
-                  {project.host}
-                  {!project.live && (
-                    <span className="mr-2 text-[11px] text-muted/70">
-                      (فعلاً آفلاین)
-                    </span>
-                  )}
-                </p>
-              </article>
-            );
+/**
+ * تیتر + ۶ کارت فشرده تا در یک ویوپورت جا شوند.
+ */
+export function Work() {
+  const ref = useRef<HTMLElement>(null);
+  const scrollYProgress = useLenisProgress(ref);
 
-            return project.live ? (
-              <a
+  const titleOp = useTransform(scrollYProgress, [0.02, 0.1], [0, 1]);
+  const titleY = useTransform(scrollYProgress, [0.02, 0.1], [72, 0]);
+
+  return (
+    <section ref={ref} id="work" className="relative z-30 h-[420vh] bg-bg">
+      {/* بعد از آبشار (~۰٫۳۸) تا آخر پین پررنگ می‌ماند ≈ یک اسکرول اضافه */}
+      <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-bg px-5 pt-[5.25rem] pb-4 md:px-16 md:pb-5 lg:px-20">
+        <div className="mx-auto flex w-full max-w-[1360px] min-h-0 flex-1 flex-col">
+          <motion.h2
+            style={{ opacity: titleOp, y: titleY }}
+            className="shrink-0 text-2xl font-extrabold tracking-tight text-white md:text-4xl"
+          >
+            اثبات، نه وعده
+          </motion.h2>
+
+          <div className="mt-4 grid min-h-0 flex-1 grid-rows-2 content-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3 md:mt-5 md:gap-3.5">
+            {PROJECTS.map((project, i) => (
+              <WorkCard
                 key={project.host}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block h-full"
-              >
-                {Card}
-              </a>
-            ) : (
-              <div key={project.host} className="h-full opacity-80">
-                {Card}
-              </div>
-            );
-          })}
+                project={project}
+                progress={scrollYProgress}
+                index={i}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
