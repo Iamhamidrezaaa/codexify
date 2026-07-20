@@ -11,8 +11,6 @@ export const NAV_LINKS = [
   { href: "#services", label: "خدمات" },
   { href: "#work", label: "نمونه‌کارها" },
   { href: "#about", label: "درباره" },
-  { href: "#pricing", label: "قیمت" },
-  { href: "#insights", label: "اینسایت‌ها" },
 ] as const;
 
 export const SERVICES = [
