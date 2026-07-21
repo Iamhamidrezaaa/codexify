@@ -144,9 +144,14 @@ export function About() {
   return (
     <section
       ref={ref}
-      id="about"
-      className="relative z-20 -mt-[120dvh] h-[460vh] bg-bg"
+      className="relative z-20 -mt-[70dvh] h-[460vh] bg-bg"
     >
+      {/* لنگر منو — همهٔ مراحل مسیر اجرا سفید و کامل */}
+      <div
+        id="about"
+        className="pointer-events-none absolute inset-x-0 top-[78%] h-px"
+        aria-hidden
+      />
       <div className="sticky top-0 flex h-dvh items-stretch overflow-hidden bg-bg pt-[4.75rem]">
         <div className="mx-auto grid h-full w-full max-w-[1400px] grid-cols-1 lg:grid-cols-2">
           <motion.div
@@ -166,10 +171,9 @@ export function About() {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-lime px-5 py-3 text-sm font-bold text-lime-ink transition hover:bg-white"
+                className="inline-flex items-center rounded-full bg-lime px-5 py-3 text-sm font-bold text-lime-ink transition hover:bg-white"
               >
-                گفتگو کنیم
-                <span aria-hidden>↗</span>
+                برآورد هزینه
               </a>
             </div>
           </motion.div>

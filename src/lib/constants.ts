@@ -10,7 +10,8 @@ export const WHATSAPP_DISPLAY = "۰۹۱۰۱۹۶۲۰۲۶";
 export const NAV_LINKS = [
   { href: "#services", label: "خدمات" },
   { href: "#work", label: "نمونه‌کارها" },
-  { href: "#about", label: "درباره" },
+  { href: "#about", label: "مسیر اجرا" },
+  { href: "#contact", label: "ارتباط با ما" },
 ] as const;
 
 export const SERVICES = [

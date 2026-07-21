@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { NAV_LINKS, WHATSAPP_URL } from "@/lib/constants";
+import { NAV_LINKS } from "@/lib/constants";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -46,14 +46,14 @@ export function Header() {
 
           {/* Bookmarks stay in the pill bar (Navbar Digital) — hamburger only on very small screens */}
           <nav
-            className="hidden min-[720px]:flex items-center gap-4 lg:gap-7"
+            className="hidden min-[720px]:flex items-center gap-8 lg:gap-12"
             aria-label="اصلی"
           >
             {NAV_LINKS.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className="whitespace-nowrap text-[12px] text-white/55 transition-colors duration-200 hover:text-lime lg:text-[13px]"
+                className="origin-center whitespace-nowrap text-[14px] font-bold text-white/60 transition duration-200 hover:scale-110 hover:text-lime lg:text-[15px]"
               >
                 {l.label}
               </a>
@@ -62,13 +62,18 @@ export function Header() {
 
           <div className="flex items-center gap-2">
             <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noreferrer"
+              href="tel:+989101962026"
               className="inline-flex items-center gap-1.5 rounded-full bg-lime px-3.5 py-2 text-[13px] font-semibold text-lime-ink transition duration-200 hover:bg-white hover:text-lime-ink md:px-4"
             >
-              پیام بده
-              <span aria-hidden>↗</span>
+              <svg
+                className="size-[1.05em] shrink-0 -scale-x-100 -rotate-[15deg]"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden
+              >
+                <path d="M6.62 10.79a15.15 15.15 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.4 21 3 13.6 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.02l-2.2 2.19z" />
+              </svg>
+              تماس با ما
             </a>
 
             <button
@@ -108,7 +113,7 @@ export function Header() {
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="text-3xl font-semibold text-white transition-colors duration-200 hover:text-lime"
+                  className="origin-right text-3xl font-bold text-white transition duration-200 hover:scale-105 hover:text-lime"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05 }}

@@ -15,7 +15,9 @@ export function ScrollHint() {
   useEffect(() => {
     const contact = document.getElementById("contact");
     const story = document.getElementById("scene");
-    const services = document.getElementById("services");
+    const servicesAnchor = document.getElementById("services");
+    const services =
+      servicesAnchor?.closest("section") ?? servicesAnchor;
 
     const measure = () => {
       const vh = window.innerHeight;

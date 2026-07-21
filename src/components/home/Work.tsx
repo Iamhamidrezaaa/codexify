@@ -82,9 +82,14 @@ export function Work() {
   return (
     <section
       ref={ref}
-      id="work"
-      className="relative z-30 -mt-[50dvh] h-[320vh] bg-bg"
+      className="relative z-30 -mt-[50dvh] h-[180vh] bg-bg"
     >
+      {/* لنگر منو — گرید نمونه‌کارها کامل دیده شود */}
+      <div
+        id="work"
+        className="pointer-events-none absolute inset-x-0 top-[30%] h-px"
+        aria-hidden
+      />
       {/* هم‌پوشانی فقط در خروج Services — وسط لیست خدمات را نمی‌دزدد */}
       <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-bg px-5 pt-[5.25rem] pb-10 md:px-16 md:pb-12 lg:px-20">
         <div className="mx-auto flex w-full max-w-[1360px] min-h-0 flex-1 flex-col">

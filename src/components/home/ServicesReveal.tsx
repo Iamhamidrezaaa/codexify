@@ -172,9 +172,14 @@ export function ServicesReveal() {
   return (
     <section
       ref={ref}
-      id="services"
       className="relative z-20 -mt-[130dvh] h-[400vh] bg-bg"
     >
+      {/* لنگر منو — همهٔ ردیف‌های خدمات کامل و سفید */}
+      <div
+        id="services"
+        className="pointer-events-none absolute inset-x-0 top-[56%] h-px"
+        aria-hidden
+      />
       <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-bg">
         {/* مارکی: بالا می‌آید + متن تا وسط حرکت می‌کند و قفل می‌شود */}
         <motion.div
