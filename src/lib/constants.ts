@@ -17,7 +17,7 @@ export const SERVICES = [
   {
     num: "01",
     title: "طراحی وبسایت",
-    desc: "لندینگ، شرکتی، پورتفolio — با هویت و موشن اختصاصی",
+    desc: "لندینگ و سایت شرکتی — تمیز، سریع، با مسیر مشخص تا تماس یا خرید",
     slug: "web-design",
     href: "/services/web-design",
     card: "lime" as const,
@@ -25,7 +25,7 @@ export const SERVICES = [
   {
     num: "02",
     title: "فروشگاه آنلاین",
-    desc: "تجربه خرید روان، صفحه محصول قوی، مسیر تبدیل واضح",
+    desc: "صفحه محصول قوی، سبد خرید روان، تسویه بدون دردسر",
     slug: "ecommerce",
     href: "/services/ecommerce",
     card: "blue" as const,
@@ -33,7 +33,7 @@ export const SERVICES = [
   {
     num: "03",
     title: "UI / UX",
-    desc: "ساختار، جریان کاربر، و جزئیاتی که حس حرفه‌ای می‌دهد",
+    desc: "ساختار و جریان کاربر را قبل از ساخت مشخص می‌کنیم",
     slug: "ui-ux",
     href: "/services/ui-ux",
     card: "cyan" as const,
@@ -41,7 +41,7 @@ export const SERVICES = [
   {
     num: "04",
     title: "ریدیزاین",
-    desc: "بازطراحی سایت فعلی برای سرعت، زیبایی و نتیجه بهتر",
+    desc: "سایت فعلی را سریع‌تر، واضح‌تر و قابل‌فروش‌تر می‌کنیم",
     slug: "redesign",
     href: "/services/redesign",
     card: "violet" as const,

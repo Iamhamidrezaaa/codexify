@@ -37,13 +37,13 @@ export default async function ServicePage({
               rel="noreferrer"
               className="inline-flex rounded-full bg-lime px-6 py-3.5 text-sm font-bold text-lime-ink transition hover:bg-white"
             >
-              شروع پروژه
+              شروع کنیم
             </a>
             <Link
               href="/#services"
               className="inline-flex rounded-full border border-line px-6 py-3.5 text-sm font-medium text-white transition hover:border-lime hover:text-lime"
             >
-              بازگشت به خدمات
+              همه خدمات
             </Link>
           </div>
         </div>

@@ -5,9 +5,9 @@ import "lenis/dist/lenis.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Codexify | طراحی وبسایت",
+  title: "Codexify | طراحی و توسعه وب",
   description:
-    "طراحی وبسایت با تمرکز روی تجربه کاربری، موشن و جزئیاتی که مشتری را متقاعد می‌کند سفارش بدهد.",
+    "استودیوی طراحی وبسایت‌های سریع و درآمدزا برای کسب‌وکارها.",
 };
 
 export default function RootLayout({

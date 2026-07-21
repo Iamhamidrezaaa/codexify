@@ -19,14 +19,14 @@ const MARQUEE_DOCK = "5.75rem";
 const SERVICES_BELOW_MARQUEE = "9.5rem";
 
 const MARQUEE = [
-  "طراحی اختصاصی",
+  "طراحی سفارشی",
   "UI / UX",
   "هویت بصری",
   "برندینگ",
-  "فروش بیشتر",
-  "سئو تکنیکال",
-  "سرعت بالا",
-  "ریسپانسیو",
+  "مسیر فروش",
+  "سئو فنی",
+  "لود سریع",
+  "موبایل‌فرست",
   "پنل مدیریت",
   "پشتیبانی",
 ] as const;
@@ -238,11 +238,11 @@ export function ServicesReveal() {
           <div className="mx-auto flex w-full max-w-[1360px] flex-col">
             <div className="max-w-2xl shrink-0 text-right md:mr-0 md:ml-auto">
               <h2 className="font-sans text-2xl font-extrabold tracking-tight text-white md:text-3xl lg:text-4xl">
-                طراحی وب، از ایده تا تجربه
+                از ایده تا سایت آماده
               </h2>
               <p className="mt-2 font-sans text-sm leading-6 text-white/80 md:text-base md:leading-7">
-                فقط طراحی سایت — بدون شلوغی آژانس. تمرکز روی محصولی که دیده شود و
-                بفروشد.
+                با استفاده از تیمی خلاق و با تجربه سایتی برای شما طراحی می‌کنیم که
+                فروش آنلاین شما رو تضمین کند.
               </p>
             </div>
 

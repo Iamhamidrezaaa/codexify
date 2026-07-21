@@ -67,7 +67,7 @@ export function Header() {
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 rounded-full bg-lime px-3.5 py-2 text-[13px] font-semibold text-lime-ink transition duration-200 hover:bg-white hover:text-lime-ink md:px-4"
             >
-              ارتباط با ما
+              پیام بده
               <span aria-hidden>↗</span>
             </a>
 

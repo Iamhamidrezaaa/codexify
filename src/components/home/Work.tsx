@@ -42,7 +42,7 @@ function WorkCard({
       <p className="mt-0.5 text-xs text-white/70 md:text-sm" dir="ltr">
         {project.host}
         {!project.live && (
-          <span className="mr-2 text-[10px] text-white/45">(فعلاً آفلاین)</span>
+          <span className="mr-2 text-[10px] text-white/45">(آفلاین)</span>
         )}
       </p>
     </article>

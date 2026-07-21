@@ -7,13 +7,13 @@ export function Services() {
       className="relative bg-bg px-5 pt-8 pb-24 md:px-16 md:pt-12 lg:px-20"
     >
       <div className="mx-auto max-w-[1360px]">
-        <p className="text-sm text-muted">( Services )</p>
+        <p className="text-sm text-muted">( خدمات )</p>
         <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-fg md:text-5xl">
-          طراحی وب، از ایده تا تجربه
+          از ایده تا سایت آماده
         </h2>
         <p className="mt-4 max-w-2xl text-base leading-8 text-muted">
-          فقط طراحی سایت — بدون شلوغی آژانس. تمرکز روی محصولی که دیده شود و
-          بفروشد.
+          با استفاده از تیمی خلاق و با تجربه سایتی برای شما طراحی می‌کنیم که فروش
+          آنلاین شما رو تضمین کند.
         </p>
 
         <ul className="mt-14 divide-y divide-line border-y border-line">

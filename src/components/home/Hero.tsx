@@ -36,7 +36,7 @@ export function Hero() {
             className="mb-6 flex items-center gap-2.5 rounded-full border border-line bg-card px-3.5 py-2 text-xs text-fg md:mb-8 md:text-[13px]"
           >
             <span className="size-2 shrink-0 rounded-full bg-lime shadow-[0_0_10px_var(--lime)]" />
-            طراح وبسایت — مخاطب فارسی‌زبان
+            استودیوی طراحی و توسعه وب
           </motion.div>
 
           <motion.div
@@ -62,8 +62,8 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="mt-8 w-full text-right text-[15px] leading-8 text-muted md:mt-10 md:whitespace-nowrap md:text-base lg:text-[17px]"
           >
-            طراحی وبسایت با تمرکز روی تجربه کاربری، موشن و جزئیاتی که مشتری را
-            متقاعد می‌کند سفارش بدهد.
+            طراحی سایت‌های سریع و تمیز برای کسب‌وکارهایی که می‌خواهند فروش آنلاین
+            داشته باشند.
           </motion.p>
         </div>
       </div>

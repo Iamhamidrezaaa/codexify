@@ -19,7 +19,7 @@ export default function HomePage() {
       <About />
       <Contact />
       <footer className="border-t border-line px-5 py-8 text-center text-sm text-muted md:px-16">
-        © {new Date().getFullYear()} Codexify — طراحی وبسایت
+        © کدکسیفای {new Date().getFullYear()}. تمامی حقوق محفوظ است.
       </footer>
     </main>
   );

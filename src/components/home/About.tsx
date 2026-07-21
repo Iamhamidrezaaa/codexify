@@ -15,23 +15,23 @@ import { WHATSAPP_URL } from "@/lib/constants";
 const APPROACH_STEPS = [
   {
     num: "01",
-    title: "اول استراتژی",
-    desc: "از هدف کسب‌وکارت شروع می‌کنم، نه از قالب آماده. هر تصمیم به عددی برمی‌گردد که واقعاً مهم است.",
+    title: "از هدف شروع می‌کنیم",
+    desc: "قبل از طراحی، مشخص می‌کنیم سایت قرار است چه کاری انجام دهد؛ فروش بیشتر، جذب مشتری یا ساختن اعتبار.",
   },
   {
     num: "02",
-    title: "طراحی‌شده برای تبدیل",
-    desc: "زیبایی حداقلی است که باید باشد. تجربه‌ای می‌سازم که توجه را به اقدام تبدیل کند و بازدیدکننده را به مشتری.",
+    title: "طراحی که مسیر را ساده می‌کند",
+    desc: "کاربر نباید دنبال دکمه بگردد یا سردرگم شود. هر صفحه برای یک تصمیم مشخص طراحی می‌شود.",
   },
   {
     num: "03",
-    title: "ساخته‌شده برای ماندن",
-    desc: "کد سریع، دسترس‌پذیر و قابل‌نگهداری روی فریم‌ورک‌های مدرن — تا سرمایه‌ات سال‌ها کار کند.",
+    title: "زیرساختی که روی آن می‌شود حساب کرد",
+    desc: "کدنویسی تمیز، سرعت بالا و ساختاری که توسعه و نگهداری آن در آینده دردسرساز نباشد.",
   },
   {
     num: "04",
-    title: "همیشه در حال بهینه‌سازی",
-    desc: "لانچ فقط خط شروع است. تست، اندازه‌گیری و اصلاح می‌کنم تا نتیجه ماه‌به‌ماه رشد کند.",
+    title: "تحویل، پایان کار نیست",
+    desc: "بعد از انتشار، رفتار کاربران را بررسی می‌کنیم، مشکلات را برطرف می‌کنیم و سایت را مرحله‌به‌مرحله بهتر می‌کنیم.",
   },
 ] as const;
 
@@ -151,16 +151,16 @@ export function About() {
         <div className="mx-auto grid h-full w-full max-w-[1400px] grid-cols-1 lg:grid-cols-2">
           <motion.div
             style={{ opacity: rightOp, y: rightY }}
-            className="flex flex-col justify-center px-5 py-6 text-right md:px-12 lg:px-16 lg:py-10"
+            className="flex h-full flex-col justify-center px-5 py-6 text-right md:px-12 lg:px-16 lg:py-10"
           >
-            <h2 className="max-w-xl text-3xl font-extrabold tracking-tight text-fg md:text-4xl lg:text-5xl">
-              Codexify یعنی طراحی وب که خودش مدرک مهارته.
+            <h2 className="max-w-xl text-right font-extrabold tracking-tight">
+              <span className="text-2xl text-lime md:text-3xl lg:text-4xl">
+                کدکسیفای؛
+              </span>{" "}
+              <span className="text-[1.35rem] leading-snug text-fg md:text-[1.65rem] md:leading-snug lg:text-[2rem] lg:leading-[1.35]">
+                طراحی وب، برای کسب‌وکارهایی که رشد را جدی گرفته‌اند.
+              </span>
             </h2>
-            <p className="mt-5 max-w-lg text-base leading-8 text-muted">
-              من آژانس نیستم. طراح وبسایت‌ام — و سایتی که می‌بینی همان چیزی است که
-              برای کسب‌وکار تو هم می‌سازم: دقیق، با موشن معنادار، و متمرکز روی تبدیل
-              بازدیدکننده به مشتری.
-            </p>
             <div className="mt-7">
               <a
                 href={WHATSAPP_URL}
@@ -168,7 +168,7 @@ export function About() {
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-full bg-lime px-5 py-3 text-sm font-bold text-lime-ink transition hover:bg-white"
               >
-                دربارهٔ همکاری
+                گفتگو کنیم
                 <span aria-hidden>↗</span>
               </a>
             </div>

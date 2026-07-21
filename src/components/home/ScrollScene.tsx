@@ -11,7 +11,7 @@ import { useRef } from "react";
 /** RTL: بسازیم (lime, left) · بیا (white, right) */
 const WORD_LEFT = "بسازیم";
 const WORD_RIGHT = "بیا";
-const TAGLINE = "( جایی که ایده به اجرا می‌رسد )";
+const TAGLINE = "( از ایده تا اجرا )";
 /* Shared timeline (progress 0 = slide 2 fully pinned) */
 
 const titleClass =
