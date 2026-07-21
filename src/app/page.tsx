@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header";
+import { ScrollHint } from "@/components/ScrollHint";
 import { About } from "@/components/home/About";
 import { Contact } from "@/components/home/Contact";
 import { Hero } from "@/components/home/Hero";
@@ -10,6 +11,7 @@ export default function HomePage() {
   return (
     <main>
       <Header />
+      <ScrollHint />
       <Hero />
       <ScrollScene />
       <ServicesReveal />

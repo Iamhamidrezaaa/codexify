@@ -31,7 +31,7 @@ function WorkCard({
 
   const inner = (
     <article className="group flex h-full flex-col rounded-2xl border border-line bg-card p-3.5 transition hover:border-lime/40 md:p-4">
-      <div className="relative mb-2.5 h-14 overflow-hidden rounded-lg bg-[#141614] md:h-16">
+      <div className="relative mb-2.5 h-12 overflow-hidden rounded-lg bg-[#141614] md:h-14">
         <div className="absolute inset-x-0 top-0 h-[2px] bg-lime" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,color-mix(in_srgb,var(--lime)_18%,transparent),transparent_55%)]" />
       </div>
@@ -70,7 +70,7 @@ function WorkCard({
 }
 
 /**
- * تیتر + ۶ کارت فشرده تا در یک ویوپورت جا شوند.
+ * تیتر + ۶ کارت — تقریباً سایز قبلی؛ فقط کمی فضای پایین برای فلش اسکرول.
  */
 export function Work() {
   const ref = useRef<HTMLElement>(null);
@@ -78,7 +78,6 @@ export function Work() {
 
   /* از لحظهٔ پین دیده شود تا handoff مشکی نباشد */
   const titleOp = useTransform(scrollYProgress, [0, 0.04], [0.85, 1]);
-  const titleY = useTransform(scrollYProgress, [0, 0.04], [24, 0]);
 
   return (
     <section
@@ -87,16 +86,19 @@ export function Work() {
       className="relative z-30 -mt-[50dvh] h-[320vh] bg-bg"
     >
       {/* هم‌پوشانی فقط در خروج Services — وسط لیست خدمات را نمی‌دزدد */}
-      <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-bg px-5 pt-[5.25rem] pb-4 md:px-16 md:pb-5 lg:px-20">
+      <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-bg px-5 pt-[5.25rem] pb-10 md:px-16 md:pb-12 lg:px-20">
         <div className="mx-auto flex w-full max-w-[1360px] min-h-0 flex-1 flex-col">
-          <motion.h2
-            style={{ opacity: titleOp, y: titleY }}
-            className="shrink-0 text-2xl font-extrabold tracking-tight text-white md:text-4xl"
-          >
-            اثبات، نه وعده
-          </motion.h2>
+          {/* نوار بین هدر و گرید — تیتر وسط عمودی همین فاصله */}
+          <div className="flex h-[5.5rem] shrink-0 items-center md:h-[6.25rem]">
+            <motion.h2
+              style={{ opacity: titleOp }}
+              className="text-2xl font-extrabold tracking-tight text-white md:text-4xl"
+            >
+              نمونه‌کارها
+            </motion.h2>
+          </div>
 
-          <div className="mt-4 grid min-h-0 flex-1 grid-rows-2 content-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3 md:mt-5 md:gap-3.5">
+          <div className="grid min-h-0 flex-1 grid-rows-2 content-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3 md:gap-3.5">
             {PROJECTS.map((project, i) => (
               <WorkCard
                 key={project.host}

@@ -134,3 +134,42 @@ html.has-custom-cursor * {
     animation: none;
   }
 }
+
+@keyframes scroll-hint-keep {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(4px);
+    opacity: 0.75;
+  }
+}
+
+@keyframes scroll-hint-arrow {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 0.85;
+  }
+}
+
+.scroll-hint-keep {
+  animation: scroll-hint-keep 1.7s ease-in-out infinite;
+}
+
+.scroll-hint-arrow {
+  animation: scroll-hint-arrow 1.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint-keep,
+  .scroll-hint-arrow {
+    animation: none;
+  }
+}

@@ -13,6 +13,11 @@ import { ServicePreviewCard } from "@/components/home/ServicePreviewCard";
 import { useLenisProgress } from "@/hooks/useLenisProgress";
 import { SERVICES, type ServiceItem } from "@/lib/constants";
 
+/** زیر هدر — نوار مارکی */
+const MARQUEE_DOCK = "5.75rem";
+/** سرویس‌ها زیر نوار مارکی — کمی بالاتر برای فضای فلش اسکرول */
+const SERVICES_BELOW_MARQUEE = "9.5rem";
+
 const MARQUEE = [
   "طراحی اختصاصی",
   "UI / UX",
@@ -66,7 +71,7 @@ function ServiceRow({
   };
 
   return (
-    <motion.li style={{ opacity, y }} className="relative flex min-h-0 flex-1">
+    <motion.li style={{ opacity, y }} className="relative shrink-0">
       <Link
         href={item.href}
         onPointerEnter={(e) => {
@@ -75,7 +80,7 @@ function ServiceRow({
         }}
         onPointerMove={(e) => placeAtPointer(e, false)}
         onPointerLeave={() => setHovered(false)}
-        className="group relative flex w-full flex-col justify-center gap-1 border-t border-line px-2 py-2 transition-colors duration-300 hover:bg-white md:flex-row md:items-center md:justify-between md:gap-6 md:px-4"
+        className="group relative flex w-full flex-col justify-center gap-0.5 border-t border-line px-2 py-2 transition-colors duration-300 hover:bg-white md:flex-row md:items-center md:justify-between md:gap-6 md:px-4 md:py-2.5"
       >
         <span className="font-sans text-lg font-bold text-lime transition-colors duration-300 group-hover:text-black md:w-14 md:text-xl">
           {item.num}
@@ -130,11 +135,19 @@ export function ServicesReveal() {
     [0, 0.02, 0.78, 0.88],
     [1, 1, 1, 0],
   );
-  /* یک‌طرفه از چپ → وسط؛ بدون رفت به راست و برگشت */
+  /*
+   * نوار از پایین → dock زیر هدر
+   * متن از همان لحظه به سمت وسط می‌رود و از progress≈۰٫۳۲ قفل می‌شود
+   */
+  const marqueeY = useTransform(
+    scrollYProgress,
+    [0, 0.1, 0.22, 0.32, 1],
+    [320, 180, 60, 0, 0],
+  );
   const marqueeX = useTransform(
     scrollYProgress,
-    [0, 0.75, 1],
-    ["-28%", "0%", "0%"],
+    [0, 0.1, 0.22, 0.32, 1],
+    [-320, -180, -60, 0, 0],
   );
 
   const pitchOp = useTransform(
@@ -163,10 +176,14 @@ export function ServicesReveal() {
       className="relative z-20 -mt-[130dvh] h-[400vh] bg-bg"
     >
       <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-bg">
-        {/* فاصله از هدر + مارکی پایین‌تر */}
+        {/* مارکی: بالا می‌آید + متن تا وسط حرکت می‌کند و قفل می‌شود */}
         <motion.div
-          style={{ opacity: marqueeOp }}
-          className="pointer-events-none relative z-30 mt-[5.75rem] flex shrink-0 justify-center overflow-hidden border-y border-white/10 bg-bg py-3 md:mt-[6.25rem] md:py-3.5"
+          style={{
+            top: MARQUEE_DOCK,
+            y: marqueeY,
+            opacity: marqueeOp,
+          }}
+          className="pointer-events-none absolute inset-x-0 z-30 flex justify-center overflow-hidden border-y border-white/10 bg-bg py-3 md:py-3.5"
         >
           <motion.div
             style={{ x: marqueeX }}
@@ -178,7 +195,6 @@ export function ServicesReveal() {
                 dir="rtl"
                 className="inline-flex items-center gap-2.5 font-sans text-sm font-medium tracking-[0.12em] text-white/75 md:text-base"
               >
-                {/* در rtl اولین فرزند سمت راست می‌نشیند */}
                 <span className="text-lime" aria-hidden>
                   ✦
                 </span>
@@ -210,12 +226,16 @@ export function ServicesReveal() {
           </p>
         </motion.div>
 
-        {/* بقیهٔ ارتفاع ویوپورت را پر می‌کند */}
+        {/* سرویس‌ها زیر خط مارکی */}
         <motion.div
-          style={{ y: servicesY, opacity: servicesOp }}
-          className="relative z-20 flex min-h-0 flex-1 flex-col overflow-visible bg-bg px-5 pb-6 pt-5 md:px-16 md:pb-8 md:pt-6 lg:px-20"
+          style={{
+            top: SERVICES_BELOW_MARQUEE,
+            y: servicesY,
+            opacity: servicesOp,
+          }}
+          className="absolute inset-x-0 bottom-0 z-20 flex min-h-0 flex-col justify-start overflow-visible bg-bg px-5 pb-20 pt-3 md:px-16 md:pb-24 md:pt-4 lg:px-20"
         >
-          <div className="mx-auto flex h-full w-full max-w-[1360px] flex-col">
+          <div className="mx-auto flex w-full max-w-[1360px] flex-col">
             <div className="max-w-2xl shrink-0 text-right md:mr-0 md:ml-auto">
               <h2 className="font-sans text-2xl font-extrabold tracking-tight text-white md:text-3xl lg:text-4xl">
                 طراحی وب، از ایده تا تجربه
@@ -226,7 +246,7 @@ export function ServicesReveal() {
               </p>
             </div>
 
-            <ul className="mt-4 flex min-h-0 flex-1 flex-col border-b border-line">
+            <ul className="mt-3 flex flex-col border-b border-line md:mt-4">
               {SERVICES.map((item, i) => (
                 <ServiceRow
                   key={item.num}

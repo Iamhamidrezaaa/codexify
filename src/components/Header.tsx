@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { NAV_LINKS, SITE, WHATSAPP_URL } from "@/lib/constants";
+import { NAV_LINKS, WHATSAPP_URL } from "@/lib/constants";
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -32,18 +33,15 @@ export function Header() {
               : "border-white/10 bg-[#111]/90 backdrop-blur-md"
           }`}
         >
-          <a href="#top" className="flex shrink-0 items-center gap-2.5">
-            <span className="grid size-8 place-items-center rounded-md bg-lime text-black">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
-                <path
-                  d="M6 7h5.2c2.3 0 3.8 1.3 3.8 3.2 0 1.3-.7 2.3-1.9 2.8L16.8 17h-2.7l-3.2-3.6H8.5V17H6V7Zm2.5 2v2.8h2.4c1.1 0 1.7-.5 1.7-1.4S12 9 10.9 9H8.5Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </span>
-            <span className="text-[15px] font-semibold tracking-tight text-white">
-              {SITE.name}
-            </span>
+          <a href="#top" className="group flex shrink-0 items-center">
+            <Image
+              src="/Logo-main-navbar-v2.png"
+              alt="Codexify"
+              width={360}
+              height={96}
+              priority
+              className="h-11 w-auto object-contain transition duration-300 group-hover:scale-[1.04] group-hover:brightness-110 md:h-12"
+            />
           </a>
 
           {/* Bookmarks stay in the pill bar (Navbar Digital) — hamburger only on very small screens */}

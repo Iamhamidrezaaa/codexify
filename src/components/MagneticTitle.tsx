@@ -111,7 +111,7 @@ type Stretch = {
 };
 
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-const DUR = "480ms";
+const DUR = "760ms";
 
 export function MagneticTitle({
   lines,
@@ -128,7 +128,7 @@ export function MagneticTitle({
   const onLeave = useCallback(() => {
     setStretch((s) => (s ? { ...s, open: false } : null));
     if (leaveTimer.current) window.clearTimeout(leaveTimer.current);
-    leaveTimer.current = window.setTimeout(() => setStretch(null), 480);
+    leaveTimer.current = window.setTimeout(() => setStretch(null), 760);
   }, []);
 
   const onMove = useCallback((e: React.PointerEvent) => {
@@ -208,7 +208,7 @@ export function MagneticTitle({
                     data-original={token}
                     className="inline-block whitespace-nowrap"
                     style={{
-                      letterSpacing: hot?.open && canKashida ? "0.02em" : "0em",
+                      letterSpacing: hot?.open && canKashida ? "0.012em" : "0em",
                       transition: `letter-spacing ${DUR} ${EASE}`,
                     }}
                   >
@@ -216,7 +216,7 @@ export function MagneticTitle({
                       className="inline-block"
                       style={{
                         transform:
-                          hot?.open && canKashida ? "scaleX(1.02)" : "scaleX(1)",
+                          hot?.open && canKashida ? "scaleX(1.008)" : "scaleX(1)",
                         transformOrigin: "center",
                         transition: `transform ${DUR} ${EASE}`,
                       }}
@@ -230,7 +230,7 @@ export function MagneticTitle({
               /* حروف جدا، یا جفت ا+ل: بدون ـ — گروه هاور از قبلی فاصله می‌گیرد */
               const groups = joinGroups(token);
               const pullDir = -Math.sign(hot.dir || -1);
-              const pull = pullDir * (stickyHover ? 12 : 16);
+              const pull = pullDir * (stickyHover ? 4 : 6);
 
               return (
                 <span

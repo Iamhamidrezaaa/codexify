@@ -198,12 +198,6 @@ export function ScrollScene() {
     [0, 10, -12, 6, 0],
   );
 
-  const keepOpacity = useTransform(
-    scrollYProgress,
-    [0.04, 0.12, 0.3, 0.38],
-    [0, 1, 1, 0],
-  );
-
   const tagOp = useTransform(
     scrollYProgress,
     [0.5, 0.56, 0.66, 0.78],
@@ -219,19 +213,12 @@ export function ScrollScene() {
   const sceneFade = useTransform(scrollYProgress, [0.78, 0.9], [1, 0]);
 
   return (
-    <section ref={ref} className="relative z-10 h-[400vh] bg-bg">
+    <section ref={ref} id="scene" className="relative z-10 h-[400vh] bg-bg">
       <motion.div
         style={{ x: shakeX, y: shakeY, opacity: sceneFade }}
         className="sticky top-0 flex h-dvh items-center justify-center overflow-hidden bg-bg"
       >
         <ImpactFlash progress={scrollYProgress} />
-
-        <motion.p
-          style={{ opacity: keepOpacity }}
-          className="absolute bottom-10 left-1/2 z-30 -translate-x-1/2 font-mono text-xs tracking-[0.2em] text-muted uppercase"
-        >
-          ( Keep scrolling )
-        </motion.p>
 
         <div className="relative z-10 flex h-[55vh] w-full max-w-[1200px] flex-col items-center justify-center">
           <RingBurst progress={scrollYProgress} />

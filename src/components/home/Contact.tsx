@@ -21,10 +21,9 @@ export function Contact() {
 
   return (
     <section id="contact" className="bg-bg px-5 py-24 md:px-16 lg:px-20">
-      <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
-        <div className="text-right">
-          <p className="text-sm text-muted">( Start the conversation )</p>
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-fg md:text-5xl">
+      <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="flex flex-col justify-center text-right">
+          <h2 className="text-3xl font-extrabold tracking-tight text-fg md:text-5xl">
             بیا درباره پروژه‌ات حرف بزنیم.
           </h2>
           <p className="mt-4 max-w-xl text-base leading-8 text-muted">
