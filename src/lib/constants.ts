@@ -60,7 +60,8 @@ export const PROJECTS = [
     name: "Hamidrezaaa",
     url: "https://www.hamidrezaaa.ir",
     host: "hamidrezaaa.ir",
-    tag: "پورتفolio شخصی",
+    tag: "پورتفولیو شخصی",
+    image: "/work/hamidrezaaa.png",
     live: true,
   },
   {
@@ -68,6 +69,7 @@ export const PROJECTS = [
     url: "https://cutup.shop",
     host: "cutup.shop",
     tag: "فروشگاه",
+    image: "/work/cutup.png",
     live: true,
   },
   {
@@ -75,6 +77,7 @@ export const PROJECTS = [
     url: "https://testology.me",
     host: "testology.me",
     tag: "محصول / برند",
+    image: "/work/testology.png",
     live: true,
   },
   {
@@ -82,6 +85,7 @@ export const PROJECTS = [
     url: "https://heymers.com",
     host: "heymers.com",
     tag: "وبسایت برند",
+    image: "/work/heymers.png",
     live: true,
   },
   {
@@ -89,13 +93,15 @@ export const PROJECTS = [
     url: "https://gorillo.marketing",
     host: "gorillo.marketing",
     tag: "مارکتینگ",
-    live: false,
+    image: "/work/gorillo.png",
+    live: true,
   },
   {
     name: "Araz Design",
     url: "https://arazdesignco.com",
     host: "arazdesignco.com",
     tag: "طراحی",
-    live: false,
+    image: "/work/araz-design.png",
+    live: true,
   },
 ] as const;

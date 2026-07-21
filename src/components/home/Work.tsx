@@ -5,6 +5,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import Image from "next/image";
 import { useRef } from "react";
 import { useLenisProgress } from "@/hooks/useLenisProgress";
 import { PROJECTS } from "@/lib/constants";
@@ -31,9 +32,15 @@ function WorkCard({
 
   const inner = (
     <article className="group flex h-full flex-col rounded-2xl border border-line bg-card p-3.5 transition hover:border-lime/40 md:p-4">
-      <div className="relative mb-2.5 h-12 overflow-hidden rounded-lg bg-[#141614] md:h-14">
-        <div className="absolute inset-x-0 top-0 h-[2px] bg-lime" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,color-mix(in_srgb,var(--lime)_18%,transparent),transparent_55%)]" />
+      <div className="relative mb-2.5 h-28 overflow-hidden rounded-lg bg-[#141614] md:h-32">
+        <Image
+          src={project.image}
+          alt={project.name}
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+        />
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-lime" />
       </div>
       <p className="text-[11px] font-medium text-lime">{project.tag}</p>
       <h3 className="mt-0.5 text-lg font-bold text-white md:text-xl">
@@ -41,30 +48,20 @@ function WorkCard({
       </h3>
       <p className="mt-0.5 text-xs text-white/70 md:text-sm" dir="ltr">
         {project.host}
-        {!project.live && (
-          <span className="mr-2 text-[10px] text-white/45">(آفلاین)</span>
-        )}
       </p>
     </article>
   );
 
   return (
-    <motion.div
-      style={{ opacity, y }}
-      className={project.live ? "h-full" : "h-full opacity-80"}
-    >
-      {project.live ? (
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block h-full"
-        >
-          {inner}
-        </a>
-      ) : (
-        inner
-      )}
+    <motion.div style={{ opacity, y }} className="h-full">
+      <a
+        href={project.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block h-full"
+      >
+        {inner}
+      </a>
     </motion.div>
   );
 }
