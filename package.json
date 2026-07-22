@@ -3,9 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "prisma generate && next build",
-    "start": "next start",
+    "start": "next start -p 3002",
+    "dev": "next dev -p 3002",
     "lint": "eslint",
     "db:generate": "prisma generate",
     "db:migrate": "bash scripts/with-env.sh npx prisma migrate deploy",
