@@ -40,7 +40,7 @@ export function Header() {
               width={360}
               height={96}
               priority
-              className="h-11 w-auto object-contain transition duration-300 group-hover:scale-[1.04] group-hover:brightness-110 md:h-12"
+              className="h-8 w-auto object-contain transition duration-300 group-hover:scale-[1.04] group-hover:brightness-110 md:h-12"
             />
           </a>
 
@@ -63,17 +63,18 @@ export function Header() {
           <div className="flex items-center gap-2">
             <a
               href="tel:+989101962026"
-              className="inline-flex items-center gap-1.5 rounded-full bg-lime px-3.5 py-2 text-[13px] font-semibold text-lime-ink transition duration-200 hover:bg-white hover:text-lime-ink md:px-4"
+              className="inline-flex items-center gap-1 rounded-full bg-lime px-2 py-1 text-[11px] font-semibold text-lime-ink transition duration-200 hover:bg-white hover:text-lime-ink md:gap-1.5 md:px-4 md:py-2 md:text-[13px]"
             >
               <svg
-                className="size-[1.05em] shrink-0 -scale-x-100 -rotate-[15deg]"
+                className="size-3 shrink-0 -scale-x-100 -rotate-[15deg] md:size-[1.05em]"
                 viewBox="0 0 24 24"
                 fill="currentColor"
                 aria-hidden
               >
                 <path d="M6.62 10.79a15.15 15.15 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.4 21 3 13.6 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.02l-2.2 2.19z" />
               </svg>
-              تماس با ما
+              <span className="md:hidden">تماس</span>
+              <span className="hidden md:inline">تماس با ما</span>
             </a>
 
             <button

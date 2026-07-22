@@ -102,7 +102,11 @@ function ApproachStep({
   return (
     <motion.article
       style={{ opacity, y, scale }}
-      className="origin-right border-t border-white/10 py-2.5 md:py-3"
+      className={`origin-right py-2.5 md:py-3 ${
+        index === 0
+          ? "border-t-0 md:border-t md:border-white/10"
+          : "border-t border-white/10"
+      }`}
     >
       <div className="flex items-baseline gap-3 text-right md:gap-4">
         <motion.span
@@ -139,7 +143,6 @@ export function About() {
 
   /* از لحظهٔ پین نیمه‌پیدا تا handoff مشکی نباشد */
   const rightOp = useTransform(progress, [0, 0.08], [0.55, 1]);
-  const rightY = useTransform(progress, [0, 0.08], [48, 0]);
 
   return (
     <section
@@ -152,11 +155,11 @@ export function About() {
         className="pointer-events-none absolute inset-x-0 top-[78%] h-px"
         aria-hidden
       />
-      <div className="sticky top-0 flex h-dvh items-stretch overflow-hidden bg-bg pt-[4.75rem]">
-        <div className="mx-auto grid h-full w-full max-w-[1400px] grid-cols-1 lg:grid-cols-2">
+      <div className="sticky top-0 flex h-dvh items-stretch overflow-hidden bg-bg pt-[4.75rem] max-md:items-start">
+        <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 content-start max-md:h-auto lg:h-full lg:grid-cols-2">
           <motion.div
-            style={{ opacity: rightOp, y: rightY }}
-            className="flex h-full flex-col justify-center px-5 py-6 text-right md:px-12 lg:px-16 lg:py-10"
+            style={{ opacity: rightOp }}
+            className="flex shrink-0 flex-col justify-start px-5 pt-5 text-right md:h-full md:justify-center md:px-12 md:py-6 lg:px-16 lg:py-10"
           >
             <h2 className="max-w-xl text-right font-extrabold tracking-tight">
               <span className="text-2xl text-lime md:text-3xl lg:text-4xl">
@@ -166,7 +169,8 @@ export function About() {
                 طراحی وب، برای کسب‌وکارهایی که رشد را جدی گرفته‌اند.
               </span>
             </h2>
-            <div className="mt-7">
+            {/* موبایل: باند ثابت بین تیتر و خط — دکمه وسط عمودی همین باند */}
+            <div className="flex h-[5.25rem] items-center md:mt-7 md:h-auto">
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
@@ -178,7 +182,7 @@ export function About() {
             </div>
           </motion.div>
 
-          <div className="relative flex min-h-0 flex-col justify-center px-5 py-6 md:px-12 lg:px-16 lg:py-10">
+          <div className="relative flex min-h-0 flex-col justify-center border-t border-white/10 px-5 pb-6 pt-1 md:border-t-0 md:px-12 md:py-6 lg:px-16 lg:py-10">
             <div className="flex flex-col">
               {APPROACH_STEPS.map((step, i) => (
                 <ApproachStep

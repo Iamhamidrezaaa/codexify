@@ -1,38 +1,32 @@
 "use client";
 
 import {
+  AnimatePresence,
   motion,
   useTransform,
   type MotionValue,
 } from "framer-motion";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLenisProgress } from "@/hooks/useLenisProgress";
 import { PROJECTS } from "@/lib/constants";
 
-function WorkCard({
+type Project = (typeof PROJECTS)[number];
+
+function ProjectCard({
   project,
-  progress,
-  index,
+  tall = false,
 }: {
-  project: (typeof PROJECTS)[number];
-  progress: MotionValue<number>;
-  index: number;
+  project: Project;
+  tall?: boolean;
 }) {
-  /* کارت اول از ابتدای پین پیدا؛ بقیه آبشار کوتاه بدون extrapolate منفی */
-  const start = 0.01 + index * 0.028;
-  const end = Math.min(start + 0.05, 0.24);
-
-  const opacity = useTransform(
-    progress,
-    [0, start, end],
-    [index === 0 ? 0.7 : 0, index === 0 ? 0.85 : 0, 1],
-  );
-  const y = useTransform(progress, [0, start, end], [28, 28, 0]);
-
-  const inner = (
+  return (
     <article className="group flex h-full flex-col rounded-2xl border border-line bg-card p-3.5 transition hover:border-lime/40 md:p-4">
-      <div className="relative mb-2.5 h-28 overflow-hidden rounded-lg bg-[#141614] md:h-32">
+      <div
+        className={`relative mb-2.5 overflow-hidden rounded-lg bg-[#141614] ${
+          tall ? "h-52" : "h-28 md:h-32"
+        }`}
+      >
         <Image
           src={project.image}
           alt={project.name}
@@ -51,6 +45,26 @@ function WorkCard({
       </p>
     </article>
   );
+}
+
+function WorkCard({
+  project,
+  progress,
+  index,
+}: {
+  project: Project;
+  progress: MotionValue<number>;
+  index: number;
+}) {
+  const start = 0.01 + index * 0.028;
+  const end = Math.min(start + 0.05, 0.24);
+
+  const opacity = useTransform(
+    progress,
+    [0, start, end],
+    [index === 0 ? 0.7 : 0, index === 0 ? 0.85 : 0, 1],
+  );
+  const y = useTransform(progress, [0, start, end], [28, 28, 0]);
 
   return (
     <motion.div style={{ opacity, y }} className="h-full">
@@ -60,20 +74,140 @@ function WorkCard({
         rel="noopener noreferrer"
         className="block h-full"
       >
-        {inner}
+        <ProjectCard project={project} />
       </a>
     </motion.div>
   );
 }
 
+const AUTO_MS = 2500;
+
+function WorkMobileCarousel() {
+  const [index, setIndex] = useState(0);
+  const [dir, setDir] = useState(1);
+  const pauseUntil = useRef(0);
+  const count = PROJECTS.length;
+
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      if (Date.now() < pauseUntil.current) return;
+      setDir(1);
+      setIndex((i) => (i + 1) % count);
+    }, AUTO_MS);
+    return () => window.clearInterval(id);
+  }, [count]);
+
+  const goTo = (next: number) => {
+    pauseUntil.current = Date.now() + 4000;
+    setDir(next > index || (index === count - 1 && next === 0) ? 1 : -1);
+    setIndex(next);
+  };
+
+  const step = (delta: number) => {
+    pauseUntil.current = Date.now() + 4000;
+    setDir(delta);
+    setIndex((i) => (i + delta + count) % count);
+  };
+
+  const project = PROJECTS[index]!;
+
+  return (
+    <div className="flex min-h-0 flex-1 flex-col md:hidden">
+      <div className="relative min-h-0 flex-1">
+        <AnimatePresence mode="wait" custom={dir}>
+          <motion.div
+            key={project.host}
+            custom={dir}
+            initial={{ opacity: 0, x: dir > 0 ? 48 : -48, scale: 0.98 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            exit={{ opacity: 0, x: dir > 0 ? -36 : 36, scale: 0.98 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0"
+          >
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block h-full"
+            >
+              <ProjectCard project={project} tall />
+            </a>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <div className="mt-5 flex shrink-0 items-center justify-between gap-4">
+        <button
+          type="button"
+          aria-label="قبلی"
+          onClick={() => step(-1)}
+          className="grid size-10 place-items-center rounded-full border border-white/15 text-white/70 transition hover:border-lime/50 hover:text-lime"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path
+              d="M9 5l7 7-7 7"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+
+        <div className="flex items-center gap-2" role="tablist" aria-label="نمونه‌کارها">
+          {PROJECTS.map((p, i) => {
+            const active = i === index;
+            return (
+              <button
+                key={p.host}
+                type="button"
+                role="tab"
+                aria-selected={active}
+                aria-label={p.name}
+                onClick={() => goTo(i)}
+                className="group relative flex h-8 items-center justify-center px-0.5"
+              >
+                <span
+                  className={`block rounded-full transition-all duration-300 ${
+                    active
+                      ? "h-2 w-6 bg-lime shadow-[0_0_12px_var(--lime)]"
+                      : "size-2 bg-white/25 group-hover:bg-white/45"
+                  }`}
+                />
+              </button>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          aria-label="بعدی"
+          onClick={() => step(1)}
+          className="grid size-10 place-items-center rounded-full border border-white/15 text-white/70 transition hover:border-lime/50 hover:text-lime"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <path
+              d="M15 5l-7 7 7 7"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
 /**
- * تیتر + ۶ کارت — تقریباً سایز قبلی؛ فقط کمی فضای پایین برای فلش اسکرول.
+ * دسکتاپ: گرید ۶ کارت
+ * موبایل: اسلایدر تک‌کارت با اتوپلی ۱ثانیه + نقطه/فلش
  */
 export function Work() {
   const ref = useRef<HTMLElement>(null);
   const scrollYProgress = useLenisProgress(ref);
 
-  /* از لحظهٔ پین دیده شود تا handoff مشکی نباشد */
   const titleOp = useTransform(scrollYProgress, [0, 0.04], [0.85, 1]);
 
   return (
@@ -81,16 +215,13 @@ export function Work() {
       ref={ref}
       className="relative z-30 -mt-[50dvh] h-[180vh] bg-bg"
     >
-      {/* لنگر منو — گرید نمونه‌کارها کامل دیده شود */}
       <div
         id="work"
         className="pointer-events-none absolute inset-x-0 top-[30%] h-px"
         aria-hidden
       />
-      {/* هم‌پوشانی فقط در خروج Services — وسط لیست خدمات را نمی‌دزدد */}
       <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-bg px-5 pt-[5.25rem] pb-10 md:px-16 md:pb-12 lg:px-20">
         <div className="mx-auto flex w-full max-w-[1360px] min-h-0 flex-1 flex-col">
-          {/* نوار بین هدر و گرید — تیتر وسط عمودی همین فاصله */}
           <div className="flex h-[5.5rem] shrink-0 items-center md:h-[6.25rem]">
             <motion.h2
               style={{ opacity: titleOp }}
@@ -100,7 +231,9 @@ export function Work() {
             </motion.h2>
           </div>
 
-          <div className="grid min-h-0 flex-1 grid-rows-2 content-stretch gap-3 sm:grid-cols-2 lg:grid-cols-3 md:gap-3.5">
+          <WorkMobileCarousel />
+
+          <div className="hidden min-h-0 flex-1 grid-rows-2 content-stretch gap-3 sm:grid-cols-2 md:grid md:gap-3.5 lg:grid-cols-3">
             {PROJECTS.map((project, i) => (
               <WorkCard
                 key={project.host}

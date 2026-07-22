@@ -20,22 +20,25 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="bg-bg px-5 py-24 md:px-16 lg:px-20">
-      <div className="mx-auto grid max-w-[1360px] gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        <div className="flex flex-col justify-center">
-          <div className="flex w-fit flex-col items-center self-start">
-            <h2 className="whitespace-nowrap text-3xl font-extrabold tracking-tight text-fg md:text-5xl">
+    <section
+      id="contact"
+      className="bg-bg px-5 pb-4 pt-16 max-md:flex max-md:flex-1 max-md:flex-col max-md:justify-center md:px-16 md:py-24 lg:px-20"
+    >
+      <div className="mx-auto grid w-full max-w-[1360px] gap-5 md:gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div className="flex flex-col justify-center max-md:items-center">
+          <div className="flex w-fit flex-col items-center max-md:mx-auto md:self-start">
+            <h2 className="whitespace-nowrap text-2xl font-extrabold tracking-tight text-fg md:text-5xl">
               آماده‌ای شروع کنیم؟
             </h2>
-            <p className="mt-4 w-0 min-w-full text-center text-base leading-8 text-muted">
-              در واتساپ پیام بده، یا فرم را پر کن. زود جواب می‌دهیم.
+            <p className="mt-2 w-0 min-w-full text-center text-[11px] leading-4 text-muted max-md:whitespace-nowrap md:mt-4 md:text-base md:leading-8">
+              در واتساپ پیام بده، یا فرم را پر کن. سریع پاسخ می‌دهیم.
             </p>
 
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="wa-phone-link mt-8 inline-flex w-fit origin-center cursor-pointer items-center justify-center rounded-full bg-lime px-4 py-2 text-[13px] font-bold text-lime-ink"
+              className="wa-phone-link mt-4 inline-flex w-fit origin-center cursor-pointer items-center justify-center rounded-full bg-lime px-4 py-2 text-[13px] font-bold text-lime-ink md:mt-8"
             >
               <span className="inline-flex items-center" dir="ltr">
                 <svg
@@ -55,39 +58,39 @@ export function Contact() {
 
         <form
           onSubmit={onSubmit}
-          className="rounded-[20px] border border-line bg-card p-6"
+          className="rounded-[20px] border border-line bg-card p-4 md:p-6"
         >
-          <label className="mb-3 block">
+          <label className="mb-2 block md:mb-3">
             <span className="sr-only">نام</span>
             <input
               name="name"
               required
               placeholder="نام"
-              className="w-full rounded-xl border-0 bg-[#1a1b1a] px-4 py-3.5 text-right text-sm text-fg outline-none ring-1 ring-transparent placeholder:text-muted focus:ring-lime/50"
+              className="w-full rounded-xl border-0 bg-[#1a1b1a] px-4 py-2.5 text-right text-sm text-fg outline-none ring-1 ring-transparent placeholder:text-muted focus:ring-lime/50 md:py-3.5"
             />
           </label>
-          <label className="mb-3 block">
+          <label className="mb-2 block md:mb-3">
             <span className="sr-only">شماره تماس</span>
             <input
               name="phone"
               required
               placeholder="شماره تماس"
-              className="w-full rounded-xl border-0 bg-[#1a1b1a] px-4 py-3.5 text-right text-sm text-fg outline-none ring-1 ring-transparent placeholder:text-muted focus:ring-lime/50"
+              className="w-full rounded-xl border-0 bg-[#1a1b1a] px-4 py-2.5 text-right text-sm text-fg outline-none ring-1 ring-transparent placeholder:text-muted focus:ring-lime/50 md:py-3.5"
             />
           </label>
-          <label className="mb-4 block">
+          <label className="mb-3 block md:mb-4">
             <span className="sr-only">درباره پروژه</span>
             <textarea
               name="message"
               required
-              rows={3}
+              rows={2}
               placeholder="درباره پروژه"
-              className="w-full resize-none rounded-xl border-0 bg-[#1a1b1a] px-4 py-3.5 text-right text-sm text-fg outline-none ring-1 ring-transparent placeholder:text-muted focus:ring-lime/50"
+              className="w-full resize-none rounded-xl border-0 bg-[#1a1b1a] px-4 py-2.5 text-right text-sm text-fg outline-none ring-1 ring-transparent placeholder:text-muted focus:ring-lime/50 md:min-h-[6.5rem] md:py-3.5"
             />
           </label>
           <button
             type="submit"
-            className="w-full rounded-xl bg-lime py-3.5 text-sm font-bold text-lime-ink transition hover:brightness-110"
+            className="w-full rounded-xl bg-lime py-2.5 text-sm font-bold text-lime-ink transition hover:brightness-110 md:py-3.5"
           >
             {sent ? "در واتساپ باز شد" : "ارسال"}
           </button>

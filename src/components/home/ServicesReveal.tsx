@@ -8,7 +8,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import Link from "next/link";
-import { useRef, useState, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { ServicePreviewCard } from "@/components/home/ServicePreviewCard";
 import { useLenisProgress } from "@/hooks/useLenisProgress";
 import { SERVICES, type ServiceItem } from "@/lib/constants";
@@ -30,6 +30,19 @@ const MARQUEE = [
   "پنل مدیریت",
   "پشتیبانی",
 ] as const;
+
+function useIsMobile(bp = 768) {
+  /* همیشه false در SSR و اولین رندر — جلوگیری از hydration mismatch */
+  const [mobile, setMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${bp - 1}px)`);
+    const sync = () => setMobile(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, [bp]);
+  return mobile;
+}
 
 function ServiceRow({
   progress,
@@ -128,6 +141,7 @@ function ServiceRow({
  */
 export function ServicesReveal() {
   const ref = useRef<HTMLElement>(null);
+  const mobile = useIsMobile();
   const scrollYProgress = useLenisProgress(ref);
 
   const marqueeOp = useTransform(
@@ -136,8 +150,8 @@ export function ServicesReveal() {
     [1, 1, 1, 0],
   );
   /*
-   * نوار از پایین → dock زیر هدر
-   * متن از همان لحظه به سمت وسط می‌رود و از progress≈۰٫۳۲ قفل می‌شود
+   * دسکتاپ: نوار از پایین → dock زیر هدر
+   * موبایل: از همان ورود اسلاید روی dock است و لوپ می‌چرخد
    */
   const marqueeY = useTransform(
     scrollYProgress,
@@ -181,32 +195,55 @@ export function ServicesReveal() {
         aria-hidden
       />
       <div className="sticky top-0 flex h-dvh flex-col overflow-hidden bg-bg">
-        {/* مارکی: بالا می‌آید + متن تا وسط حرکت می‌کند و قفل می‌شود */}
+        {/* مارکی: موبایل از لحظه ورود روی dock + لوپ؛ دسکتاپ با اسکرول */}
         <motion.div
           style={{
             top: MARQUEE_DOCK,
-            y: marqueeY,
+            ...(mobile ? {} : { y: marqueeY }),
             opacity: marqueeOp,
           }}
-          className="pointer-events-none absolute inset-x-0 z-30 flex justify-center overflow-hidden border-y border-white/10 bg-bg py-3 md:py-3.5"
+          className="pointer-events-none absolute inset-x-0 z-30 overflow-hidden border-y border-white/10 bg-bg py-3 md:py-3.5"
         >
-          <motion.div
-            style={{ x: marqueeX }}
-            className="flex w-max items-center gap-6 whitespace-nowrap will-change-transform md:gap-8"
-          >
-            {MARQUEE.map((item) => (
-              <span
-                key={item}
-                dir="rtl"
-                className="inline-flex items-center gap-2.5 font-sans text-sm font-medium tracking-[0.12em] text-white/75 md:text-base"
-              >
-                <span className="text-lime" aria-hidden>
-                  ✦
+          {/* موبایل: سه کپی — از ابتدا پر، حرکت چپ→راست، لوپ بی‌نهایت */}
+          <div className="flex w-max md:hidden" dir="ltr">
+            <div className="marquee-track flex w-max items-center gap-6 whitespace-nowrap will-change-transform">
+              {[0, 1, 2].flatMap((copy) =>
+                MARQUEE.map((item) => (
+                  <span
+                    key={`${copy}-${item}`}
+                    dir="rtl"
+                    className="inline-flex items-center gap-2.5 font-sans text-sm font-medium tracking-[0.12em] text-white/75"
+                  >
+                    <span className="text-lime" aria-hidden>
+                      ✦
+                    </span>
+                    <span>{item}</span>
+                  </span>
+                )),
+              )}
+            </div>
+          </div>
+
+          {/* دسکتاپ: حرکت افقی وابسته به اسکرول (مثل قبل) */}
+          <div className="hidden justify-center md:flex">
+            <motion.div
+              style={{ x: marqueeX }}
+              className="flex w-max items-center gap-8 whitespace-nowrap will-change-transform"
+            >
+              {MARQUEE.map((item) => (
+                <span
+                  key={item}
+                  dir="rtl"
+                  className="inline-flex items-center gap-2.5 font-sans text-base font-medium tracking-[0.12em] text-white/75"
+                >
+                  <span className="text-lime" aria-hidden>
+                    ✦
+                  </span>
+                  <span>{item}</span>
                 </span>
-                <span>{item}</span>
-              </span>
-            ))}
-          </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
 
         <motion.div

@@ -171,7 +171,7 @@ export function MagneticTitle({
       ref={rootRef}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
-      className={`flex w-full flex-col items-start gap-10 text-right md:gap-14 ${className}`}
+      className={`flex w-full flex-col items-start gap-2 text-right max-md:gap-[4em] md:gap-10 lg:gap-14 ${className}`}
     >
       {lines.map((line, li) => {
         const parts = line.text.split(/(\s+)/);
