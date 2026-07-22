@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
 
 const NAV = [
   { href: "/admin/dashboard", label: "Dashboard" },
@@ -68,17 +67,11 @@ export function AdminShell({
             <button
               type="button"
               onClick={() => {
-                void fetch("/api/analytics/collect", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({
-                    type: "CLICK",
-                    label: "admin_logout",
-                    visitorKey: "admin_logout",
-                    sessionKey: `admin_${Date.now()}`,
-                    path: "/admin",
-                  }),
-                }).finally(() => signOut({ callbackUrl: "/adminha" }));
+                void fetch("/api/admin/logout", { method: "POST" }).finally(
+                  () => {
+                    window.location.assign("/adminha");
+                  },
+                );
               }}
               className="mt-1 rounded-xl px-3 py-2 text-right text-sm text-muted transition hover:bg-card hover:text-fg md:mt-4"
             >

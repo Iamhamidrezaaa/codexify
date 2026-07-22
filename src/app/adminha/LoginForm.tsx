@@ -3,12 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+
+function resolveNextPath() {
+  if (typeof window === "undefined") return "/admin/dashboard";
+  const next = new URLSearchParams(window.location.search).get("next");
+  if (next && next.startsWith("/admin")) return next;
+  return "/admin/dashboard";
+}
 
 export default function LoginForm() {
-  const searchParams = useSearchParams();
-  const next = searchParams.get("next") || "/admin/dashboard";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -19,18 +22,24 @@ export default function LoginForm() {
     setError("");
     setLoading(true);
     try {
-      const result = await signIn("credentials", {
-        email: email.trim(),
-        password,
-        redirect: false,
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify({
+          email: email.trim(),
+          password,
+        }),
       });
-      if (result?.error) {
-        setError("ایمیل یا رمز عبور نادرست است.");
+      const data = (await res.json().catch(() => ({}))) as {
+        error?: string;
+        redirectTo?: string;
+      };
+      if (!res.ok) {
+        setError(data.error || "ایمیل یا رمز عبور نادرست است.");
         return;
       }
-      window.location.assign(
-        next.startsWith("/admin") ? next : "/admin/dashboard",
-      );
+      window.location.assign(data.redirectTo || resolveNextPath());
     } catch {
       setError("خطای شبکه. اتصال را بررسی کنید.");
     } finally {

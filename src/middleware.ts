@@ -2,7 +2,33 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-const PUBLIC_ADMIN_PREFIXES = ["/adminha"];
+function authSecret() {
+  return (
+    process.env.AUTH_SECRET?.trim() ||
+    process.env.ADMIN_SESSION_SECRET?.trim() ||
+    ""
+  );
+}
+
+async function readSessionToken(request: NextRequest) {
+  const secret = authSecret();
+  if (!secret) return null;
+
+  // Production HTTPS uses __Secure-authjs.session-token
+  const secure = await getToken({
+    req: request,
+    secret,
+    secureCookie: true,
+  });
+  if (secure?.id || secure?.sub) return secure;
+
+  // Dev / non-secure fallback
+  return getToken({
+    req: request,
+    secret,
+    secureCookie: false,
+  });
+}
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -14,6 +40,15 @@ export async function middleware(request: NextRequest) {
     request.method !== "HEAD" &&
     request.method !== "OPTIONS"
   ) {
+    // Public auth endpoints
+    if (
+      pathname === "/api/admin/login" ||
+      pathname === "/api/admin/password-reset" ||
+      pathname === "/api/admin/logout"
+    ) {
+      return NextResponse.next();
+    }
+
     const origin = request.headers.get("origin");
     const host = request.headers.get("host");
     if (origin && host) {
@@ -28,20 +63,16 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  if (!pathname.startsWith("/admin")) {
+  // Protect only /admin/* panel routes — NOT /adminha (login)
+  const isAdminPanel =
+    pathname === "/admin" || pathname.startsWith("/admin/");
+  if (!isAdminPanel) {
     return NextResponse.next();
   }
 
-  if (PUBLIC_ADMIN_PREFIXES.some((p) => pathname.startsWith(p))) {
-    return NextResponse.next();
-  }
-
-  const token = await getToken({
-    req: request,
-    secret: process.env.AUTH_SECRET || process.env.ADMIN_SESSION_SECRET,
-  });
-
-  if (!token?.id) {
+  const token = await readSessionToken(request);
+  const userId = (token?.id || token?.sub) as string | undefined;
+  if (!userId) {
     const url = request.nextUrl.clone();
     url.pathname = "/adminha";
     url.searchParams.set("next", pathname);
