@@ -75,6 +75,16 @@ html.has-custom-cursor * {
   cursor: none !important;
 }
 
+/* صفحات ادمین: موس عادی حتی اگر کلاس کاستوم مانده باشد */
+html.admin-native-cursor,
+html.admin-native-cursor * {
+  cursor: auto !important;
+}
+
+html.admin-native-cursor .custom-cursor-root {
+  display: none !important;
+}
+
 /* Site-wide custom cursor — above header, sticky stages, everything */
 .custom-cursor-root {
   position: fixed;

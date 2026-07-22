@@ -9,6 +9,7 @@ function isAdminRoute(pathname: string | null) {
   if (!pathname) return false;
   return (
     pathname === "/adminha" ||
+    pathname === "/adminha.html" ||
     pathname.startsWith("/adminha/") ||
     pathname.startsWith("/admin/")
   );
@@ -27,8 +28,17 @@ export function CustomCursor() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (disabled) {
+    const path =
+      pathname ||
+      (typeof window !== "undefined" ? window.location.pathname : "");
+    const onAdmin = isAdminRoute(path) || isAdminRoute(
+      typeof window !== "undefined" ? window.location.pathname : null,
+    );
+
+    if (onAdmin || disabled) {
       document.documentElement.classList.remove("has-custom-cursor");
+      document.documentElement.style.cursor = "";
+      document.body.style.cursor = "";
       return;
     }
 
