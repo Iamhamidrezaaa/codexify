@@ -116,6 +116,7 @@ export default function LoginForm() {
             <div className="flex justify-end">
               <Link
                 href="/adminha/forgot-password"
+                dir="ltr"
                 className="text-xs font-medium text-muted transition hover:text-lime"
               >
                 Forgot Password?
