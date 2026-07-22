@@ -17,10 +17,6 @@ function readUtm() {
   };
 }
 
-const turnstileEnabled = Boolean(
-  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim(),
-);
-
 export function Contact({
   turnstileSiteKey = "",
 }: {
