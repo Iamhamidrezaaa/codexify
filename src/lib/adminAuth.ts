@@ -23,6 +23,19 @@ function safeEqual(a: string, b: string) {
   return timingSafeEqual(bufA, bufB);
 }
 
+function encodePayload(data: object) {
+  return Buffer.from(JSON.stringify(data), "utf8").toString("base64url");
+}
+
+function decodePayload(raw: string) {
+  try {
+    const json = Buffer.from(raw, "base64url").toString("utf8");
+    return JSON.parse(json) as { email?: string; exp?: number };
+  } catch {
+    return null;
+  }
+}
+
 export function verifyCredentials(email: string, password: string) {
   const expectedEmail = process.env.ADMIN_EMAIL ?? "";
   const expectedPassword = process.env.ADMIN_PASSWORD ?? "";
@@ -37,26 +50,30 @@ export function verifyCredentials(email: string, password: string) {
 }
 
 export function createSessionToken(email: string) {
-  const exp = Date.now() + SESSION_TTL_MS;
-  const payload = `${email.trim().toLowerCase()}.${exp}`;
+  const payload = encodePayload({
+    email: email.trim().toLowerCase(),
+    exp: Date.now() + SESSION_TTL_MS,
+  });
   return `${payload}.${sign(payload)}`;
 }
 
 export function readSessionToken(token: string | undefined) {
   if (!token) return null;
-  const parts = token.split(".");
-  if (parts.length !== 3) return null;
-  const [email, expStr, signature] = parts;
-  if (!email || !expStr || !signature) return null;
+  const i = token.lastIndexOf(".");
+  if (i <= 0) return null;
 
-  const payload = `${email}.${expStr}`;
+  const payload = token.slice(0, i);
+  const signature = token.slice(i + 1);
+  if (!payload || !signature) return null;
+
   const expected = sign(payload);
   if (!safeEqual(signature, expected)) return null;
 
-  const exp = Number(expStr);
-  if (!Number.isFinite(exp) || Date.now() > exp) return null;
+  const data = decodePayload(payload);
+  if (!data?.email || !data.exp) return null;
+  if (!Number.isFinite(data.exp) || Date.now() > data.exp) return null;
 
-  return { email, exp };
+  return { email: data.email, exp: data.exp };
 }
 
 export async function getAdminSession() {
