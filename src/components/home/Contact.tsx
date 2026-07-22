@@ -21,7 +21,17 @@ const turnstileEnabled = Boolean(
   process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim(),
 );
 
-export function Contact() {
+export function Contact({
+  turnstileSiteKey = "",
+}: {
+  turnstileSiteKey?: string;
+}) {
+  const siteKey =
+    turnstileSiteKey.trim() ||
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() ||
+    "";
+  const enabled = Boolean(siteKey) || turnstileEnabled;
+
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -32,7 +42,7 @@ export function Contact() {
     e.preventDefault();
     setError("");
 
-    if (turnstileEnabled && !turnstileToken) {
+    if (enabled && !turnstileToken) {
       setError("لطفاً تأیید امنیتی را کامل کنید.");
       return;
     }
@@ -169,6 +179,7 @@ export function Contact() {
           </label>
 
           <TurnstileWidget
+            siteKey={siteKey}
             onToken={setTurnstileToken}
             resetSignal={resetTurnstile}
           />
@@ -178,7 +189,7 @@ export function Contact() {
           ) : null}
           <button
             type="submit"
-            disabled={loading || (turnstileEnabled && !turnstileToken)}
+            disabled={loading || (enabled && !turnstileToken)}
             data-track="cta"
             className="w-full rounded-xl bg-lime py-2.5 text-sm font-bold text-lime-ink transition hover:brightness-110 disabled:opacity-65 md:py-3.5"
           >
