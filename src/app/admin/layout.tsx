@@ -1,18 +1,12 @@
 import type { Metadata } from "next";
-import { AdminNativeCursor } from "@/components/admin/AdminNativeCursor";
 
 export const metadata: Metadata = {
-  title: "داشبورد ادمین | Codexify",
+  title: "پنل ادمین | Codexify",
   robots: { index: false, follow: false },
 };
 
-export default function AdminLayout({
+export default function AdminRootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <>
-      <AdminNativeCursor />
-      {children}
-    </>
-  );
+  return children;
 }

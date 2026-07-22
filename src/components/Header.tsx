@@ -63,6 +63,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             <a
               href="tel:+989101962026"
+              data-track="phone"
               className="inline-flex items-center gap-1 rounded-full bg-lime px-2 py-1 text-[11px] font-semibold text-lime-ink transition duration-200 hover:bg-white hover:text-lime-ink md:gap-1.5 md:px-4 md:py-2 md:text-[13px]"
             >
               <svg

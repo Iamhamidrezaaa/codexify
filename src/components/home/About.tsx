@@ -175,6 +175,7 @@ export function About() {
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noreferrer"
+                data-track="cta"
                 className="inline-flex items-center rounded-full bg-lime px-5 py-3 text-sm font-bold text-lime-ink transition hover:bg-white"
               >
                 برآورد هزینه

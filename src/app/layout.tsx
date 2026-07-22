@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CustomCursor } from "@/components/CustomCursor";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { AnalyticsTracker } from "@/components/AnalyticsTracker";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 
@@ -34,6 +35,7 @@ export default function RootLayout({
       <body className="min-h-full bg-bg font-sans text-fg">
         <SmoothScroll />
         <CustomCursor />
+        <AnalyticsTracker />
         {children}
       </body>
     </html>

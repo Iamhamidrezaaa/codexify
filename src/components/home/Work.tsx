@@ -72,6 +72,7 @@ function WorkCard({
         href={project.url}
         target="_blank"
         rel="noopener noreferrer"
+        data-track="portfolio"
         className="block h-full"
       >
         <ProjectCard project={project} />
@@ -128,6 +129,7 @@ function WorkMobileCarousel() {
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
+              data-track="portfolio"
               className="block h-full"
             >
               <ProjectCard project={project} tall />

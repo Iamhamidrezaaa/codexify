@@ -2,21 +2,62 @@
 
 import { FormEvent, useState } from "react";
 import { WHATSAPP_DISPLAY, WHATSAPP_URL } from "@/lib/constants";
+import { trackClientEvent } from "@/components/AnalyticsTracker";
+
+function readUtm() {
+  if (typeof window === "undefined") return {};
+  const p = new URLSearchParams(window.location.search);
+  return {
+    utmSource: p.get("utm_source") || undefined,
+    utmMedium: p.get("utm_medium") || undefined,
+    utmCampaign: p.get("utm_campaign") || undefined,
+    utmTerm: p.get("utm_term") || undefined,
+    utmContent: p.get("utm_content") || undefined,
+  };
+}
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
+    setError("");
+    setLoading(true);
+    const form = e.currentTarget;
+    const data = new FormData(form);
     const name = String(data.get("name") || "").trim();
     const phone = String(data.get("phone") || "").trim();
-    const message = String(data.get("message") || "").trim();
-    const text = encodeURIComponent(
-      `سلام، ${name} هستم.\nشماره: ${phone}\n\n${message}`,
-    );
-    window.open(`${WHATSAPP_URL}?text=${text}`, "_blank", "noopener,noreferrer");
-    setSent(true);
+    const projectDescription = String(data.get("message") || "").trim();
+    const website = String(data.get("website") || "");
+
+    trackClientEvent("FORM_SUBMIT", { label: "contact_form", path: "/#contact" });
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          phone,
+          projectDescription,
+          website,
+          ...readUtm(),
+        }),
+      });
+      const json = (await res.json().catch(() => ({}))) as { error?: string };
+      if (!res.ok) {
+        setError(json.error || "ارسال ناموفق بود.");
+        return;
+      }
+      setSent(true);
+      form.reset();
+    } catch {
+      setError("خطای شبکه. دوباره تلاش کنید.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,6 +79,7 @@ export function Contact() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
+              data-track="whatsapp"
               className="wa-phone-link mt-7 inline-flex w-fit origin-center cursor-pointer items-center justify-center rounded-full bg-lime px-4 py-2 text-[13px] font-bold text-lime-ink md:mt-8"
             >
               <span className="inline-flex items-center" dir="ltr">
@@ -58,8 +100,20 @@ export function Contact() {
 
         <form
           onSubmit={onSubmit}
+          onFocusCapture={() =>
+            trackClientEvent("FORM_OPEN", { label: "contact_form", path: "/#contact" })
+          }
           className="rounded-[20px] border border-line bg-card p-4 md:p-6"
         >
+          {/* honeypot */}
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            className="absolute left-[-9999px] h-0 w-0 opacity-0"
+            aria-hidden
+          />
           <label className="mb-2 block md:mb-3">
             <span className="sr-only">نام</span>
             <input
@@ -88,11 +142,16 @@ export function Contact() {
               className="w-full resize-none rounded-xl border-0 bg-[#1a1b1a] px-4 py-2.5 text-right text-sm text-fg outline-none ring-1 ring-transparent placeholder:text-muted focus:ring-lime/50 md:min-h-[6.5rem] md:py-3.5"
             />
           </label>
+          {error ? (
+            <p className="mb-3 text-center text-sm text-red-300">{error}</p>
+          ) : null}
           <button
             type="submit"
-            className="w-full rounded-xl bg-lime py-2.5 text-sm font-bold text-lime-ink transition hover:brightness-110 md:py-3.5"
+            disabled={loading}
+            data-track="cta"
+            className="w-full rounded-xl bg-lime py-2.5 text-sm font-bold text-lime-ink transition hover:brightness-110 disabled:opacity-65 md:py-3.5"
           >
-            {sent ? "در واتساپ باز شد" : "ارسال"}
+            {loading ? "در حال ارسال…" : sent ? "ارسال شد ✓" : "ارسال"}
           </button>
         </form>
       </div>
