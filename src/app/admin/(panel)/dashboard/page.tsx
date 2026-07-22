@@ -2,11 +2,26 @@ import { prisma } from "@/lib/prisma";
 import { getRealtimeVisitors } from "@/server/services/analyticsService";
 
 export default async function AdminDashboardPage() {
-  const [messagesUnread, admins, realtime] = await Promise.all([
-    prisma.contactMessage.count({ where: { status: "UNREAD" } }),
-    prisma.adminUser.count({ where: { status: "ACTIVE" } }),
-    getRealtimeVisitors(),
-  ]);
+  let messagesUnread = 0;
+  let admins = 0;
+  let realtime = { online: 0, visitors: [] as Awaited<
+    ReturnType<typeof getRealtimeVisitors>
+  >["visitors"] };
+  let dbError = false;
+
+  try {
+    const [u, a, r] = await Promise.all([
+      prisma.contactMessage.count({ where: { status: "UNREAD" } }),
+      prisma.adminUser.count({ where: { status: "ACTIVE" } }),
+      getRealtimeVisitors(),
+    ]);
+    messagesUnread = u;
+    admins = a;
+    realtime = r;
+  } catch (error) {
+    console.error("[admin/dashboard] db", error);
+    dbError = true;
+  }
 
   const cards = [
     { label: "Unread Messages", value: messagesUnread },
@@ -24,6 +39,15 @@ export default async function AdminDashboardPage() {
           خلاصه وضعیت سایت و صندوق پیام‌ها
         </p>
       </div>
+
+      {dbError ? (
+        <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-3 text-sm text-amber-200">
+          اتصال به دیتابیس برقرار نیست. در سرور{" "}
+          <span dir="ltr">DATABASE_URL</span> را تنظیم کنید و{" "}
+          <span dir="ltr">npx prisma migrate deploy && npm run db:seed</span> را
+          اجرا کنید.
+        </p>
+      ) : null}
 
       <div className="grid gap-3 sm:grid-cols-3">
         {cards.map((c) => (
