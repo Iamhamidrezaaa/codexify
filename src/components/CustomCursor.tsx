@@ -1,19 +1,37 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 const LEASH = 16;
 
+function isAdminRoute(pathname: string | null) {
+  if (!pathname) return false;
+  return (
+    pathname === "/adminha" ||
+    pathname.startsWith("/adminha/") ||
+    pathname.startsWith("/admin/")
+  );
+}
+
 /**
  * Cursor icon only (dot + ring).
  * Background illumination lives in FlagSpotlight on the hero — not a white overlay.
+ * Disabled on admin login/dashboard so the system cursor shows.
  */
 export function CustomCursor() {
+  const pathname = usePathname();
+  const disabled = isAdminRoute(pathname);
   const ringRef = useRef<HTMLDivElement>(null);
   const dotRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (disabled) {
+      document.documentElement.classList.remove("has-custom-cursor");
+      return;
+    }
+
     const fine = window.matchMedia("(pointer: fine)").matches;
     if (!fine) return;
 
@@ -80,7 +98,9 @@ export function CustomCursor() {
       cancelAnimationFrame(raf);
       if (idleTimer) window.clearTimeout(idleTimer);
     };
-  }, []);
+  }, [disabled]);
+
+  if (disabled) return null;
 
   return (
     <div
