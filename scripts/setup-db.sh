@@ -4,7 +4,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-ENV_FILE="$ROOT/.env.local"
+ENV_LOCAL="$ROOT/.env.local"
+ENV_PRISMA="$ROOT/.env"
 DB_USER="${DB_USER:-codexify}"
 DB_PASS="${DB_PASS:-CodexifyDb_ChangeMe_9f3a}"
 DB_NAME="${DB_NAME:-codexify}"
@@ -45,25 +46,34 @@ SQL
 
 DATABASE_URL="postgresql://${DB_USER}:${DB_PASS}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public"
 
-touch "$ENV_FILE"
-TMP="$(mktemp)"
-grep -Ev '^(DATABASE_URL|AUTH_SECRET|AUTH_URL|NEXT_PUBLIC_SITE_URL)=' "$ENV_FILE" >"$TMP" || true
-{
-  cat "$TMP"
-  echo "DATABASE_URL=\"${DATABASE_URL}\""
-  echo "AUTH_SECRET=CodexifyAdminSecret_9f3a2c1b7e4d"
-  echo "AUTH_URL=https://codexify.ir"
-  echo "NEXT_PUBLIC_SITE_URL=https://codexify.ir"
-} >"$ENV_FILE"
-rm -f "$TMP"
+upsert_env() {
+  local file="$1"
+  touch "$file"
+  local tmp
+  tmp="$(mktemp)"
+  grep -Ev '^(DATABASE_URL|AUTH_SECRET|AUTH_URL|NEXT_PUBLIC_SITE_URL)=' "$file" >"$tmp" || true
+  {
+    cat "$tmp"
+    echo "DATABASE_URL=\"${DATABASE_URL}\""
+    echo "AUTH_SECRET=CodexifyAdminSecret_9f3a2c1b7e4d"
+    echo "AUTH_URL=https://codexify.ir"
+    echo "NEXT_PUBLIC_SITE_URL=https://codexify.ir"
+  } >"$file"
+  rm -f "$tmp"
+}
+
+# Next.js reads .env.local — Prisma CLI reads .env
+upsert_env "$ENV_LOCAL"
+upsert_env "$ENV_PRISMA"
 
 echo "==> Prisma migrate + seed"
 export DATABASE_URL
 npx prisma generate
+npx prisma migrate resolve --rolled-back 20260722120000_init_admin_cms 2>/dev/null || true
 npx prisma migrate deploy
-npm run db:seed
+npx tsx prisma/seed.ts
 
 echo "==> Done. Restart app:"
-echo "    pm2 restart all"
+echo "    pm2 restart codexify --update-env"
 echo ""
 echo "DATABASE_URL=${DATABASE_URL}"

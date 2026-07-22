@@ -1,10 +1,22 @@
-import "dotenv/config";
+import { config } from "dotenv";
+import { resolve } from "path";
+
+// Prisma CLI / seed must see DATABASE_URL; Next uses .env.local
+config({ path: resolve(process.cwd(), ".env") });
+config({ path: resolve(process.cwd(), ".env.local"), override: true });
+
 import { PrismaClient, AdminRole, AdminStatus } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
+  if (!process.env.DATABASE_URL) {
+    throw new Error(
+      "DATABASE_URL missing. Put it in .env (for Prisma) or run: bash scripts/setup-db.sh",
+    );
+  }
+
   const email = (
     process.env.SEED_ADMIN_EMAIL ||
     process.env.ADMIN_EMAIL ||
