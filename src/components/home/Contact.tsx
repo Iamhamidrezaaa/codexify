@@ -24,13 +24,13 @@ export function Contact() {
       id="contact"
       className="bg-bg px-5 pb-4 pt-16 max-md:flex max-md:flex-1 max-md:flex-col max-md:justify-center md:px-16 md:py-24 lg:px-20"
     >
-      <div className="mx-auto grid w-full max-w-[1360px] gap-5 md:gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div className="mx-auto grid w-full max-w-[1360px] gap-8 md:gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div className="flex flex-col justify-center max-md:items-center">
           <div className="flex w-fit flex-col items-center max-md:mx-auto md:self-start">
             <h2 className="whitespace-nowrap text-2xl font-extrabold tracking-tight text-fg md:text-5xl">
               آماده‌ای شروع کنیم؟
             </h2>
-            <p className="mt-2 w-0 min-w-full text-center text-[11px] leading-4 text-muted max-md:whitespace-nowrap md:mt-4 md:text-base md:leading-8">
+            <p className="mt-3 w-0 min-w-full text-center text-[11px] leading-4 text-muted max-md:whitespace-nowrap md:mt-4 md:text-base md:leading-8">
               در واتساپ پیام بده، یا فرم را پر کن. سریع پاسخ می‌دهیم.
             </p>
 
@@ -38,7 +38,7 @@ export function Contact() {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="wa-phone-link mt-4 inline-flex w-fit origin-center cursor-pointer items-center justify-center rounded-full bg-lime px-4 py-2 text-[13px] font-bold text-lime-ink md:mt-8"
+              className="wa-phone-link mt-7 inline-flex w-fit origin-center cursor-pointer items-center justify-center rounded-full bg-lime px-4 py-2 text-[13px] font-bold text-lime-ink md:mt-8"
             >
               <span className="inline-flex items-center" dir="ltr">
                 <svg
