@@ -22,9 +22,13 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD) {
+    if (
+      !process.env.ADMIN_EMAIL ||
+      !process.env.ADMIN_PASSWORD ||
+      !process.env.ADMIN_SESSION_SECRET
+    ) {
       return NextResponse.json(
-        { error: "تنظیمات ورود ادمین کامل نیست." },
+        { error: "تنظیمات ورود ادمین کامل نیست. فایل .env.local را روی سرور چک کنید." },
         { status: 500 },
       );
     }
@@ -40,7 +44,8 @@ export async function POST(request: Request) {
     const res = NextResponse.json({ ok: true });
     res.cookies.set(ADMIN_COOKIE, token, sessionCookieOptions());
     return res;
-  } catch {
+  } catch (err) {
+    console.error("[admin/login]", err);
     return NextResponse.json(
       { error: "خطای سرور. دوباره تلاش کنید." },
       { status: 500 },

@@ -1,19 +1,29 @@
-import { createHmac, timingSafeEqual } from "node:crypto";
+import { createHmac, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
 
 export const ADMIN_COOKIE = "codexify_admin_session";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 12; // 12 hours
 
-function getSecret() {
-  const secret = process.env.ADMIN_SESSION_SECRET;
-  if (!secret) {
-    throw new Error("ADMIN_SESSION_SECRET is not set");
-  }
-  return secret;
+function toBase64Url(value: string) {
+  return Buffer.from(value, "utf8")
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
 }
 
-function sign(value: string) {
-  return createHmac("sha256", getSecret()).update(value).digest("hex");
+function fromBase64Url(value: string) {
+  const padded = value + "=".repeat((4 - (value.length % 4)) % 4);
+  const b64 = padded.replace(/-/g, "+").replace(/_/g, "/");
+  return Buffer.from(b64, "base64").toString("utf8");
+}
+
+function getSecret() {
+  return process.env.ADMIN_SESSION_SECRET?.trim() || "";
+}
+
+function sign(value: string, secret: string) {
+  return createHmac("sha256", secret).update(value).digest("hex");
 }
 
 function safeEqual(a: string, b: string) {
@@ -23,62 +33,73 @@ function safeEqual(a: string, b: string) {
   return timingSafeEqual(bufA, bufB);
 }
 
-function encodePayload(data: object) {
-  return Buffer.from(JSON.stringify(data), "utf8").toString("base64url");
-}
-
-function decodePayload(raw: string) {
-  try {
-    const json = Buffer.from(raw, "base64url").toString("utf8");
-    return JSON.parse(json) as { email?: string; exp?: number };
-  } catch {
-    return null;
-  }
-}
-
 export function verifyCredentials(email: string, password: string) {
   const expectedEmail = process.env.ADMIN_EMAIL ?? "";
   const expectedPassword = process.env.ADMIN_PASSWORD ?? "";
   if (!expectedEmail || !expectedPassword) return false;
 
-  const emailOk = safeEqual(
-    email.trim().toLowerCase(),
-    expectedEmail.trim().toLowerCase(),
-  );
-  const passOk = safeEqual(password, expectedPassword);
-  return emailOk && passOk;
+  try {
+    const emailOk = safeEqual(
+      email.trim().toLowerCase(),
+      expectedEmail.trim().toLowerCase(),
+    );
+    const passOk = safeEqual(password, expectedPassword);
+    return emailOk && passOk;
+  } catch {
+    return false;
+  }
 }
 
 export function createSessionToken(email: string) {
-  const payload = encodePayload({
-    email: email.trim().toLowerCase(),
-    exp: Date.now() + SESSION_TTL_MS,
-  });
-  return `${payload}.${sign(payload)}`;
+  const secret = getSecret();
+  if (!secret) {
+    throw new Error("ADMIN_SESSION_SECRET is not set");
+  }
+  const payload = toBase64Url(
+    JSON.stringify({
+      email: email.trim().toLowerCase(),
+      exp: Date.now() + SESSION_TTL_MS,
+    }),
+  );
+  return `${payload}.${sign(payload, secret)}`;
 }
 
 export function readSessionToken(token: string | undefined) {
   if (!token) return null;
-  const i = token.lastIndexOf(".");
-  if (i <= 0) return null;
+  const secret = getSecret();
+  if (!secret) return null;
 
-  const payload = token.slice(0, i);
-  const signature = token.slice(i + 1);
-  if (!payload || !signature) return null;
+  try {
+    const i = token.lastIndexOf(".");
+    if (i <= 0) return null;
 
-  const expected = sign(payload);
-  if (!safeEqual(signature, expected)) return null;
+    const payload = token.slice(0, i);
+    const signature = token.slice(i + 1);
+    if (!payload || !signature) return null;
 
-  const data = decodePayload(payload);
-  if (!data?.email || !data.exp) return null;
-  if (!Number.isFinite(data.exp) || Date.now() > data.exp) return null;
+    const expected = sign(payload, secret);
+    if (!safeEqual(signature, expected)) return null;
 
-  return { email: data.email, exp: data.exp };
+    const data = JSON.parse(fromBase64Url(payload)) as {
+      email?: string;
+      exp?: number;
+    };
+    if (!data?.email || !data.exp) return null;
+    if (!Number.isFinite(data.exp) || Date.now() > data.exp) return null;
+
+    return { email: data.email, exp: data.exp };
+  } catch {
+    return null;
+  }
 }
 
 export async function getAdminSession() {
-  const jar = await cookies();
-  return readSessionToken(jar.get(ADMIN_COOKIE)?.value);
+  try {
+    const jar = await cookies();
+    return readSessionToken(jar.get(ADMIN_COOKIE)?.value);
+  } catch {
+    return null;
+  }
 }
 
 export function sessionCookieOptions(maxAgeSeconds = SESSION_TTL_MS / 1000) {

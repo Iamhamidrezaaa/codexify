@@ -38,7 +38,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="relative grid min-h-dvh place-items-center overflow-hidden bg-bg px-5 py-10 text-fg">
+    <main className="relative grid min-h-dvh place-items-center overflow-hidden bg-bg px-5 py-10 font-sans text-fg antialiased">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"

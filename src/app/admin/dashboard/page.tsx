@@ -11,7 +11,7 @@ export default async function AdminDashboardPage() {
   }
 
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-bg px-5 py-8 text-fg md:px-16 md:py-12">
+    <main className="relative min-h-dvh overflow-hidden bg-bg px-5 py-8 font-sans text-fg antialiased md:px-16 md:py-12">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"

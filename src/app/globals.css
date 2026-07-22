@@ -49,6 +49,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* کنترل‌های فرم فونت سایت (Estedad) را ارث ببرند */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
 ::selection {
   background: color-mix(in srgb, var(--lime) 40%, transparent);
   color: var(--fg);
