@@ -4,10 +4,12 @@ import { getRealtimeVisitors } from "@/server/services/analyticsService";
 export default async function AdminDashboardPage() {
   let messagesUnread = 0;
   let admins = 0;
-  let realtime = { online: 0, visitors: [] as Awaited<
-    ReturnType<typeof getRealtimeVisitors>
-  >["visitors"] };
+  let realtime = {
+    online: 0,
+    visitors: [] as Awaited<ReturnType<typeof getRealtimeVisitors>>["visitors"],
+  };
   let dbError = false;
+  const hasDbUrl = Boolean(process.env.DATABASE_URL?.trim());
 
   try {
     const [u, a, r] = await Promise.all([
@@ -24,16 +26,16 @@ export default async function AdminDashboardPage() {
   }
 
   const cards = [
-    { label: "Unread Messages", value: messagesUnread },
-    { label: "Active Admins", value: admins },
-    { label: "Online Now", value: realtime.online },
+    { label: "پیام‌های خوانده‌نشده", value: messagesUnread },
+    { label: "ادمین‌های فعال", value: admins },
+    { label: "آنلاین الان", value: realtime.online },
   ];
 
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-extrabold tracking-tight md:text-3xl">
-          Dashboard
+          داشبورد
         </h1>
         <p className="mt-2 text-sm text-muted">
           خلاصه وضعیت سایت و صندوق پیام‌ها
@@ -41,12 +43,28 @@ export default async function AdminDashboardPage() {
       </div>
 
       {dbError ? (
-        <p className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-3 text-sm text-amber-200">
-          اتصال به دیتابیس برقرار نیست. در سرور{" "}
-          <span dir="ltr">DATABASE_URL</span> را تنظیم کنید و{" "}
-          <span dir="ltr">npx prisma migrate deploy && npm run db:seed</span> را
-          اجرا کنید.
-        </p>
+        <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm leading-7 text-amber-100">
+          <p className="font-bold text-amber-200">اتصال به دیتابیس برقرار نیست</p>
+          {!hasDbUrl ? (
+            <p className="mt-1">
+              متغیر <span dir="ltr">DATABASE_URL</span> در{" "}
+              <span dir="ltr">.env.local</span> وجود ندارد.
+            </p>
+          ) : (
+            <p className="mt-1">
+              <span dir="ltr">DATABASE_URL</span> تنظیم شده اما اتصال یا migrate
+              ناموفق است.
+            </p>
+          )}
+          <p className="mt-2 text-amber-100/90" dir="ltr">
+            bash scripts/setup-db.sh
+          </p>
+          <p className="mt-1 text-xs text-amber-100/70">
+            یا دستی: نصب PostgreSQL → افزودن DATABASE_URL →{" "}
+            <span dir="ltr">npx prisma migrate deploy && npm run db:seed</span> →{" "}
+            <span dir="ltr">pm2 restart all</span>
+          </p>
+        </div>
       ) : null}
 
       <div className="grid gap-3 sm:grid-cols-3">
@@ -62,7 +80,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       <section className="rounded-2xl border border-line bg-card p-5">
-        <h2 className="font-bold">Realtime snapshot</h2>
+        <h2 className="font-bold">بازدید آنلاین (لحظه‌ای)</h2>
         {realtime.visitors.length === 0 ? (
           <p className="mt-3 text-sm text-muted">کسی آنلاین نیست.</p>
         ) : (

@@ -26,18 +26,18 @@ export default function AuditLogsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extrabold">Audit Logs</h1>
-        <p className="mt-2 text-sm text-muted">تاریخچه اقدامات ادمین‌ها</p>
+        <h1 className="text-2xl font-extrabold">گزارش اقدامات</h1>
+        <p className="mt-2 text-sm text-muted">تاریخچه کارهای ادمین‌ها</p>
       </div>
 
       <div className="overflow-x-auto rounded-2xl border border-line">
         <table className="min-w-full text-sm">
           <thead className="bg-card text-muted">
             <tr>
-              <th className="px-3 py-3 text-right">Time</th>
-              <th className="px-3 py-3 text-right">Admin</th>
-              <th className="px-3 py-3 text-right">Action</th>
-              <th className="px-3 py-3 text-right">Entity</th>
+              <th className="px-3 py-3 text-right">زمان</th>
+              <th className="px-3 py-3 text-right">ادمین</th>
+              <th className="px-3 py-3 text-right">اقدام</th>
+              <th className="px-3 py-3 text-right">موجودیت</th>
               <th className="px-3 py-3 text-right">IP</th>
             </tr>
           </thead>
@@ -45,13 +45,13 @@ export default function AuditLogsPage() {
             {loading ? (
               <tr>
                 <td colSpan={5} className="px-3 py-8 text-center text-muted">
-                  Loading…
+                  در حال بارگذاری…
                 </td>
               </tr>
             ) : items.length === 0 ? (
               <tr>
                 <td colSpan={5} className="px-3 py-8 text-center text-muted">
-                  No logs
+                  گزارشی ثبت نشده
                 </td>
               </tr>
             ) : (
@@ -66,11 +66,16 @@ export default function AuditLogsPage() {
                       {log.admin?.email}
                     </span>
                   </td>
-                  <td className="px-3 py-3">{log.action}</td>
+                  <td className="px-3 py-3" dir="ltr">
+                    {log.action}
+                  </td>
                   <td className="px-3 py-3">
                     {log.entity || "—"}
                     {log.entityId ? (
-                      <span className="mt-0.5 block text-xs text-muted" dir="ltr">
+                      <span
+                        className="mt-0.5 block text-xs text-muted"
+                        dir="ltr"
+                      >
                         {log.entityId}
                       </span>
                     ) : null}

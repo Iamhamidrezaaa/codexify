@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { statusLabel } from "@/lib/adminLabels";
 
 type Message = {
   id: string;
@@ -50,7 +51,7 @@ export default function MessagesPage() {
   };
 
   const remove = async (id: string) => {
-    if (!confirm("Delete message?")) return;
+    if (!confirm("این پیام حذف شود؟")) return;
     await fetch(`/api/admin/messages?id=${id}`, { method: "DELETE" });
     await load();
   };
@@ -59,14 +60,14 @@ export default function MessagesPage() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-extrabold">Messages</h1>
-          <p className="mt-2 text-sm text-muted">صندوق پیام‌های تماس</p>
+          <h1 className="text-2xl font-extrabold">پیام‌ها</h1>
+          <p className="mt-2 text-sm text-muted">صندوق پیام‌های فرم تماس</p>
         </div>
         <a
           href={`/api/admin/messages?export=csv&status=${status}&q=${encodeURIComponent(q)}`}
           className="rounded-full border border-line px-4 py-2 text-sm"
         >
-          Export CSV
+          خروجی CSV
         </a>
       </div>
 
@@ -74,7 +75,7 @@ export default function MessagesPage() {
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search…"
+          placeholder="جستجو…"
           className="rounded-xl bg-card px-3 py-2 text-sm ring-1 ring-line"
         />
         <button
@@ -85,7 +86,7 @@ export default function MessagesPage() {
           }}
           className="rounded-full bg-lime px-4 py-2 text-sm font-bold text-lime-ink"
         >
-          Search
+          جستجو
         </button>
         <select
           value={status}
@@ -95,10 +96,10 @@ export default function MessagesPage() {
           }}
           className="rounded-xl bg-card px-3 py-2 text-sm ring-1 ring-line"
         >
-          <option value="ALL">All</option>
-          <option value="UNREAD">Unread</option>
-          <option value="READ">Read</option>
-          <option value="ARCHIVED">Archived</option>
+          <option value="ALL">همه</option>
+          <option value="UNREAD">خوانده‌نشده</option>
+          <option value="READ">خوانده‌شده</option>
+          <option value="ARCHIVED">آرشیو</option>
         </select>
       </div>
 
@@ -106,25 +107,25 @@ export default function MessagesPage() {
         <table className="min-w-full text-sm">
           <thead className="bg-card text-muted">
             <tr>
-              <th className="px-3 py-3 text-right">Name</th>
-              <th className="px-3 py-3 text-right">Phone</th>
-              <th className="px-3 py-3 text-right">Status</th>
-              <th className="px-3 py-3 text-right">Country</th>
-              <th className="px-3 py-3 text-right">Created</th>
-              <th className="px-3 py-3 text-right">Actions</th>
+              <th className="px-3 py-3 text-right">نام</th>
+              <th className="px-3 py-3 text-right">تلفن</th>
+              <th className="px-3 py-3 text-right">وضعیت</th>
+              <th className="px-3 py-3 text-right">کشور</th>
+              <th className="px-3 py-3 text-right">زمان</th>
+              <th className="px-3 py-3 text-right">عملیات</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
                 <td colSpan={6} className="px-3 py-8 text-center text-muted">
-                  Loading…
+                  در حال بارگذاری…
                 </td>
               </tr>
             ) : items.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-3 py-8 text-center text-muted">
-                  No messages
+                  پیامی نیست
                 </td>
               </tr>
             ) : (
@@ -141,7 +142,7 @@ export default function MessagesPage() {
                   <td className="px-3 py-3" dir="ltr">
                     {m.phone}
                   </td>
-                  <td className="px-3 py-3">{m.status}</td>
+                  <td className="px-3 py-3">{statusLabel(m.status)}</td>
                   <td className="px-3 py-3">{m.country || "—"}</td>
                   <td className="px-3 py-3">
                     {new Date(m.createdAt).toLocaleString("fa-IR")}
@@ -153,21 +154,21 @@ export default function MessagesPage() {
                         className="rounded-full border border-line px-2 py-1 text-xs"
                         onClick={() => void setMsgStatus(m.id, "READ")}
                       >
-                        Read
+                        خوانده شد
                       </button>
                       <button
                         type="button"
                         className="rounded-full border border-line px-2 py-1 text-xs"
                         onClick={() => void setMsgStatus(m.id, "ARCHIVED")}
                       >
-                        Archive
+                        آرشیو
                       </button>
                       <button
                         type="button"
                         className="rounded-full border border-line px-2 py-1 text-xs text-red-300"
                         onClick={() => void remove(m.id)}
                       >
-                        Delete
+                        حذف
                       </button>
                     </div>
                   </td>
@@ -179,7 +180,7 @@ export default function MessagesPage() {
       </div>
 
       <div className="flex items-center justify-between text-sm text-muted">
-        <span>Total: {total}</span>
+        <span>مجموع: {total}</span>
         <div className="flex gap-2">
           <button
             type="button"
@@ -187,16 +188,16 @@ export default function MessagesPage() {
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             className="rounded-full border border-line px-3 py-1 disabled:opacity-40"
           >
-            Prev
+            قبلی
           </button>
-          <span>Page {page}</span>
+          <span>صفحه {page}</span>
           <button
             type="button"
             disabled={page * 20 >= total}
             onClick={() => setPage((p) => p + 1)}
             className="rounded-full border border-line px-3 py-1 disabled:opacity-40"
           >
-            Next
+            بعدی
           </button>
         </div>
       </div>

@@ -12,6 +12,7 @@
     "db:migrate:dev": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:seed": "tsx prisma/seed.ts",
+    "db:setup": "bash scripts/setup-db.sh",
     "test:validators": "tsx src/server/validators/validators.test.ts",
     "postinstall": "prisma generate"
   },

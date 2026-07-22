@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { roleLabel, statusLabel } from "@/lib/adminLabels";
 
 type AdminItem = {
   id: string;
@@ -31,7 +32,7 @@ export default function AdminsPage() {
     try {
       const res = await fetch("/api/admin/users");
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "خطا");
+      if (!res.ok) throw new Error(data.error || "خطا در دریافت لیست");
       setItems(data.items);
     } catch (e) {
       setError(e instanceof Error ? e.message : "خطا");
@@ -54,7 +55,7 @@ export default function AdminsPage() {
     });
     const data = await res.json();
     if (!res.ok) {
-      setError(data.error || "ثبت ناموفق");
+      setError(data.error || "ثبت ناموفق بود");
       return;
     }
     setForm({
@@ -77,7 +78,7 @@ export default function AdminsPage() {
     });
     const data = await res.json();
     if (!res.ok) {
-      setError(data.error || "عملیات ناموفق");
+      setError(data.error || "عملیات ناموفق بود");
       return;
     }
     setToast("ذخیره شد.");
@@ -85,11 +86,11 @@ export default function AdminsPage() {
   };
 
   const remove = async (id: string) => {
-    if (!confirm("حذف این ادمین قطعی است. ادامه؟")) return;
+    if (!confirm("حذف این ادمین قطعی است. ادامه می‌دهید؟")) return;
     const res = await fetch(`/api/admin/users?id=${id}`, { method: "DELETE" });
     const data = await res.json();
     if (!res.ok) {
-      setError(data.error || "حذف ناموفق");
+      setError(data.error || "حذف ناموفق بود");
       return;
     }
     setToast("حذف شد.");
@@ -101,8 +102,8 @@ export default function AdminsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extrabold">Admins</h1>
-        <p className="mt-2 text-sm text-muted">مدیریت کاربران ادمین</p>
+        <h1 className="text-2xl font-extrabold">ادمین‌ها</h1>
+        <p className="mt-2 text-sm text-muted">مدیریت کاربران پنل</p>
       </div>
 
       {error ? (
@@ -120,17 +121,17 @@ export default function AdminsPage() {
         onSubmit={onCreate}
         className="grid gap-3 rounded-2xl border border-line bg-card p-4 md:grid-cols-2"
       >
-        <h2 className="md:col-span-2 font-bold">Add Admin</h2>
+        <h2 className="md:col-span-2 font-bold">افزودن ادمین</h2>
         <input
           className="rounded-xl bg-[#1a1b1a] px-3 py-2.5 text-sm outline-none ring-1 ring-transparent focus:ring-lime/40"
-          placeholder="Full Name"
+          placeholder="نام کامل"
           value={form.fullName}
           onChange={(e) => setForm((s) => ({ ...s, fullName: e.target.value }))}
           required
         />
         <input
           className="rounded-xl bg-[#1a1b1a] px-3 py-2.5 text-sm outline-none ring-1 ring-transparent focus:ring-lime/40"
-          placeholder="Email"
+          placeholder="ایمیل"
           type="email"
           dir="ltr"
           value={form.email}
@@ -139,7 +140,7 @@ export default function AdminsPage() {
         />
         <input
           className="rounded-xl bg-[#1a1b1a] px-3 py-2.5 text-sm outline-none ring-1 ring-transparent focus:ring-lime/40"
-          placeholder="Password"
+          placeholder="رمز عبور"
           type="password"
           dir="ltr"
           value={form.password}
@@ -148,7 +149,7 @@ export default function AdminsPage() {
         />
         <input
           className="rounded-xl bg-[#1a1b1a] px-3 py-2.5 text-sm outline-none ring-1 ring-transparent focus:ring-lime/40"
-          placeholder="Confirm Password"
+          placeholder="تکرار رمز عبور"
           type="password"
           dir="ltr"
           value={form.confirmPassword}
@@ -162,11 +163,11 @@ export default function AdminsPage() {
           value={form.role}
           onChange={(e) => setForm((s) => ({ ...s, role: e.target.value }))}
         >
-          <option value="ADMIN">ADMIN</option>
-          <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+          <option value="ADMIN">ادمین</option>
+          <option value="SUPER_ADMIN">سوپرادمین</option>
         </select>
         <button className="rounded-full bg-lime px-4 py-2.5 text-sm font-bold text-lime-ink">
-          Create
+          ایجاد
         </button>
       </form>
 
@@ -174,26 +175,26 @@ export default function AdminsPage() {
         <table className="min-w-full text-sm">
           <thead className="bg-card text-muted">
             <tr>
-              <th className="px-3 py-3 text-right font-medium">Name</th>
-              <th className="px-3 py-3 text-right font-medium">Email</th>
-              <th className="px-3 py-3 text-right font-medium">Role</th>
-              <th className="px-3 py-3 text-right font-medium">Status</th>
-              <th className="px-3 py-3 text-right font-medium">Created</th>
-              <th className="px-3 py-3 text-right font-medium">Last Login</th>
-              <th className="px-3 py-3 text-right font-medium">Actions</th>
+              <th className="px-3 py-3 text-right font-medium">نام</th>
+              <th className="px-3 py-3 text-right font-medium">ایمیل</th>
+              <th className="px-3 py-3 text-right font-medium">نقش</th>
+              <th className="px-3 py-3 text-right font-medium">وضعیت</th>
+              <th className="px-3 py-3 text-right font-medium">تاریخ ایجاد</th>
+              <th className="px-3 py-3 text-right font-medium">آخرین ورود</th>
+              <th className="px-3 py-3 text-right font-medium">عملیات</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
                 <td colSpan={7} className="px-3 py-8 text-center text-muted">
-                  Loading…
+                  در حال بارگذاری…
                 </td>
               </tr>
             ) : rows.length === 0 ? (
               <tr>
                 <td colSpan={7} className="px-3 py-8 text-center text-muted">
-                  No admins
+                  ادمینی ثبت نشده است
                 </td>
               </tr>
             ) : (
@@ -203,8 +204,8 @@ export default function AdminsPage() {
                   <td className="px-3 py-3" dir="ltr">
                     {a.email}
                   </td>
-                  <td className="px-3 py-3">{a.role}</td>
-                  <td className="px-3 py-3">{a.status}</td>
+                  <td className="px-3 py-3">{roleLabel(a.role)}</td>
+                  <td className="px-3 py-3">{statusLabel(a.status)}</td>
                   <td className="px-3 py-3">
                     {new Date(a.createdAt).toLocaleDateString("fa-IR")}
                   </td>
@@ -219,14 +220,14 @@ export default function AdminsPage() {
                         type="button"
                         className="rounded-full border border-line px-2 py-1 text-xs"
                         onClick={() => {
-                          const fullName = prompt("Full name", a.fullName);
+                          const fullName = prompt("نام کامل", a.fullName);
                           if (!fullName) return;
-                          const email = prompt("Email", a.email);
+                          const email = prompt("ایمیل", a.email);
                           if (!email) return;
                           void patch({ id: a.id, fullName, email });
                         }}
                       >
-                        Edit
+                        ویرایش
                       </button>
                       <button
                         type="button"
@@ -239,13 +240,13 @@ export default function AdminsPage() {
                           })
                         }
                       >
-                        {a.status === "ACTIVE" ? "Disable" : "Enable"}
+                        {a.status === "ACTIVE" ? "غیرفعال" : "فعال‌سازی"}
                       </button>
                       <button
                         type="button"
                         className="rounded-full border border-line px-2 py-1 text-xs"
                         onClick={() => {
-                          const password = prompt("New password");
+                          const password = prompt("رمز عبور جدید");
                           if (!password) return;
                           void patch({
                             id: a.id,
@@ -255,14 +256,14 @@ export default function AdminsPage() {
                           });
                         }}
                       >
-                        Reset Pass
+                        ریست رمز
                       </button>
                       <button
                         type="button"
                         className="rounded-full border border-line px-2 py-1 text-xs text-red-300"
                         onClick={() => void remove(a.id)}
                       >
-                        Delete
+                        حذف
                       </button>
                     </div>
                   </td>

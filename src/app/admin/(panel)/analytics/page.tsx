@@ -27,14 +27,14 @@ type Summary = {
 };
 
 const RANGES = [
-  ["today", "Today"],
-  ["yesterday", "Yesterday"],
-  ["7d", "Last 7 Days"],
-  ["30d", "Last 30 Days"],
-  ["90d", "Last 90 Days"],
-  ["180d", "Last 180 Days"],
-  ["365d", "Last Year"],
-  ["custom", "Custom"],
+  ["today", "امروز"],
+  ["yesterday", "دیروز"],
+  ["7d", "۷ روز"],
+  ["30d", "۳۰ روز"],
+  ["90d", "۹۰ روز"],
+  ["180d", "۱۸۰ روز"],
+  ["365d", "یک سال"],
+  ["custom", "بازه دلخواه"],
 ] as const;
 
 export default function AnalyticsPage() {
@@ -60,24 +60,24 @@ export default function AnalyticsPage() {
 
   const cards = summary
     ? [
-        ["Visitors", summary.visitors],
-        ["Unique Visitors", summary.uniqueVisitors],
-        ["Sessions", summary.sessions],
-        ["Page Views", summary.pageViews],
-        ["Conversions", summary.conversions],
-        ["Conv. Rate", `${(summary.conversionRate * 100).toFixed(1)}%`],
-        ["Avg Duration", `${Math.round(summary.avgDurationMs / 1000)}s`],
-        ["Bounce Rate", `${(summary.bounceRate * 100).toFixed(1)}%`],
-        ["New Users", summary.newUsers],
-        ["Returning Users", summary.returningUsers],
+        ["بازدیدکننده", summary.visitors],
+        ["بازدیدکننده یکتا", summary.uniqueVisitors],
+        ["نشست", summary.sessions],
+        ["بازدید صفحه", summary.pageViews],
+        ["تبدیل", summary.conversions],
+        ["نرخ تبدیل", `${(summary.conversionRate * 100).toFixed(1)}٪`],
+        ["میانگین مدت", `${Math.round(summary.avgDurationMs / 1000)}ث`],
+        ["نرخ پرش", `${(summary.bounceRate * 100).toFixed(1)}٪`],
+        ["کاربر جدید", summary.newUsers],
+        ["کاربر بازگشتی", summary.returningUsers],
       ]
     : [];
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extrabold">Analytics</h1>
-        <p className="mt-2 text-sm text-muted">آمار داخلی سایت</p>
+        <h1 className="text-2xl font-extrabold">آمار</h1>
+        <p className="mt-2 text-sm text-muted">آمار داخلی سایت (بدون گوگل آنالیتیکس)</p>
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -87,7 +87,9 @@ export default function AnalyticsPage() {
             type="button"
             onClick={() => setRange(id)}
             className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
-              range === id ? "bg-lime text-lime-ink" : "border border-line text-muted"
+              range === id
+                ? "bg-lime text-lime-ink"
+                : "border border-line text-muted"
             }`}
           >
             {label}
@@ -113,12 +115,15 @@ export default function AnalyticsPage() {
       ) : null}
 
       {loading || !summary ? (
-        <p className="text-sm text-muted">Loading…</p>
+        <p className="text-sm text-muted">در حال بارگذاری…</p>
       ) : (
         <>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {cards.map(([label, value]) => (
-              <div key={String(label)} className="rounded-2xl border border-line bg-card p-4">
+              <div
+                key={String(label)}
+                className="rounded-2xl border border-line bg-card p-4"
+              >
                 <p className="text-xs text-muted">{label}</p>
                 <p className="mt-2 text-2xl font-extrabold">{value}</p>
               </div>
@@ -126,28 +131,52 @@ export default function AnalyticsPage() {
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2">
-            <ListCard title="Top Pages" rows={summary.topPages.map((x) => [x.path, x.count])} />
-            <ListCard title="Top Referrers" rows={summary.topReferrers.map((x) => [x.referrer, x.count])} />
-            <ListCard title="Top Countries" rows={summary.topCountries.map((x) => [x.country, x.count])} />
-            <ListCard title="Top Browsers" rows={summary.topBrowsers.map((x) => [x.browser, x.count])} />
-            <ListCard title="Top Devices" rows={summary.topDevices.map((x) => [x.device, x.count])} />
-            <ListCard title="Top OS" rows={summary.topOs.map((x) => [x.os, x.count])} />
             <ListCard
-              title="Screen Sizes"
+              title="صفحات پرترافیک"
+              rows={summary.topPages.map((x) => [x.path, x.count])}
+            />
+            <ListCard
+              title="مبدأهای ارجاع"
+              rows={summary.topReferrers.map((x) => [x.referrer, x.count])}
+            />
+            <ListCard
+              title="کشورها"
+              rows={summary.topCountries.map((x) => [x.country, x.count])}
+            />
+            <ListCard
+              title="مرورگرها"
+              rows={summary.topBrowsers.map((x) => [x.browser, x.count])}
+            />
+            <ListCard
+              title="دستگاه‌ها"
+              rows={summary.topDevices.map((x) => [x.device, x.count])}
+            />
+            <ListCard
+              title="سیستم‌عامل‌ها"
+              rows={summary.topOs.map((x) => [x.os, x.count])}
+            />
+            <ListCard
+              title="اندازه صفحه"
               rows={summary.topScreenSizes.map((x) => [x.screenSize, x.count])}
             />
             <ListCard
-              title="Traffic Sources"
+              title="منابع ترافیک"
               rows={summary.trafficSources.map((x) => [x.source, x.count])}
             />
             <ListCard
-              title="UTM Campaigns"
+              title="کمپین‌های UTM"
               rows={summary.utmCampaigns.map((x) => [x.campaign, x.count])}
             />
           </div>
 
-          <BarChart title="Daily Page Views" points={summary.daily.map((d) => d.views)} />
-          <BarChart title="Hourly Page Views" points={summary.hourly.map((d) => d.views)} />
+          <BarChart
+            title="بازدید روزانه"
+            points={summary.daily.map((d) => d.views)}
+          />
+          <BarChart
+            title="بازدید ساعتی"
+            points={summary.hourly.map((d) => d.views)}
+          />
         </>
       )}
     </div>
@@ -165,7 +194,7 @@ function ListCard({
     <section className="rounded-2xl border border-line bg-card p-4">
       <h2 className="font-bold">{title}</h2>
       {rows.length === 0 ? (
-        <p className="mt-3 text-sm text-muted">No data</p>
+        <p className="mt-3 text-sm text-muted">داده‌ای نیست</p>
       ) : (
         <ul className="mt-3 space-y-2 text-sm">
           {rows.map(([label, count]) => (
@@ -189,7 +218,7 @@ function BarChart({ title, points }: { title: string; points: number[] }) {
       <h2 className="font-bold">{title}</h2>
       <div className="mt-4 flex h-40 items-end gap-1">
         {points.length === 0 ? (
-          <p className="text-sm text-muted">No data</p>
+          <p className="text-sm text-muted">داده‌ای نیست</p>
         ) : (
           points.map((v, i) => {
             const h = Math.max(4, Math.round((v / max) * 100));

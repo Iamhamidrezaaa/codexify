@@ -37,12 +37,14 @@ export default function RealtimePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-extrabold">Realtime</h1>
-        <p className="mt-2 text-sm text-muted">بازدیدکنندگان آنلاین (هر ۱۰ ثانیه)</p>
+        <h1 className="text-2xl font-extrabold">آنلاین الان</h1>
+        <p className="mt-2 text-sm text-muted">
+          بازدیدکنندگان فعال (به‌روزرسانی هر ۱۰ ثانیه)
+        </p>
       </div>
 
       <div className="rounded-2xl border border-line bg-card p-5">
-        <p className="text-xs text-muted">Online now</p>
+        <p className="text-xs text-muted">تعداد آنلاین</p>
         <p className="mt-2 text-4xl font-extrabold text-lime">
           {data?.online ?? "—"}
         </p>
@@ -52,25 +54,25 @@ export default function RealtimePage() {
         <table className="min-w-full text-sm">
           <thead className="bg-card text-muted">
             <tr>
-              <th className="px-3 py-3 text-right">Page</th>
-              <th className="px-3 py-3 text-right">Country</th>
-              <th className="px-3 py-3 text-right">Browser</th>
-              <th className="px-3 py-3 text-right">Device</th>
-              <th className="px-3 py-3 text-right">Duration</th>
-              <th className="px-3 py-3 text-right">Last activity</th>
+              <th className="px-3 py-3 text-right">صفحه</th>
+              <th className="px-3 py-3 text-right">کشور</th>
+              <th className="px-3 py-3 text-right">مرورگر</th>
+              <th className="px-3 py-3 text-right">دستگاه</th>
+              <th className="px-3 py-3 text-right">مدت</th>
+              <th className="px-3 py-3 text-right">آخرین فعالیت</th>
             </tr>
           </thead>
           <tbody>
             {!data ? (
               <tr>
                 <td colSpan={6} className="px-3 py-8 text-center text-muted">
-                  Loading…
+                  در حال بارگذاری…
                 </td>
               </tr>
             ) : data.visitors.length === 0 ? (
               <tr>
                 <td colSpan={6} className="px-3 py-8 text-center text-muted">
-                  Nobody online
+                  کسی آنلاین نیست
                 </td>
               </tr>
             ) : (
@@ -83,7 +85,7 @@ export default function RealtimePage() {
                   <td className="px-3 py-3">{v.browser || "—"}</td>
                   <td className="px-3 py-3">{v.device || "—"}</td>
                   <td className="px-3 py-3">
-                    {Math.round(v.durationMs / 1000)}s
+                    {Math.round(v.durationMs / 1000)}ث
                   </td>
                   <td className="px-3 py-3">
                     {new Date(v.lastActivity).toLocaleTimeString("fa-IR")}

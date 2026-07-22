@@ -16,7 +16,7 @@ async function main() {
     process.env.SEED_ADMIN_PASSWORD ||
     process.env.ADMIN_PASSWORD ||
     "Hamidreza123@456";
-  const fullName = process.env.SEED_ADMIN_NAME || "Super Admin";
+  const fullName = process.env.SEED_ADMIN_NAME || "سوپرادمین";
 
   const passwordHash = await bcrypt.hash(password, 12);
 

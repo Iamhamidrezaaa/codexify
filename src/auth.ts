@@ -16,7 +16,7 @@ function envBootstrapCredentials() {
     .toLowerCase();
   const password =
     process.env.ADMIN_PASSWORD || process.env.SEED_ADMIN_PASSWORD || "";
-  const fullName = process.env.SEED_ADMIN_NAME || "Super Admin";
+  const fullName = process.env.SEED_ADMIN_NAME || "سوپرادمین";
   return { email, password, fullName };
 }
 

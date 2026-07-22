@@ -3,15 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { roleLabel } from "@/lib/adminLabels";
 
 const NAV = [
-  { href: "/admin/dashboard", label: "Dashboard" },
-  { href: "/admin/analytics", label: "Analytics" },
-  { href: "/admin/realtime", label: "Realtime" },
-  { href: "/admin/messages", label: "Messages" },
-  { href: "/admin/admins", label: "Admins" },
-  { href: "/admin/audit", label: "Audit Logs" },
-  { href: "/admin/settings", label: "Settings" },
+  { href: "/admin/dashboard", label: "داشبورد" },
+  { href: "/admin/analytics", label: "آمار" },
+  { href: "/admin/realtime", label: "آنلاین الان" },
+  { href: "/admin/messages", label: "پیام‌ها" },
+  { href: "/admin/admins", label: "ادمین‌ها" },
+  { href: "/admin/audit", label: "گزارش اقدامات" },
+  { href: "/admin/settings", label: "تنظیمات" },
 ] as const;
 
 export function AdminShell({
@@ -38,18 +39,19 @@ export function AdminShell({
               />
             </Link>
             <p className="mt-0 text-xs text-muted md:mt-3">
-              {user.fullName}
+              {user.fullName === "Super Admin" ? "سوپرادمین" : user.fullName}
               <span className="mt-0.5 block" dir="ltr">
                 {user.email}
               </span>
               <span className="mt-1 inline-block rounded-full border border-line px-2 py-0.5 text-[10px]">
-                {user.role}
+                {roleLabel(user.role)}
               </span>
             </p>
           </div>
           <nav className="flex gap-1 overflow-x-auto px-2 pb-3 md:flex-col md:overflow-visible md:px-3 md:pb-6">
             {NAV.map((item) => {
-              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              const active =
+                pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
                 <Link
                   key={item.href}
