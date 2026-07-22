@@ -47,6 +47,7 @@ export const contactSchema = z.object({
     .regex(/^[0-9+\-\s()]+$/, "شماره تماس نامعتبر است."),
   projectDescription: z.string().trim().min(5).max(5000),
   website: z.string().max(200).optional(), // honeypot
+  turnstileToken: z.string().max(2048).optional(),
   utmSource: z.string().max(120).optional(),
   utmMedium: z.string().max(120).optional(),
   utmCampaign: z.string().max(120).optional(),

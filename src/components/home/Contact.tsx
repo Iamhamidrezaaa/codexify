@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { WHATSAPP_DISPLAY, WHATSAPP_URL } from "@/lib/constants";
 import { trackClientEvent } from "@/components/AnalyticsTracker";
+import { TurnstileWidget } from "@/components/TurnstileWidget";
 
 function readUtm() {
   if (typeof window === "undefined") return {};
@@ -16,14 +17,26 @@ function readUtm() {
   };
 }
 
+const turnstileEnabled = Boolean(
+  process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim(),
+);
+
 export function Contact() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [resetTurnstile, setResetTurnstile] = useState(0);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
+
+    if (turnstileEnabled && !turnstileToken) {
+      setError("لطفاً تأیید امنیتی را کامل کنید.");
+      return;
+    }
+
     setLoading(true);
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -32,7 +45,10 @@ export function Contact() {
     const projectDescription = String(data.get("message") || "").trim();
     const website = String(data.get("website") || "");
 
-    trackClientEvent("FORM_SUBMIT", { label: "contact_form", path: "/#contact" });
+    trackClientEvent("FORM_SUBMIT", {
+      label: "contact_form",
+      path: "/#contact",
+    });
 
     try {
       const res = await fetch("/api/contact", {
@@ -43,18 +59,25 @@ export function Contact() {
           phone,
           projectDescription,
           website,
+          turnstileToken: turnstileToken || undefined,
           ...readUtm(),
         }),
       });
       const json = (await res.json().catch(() => ({}))) as { error?: string };
       if (!res.ok) {
         setError(json.error || "ارسال ناموفق بود.");
+        setResetTurnstile((n) => n + 1);
+        setTurnstileToken("");
         return;
       }
       setSent(true);
       form.reset();
+      setTurnstileToken("");
+      setResetTurnstile((n) => n + 1);
     } catch {
       setError("خطای شبکه. دوباره تلاش کنید.");
+      setResetTurnstile((n) => n + 1);
+      setTurnstileToken("");
     } finally {
       setLoading(false);
     }
@@ -101,11 +124,13 @@ export function Contact() {
         <form
           onSubmit={onSubmit}
           onFocusCapture={() =>
-            trackClientEvent("FORM_OPEN", { label: "contact_form", path: "/#contact" })
+            trackClientEvent("FORM_OPEN", {
+              label: "contact_form",
+              path: "/#contact",
+            })
           }
           className="rounded-[20px] border border-line bg-card p-4 md:p-6"
         >
-          {/* honeypot */}
           <input
             type="text"
             name="website"
@@ -142,12 +167,18 @@ export function Contact() {
               className="w-full resize-none rounded-xl border-0 bg-[#1a1b1a] px-4 py-2.5 text-right text-sm text-fg outline-none ring-1 ring-transparent placeholder:text-muted focus:ring-lime/50 md:min-h-[6.5rem] md:py-3.5"
             />
           </label>
+
+          <TurnstileWidget
+            onToken={setTurnstileToken}
+            resetSignal={resetTurnstile}
+          />
+
           {error ? (
             <p className="mb-3 text-center text-sm text-red-300">{error}</p>
           ) : null}
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || (turnstileEnabled && !turnstileToken)}
             data-track="cta"
             className="w-full rounded-xl bg-lime py-2.5 text-sm font-bold text-lime-ink transition hover:brightness-110 disabled:opacity-65 md:py-3.5"
           >

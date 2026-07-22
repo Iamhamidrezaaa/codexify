@@ -3,6 +3,7 @@ import { after } from "next/server";
 import { contactSchema } from "@/server/validators";
 import { rateLimit } from "@/server/security/rateLimit";
 import { getRequestContext } from "@/server/security/requestContext";
+import { verifyTurnstileToken } from "@/server/security/turnstile";
 import { createContactMessage } from "@/server/services/contactService";
 import { trackAnalyticsEvent } from "@/server/services/analyticsService";
 
@@ -29,6 +30,17 @@ export async function POST(request: Request) {
     // honeypot
     if (parsed.data.website) {
       return NextResponse.json({ ok: true });
+    }
+
+    const turnstile = await verifyTurnstileToken(
+      parsed.data.turnstileToken,
+      ctx.ip,
+    );
+    if (!turnstile.ok) {
+      return NextResponse.json(
+        { error: turnstile.error || "تأیید امنیتی ناموفق بود." },
+        { status: 403 },
+      );
     }
 
     const message = await createContactMessage({
