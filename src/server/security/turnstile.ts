@@ -10,12 +10,20 @@ type TurnstileVerifyResponse = {
   hostname?: string;
 };
 
+function cleanEnvValue(value: string | undefined) {
+  return (value || "")
+    .trim()
+    .replace(/^[=]+/, "")
+    .replace(/^["']|["']$/g, "")
+    .trim();
+}
+
 export async function verifyTurnstileToken(
   token: string | undefined,
   ip?: string | null,
 ): Promise<{ ok: boolean; skipped?: boolean; error?: string }> {
-  const secret = process.env.TURNSTILE_SECRET_KEY?.trim();
-  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim();
+  const secret = cleanEnvValue(process.env.TURNSTILE_SECRET_KEY);
+  const siteKey = cleanEnvValue(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY);
 
   // No widget configured → skip
   if (!siteKey) {
@@ -70,8 +78,14 @@ export async function verifyTurnstileToken(
 }
 
 export function isTurnstileConfigured() {
+  const clean = (v: string | undefined) =>
+    (v || "")
+      .trim()
+      .replace(/^[=]+/, "")
+      .replace(/^["']|["']$/g, "")
+      .trim();
   return Boolean(
-    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() &&
-      process.env.TURNSTILE_SECRET_KEY?.trim(),
+    clean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) &&
+      clean(process.env.TURNSTILE_SECRET_KEY),
   );
 }

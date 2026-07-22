@@ -8,9 +8,18 @@ import { ScrollScene } from "@/components/home/ScrollScene";
 import { ServicesReveal } from "@/components/home/ServicesReveal";
 import { Work } from "@/components/home/Work";
 
+function cleanEnvValue(value: string | undefined) {
+  return (value || "")
+    .trim()
+    .replace(/^[=]+/, "")
+    .replace(/^["']|["']$/g, "")
+    .trim();
+}
+
 export default function HomePage() {
-  const turnstileSiteKey =
-    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() || "";
+  const turnstileSiteKey = cleanEnvValue(
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+  );
 
   return (
     <main>

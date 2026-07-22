@@ -26,11 +26,16 @@ export function Contact({
 }: {
   turnstileSiteKey?: string;
 }) {
-  const siteKey =
-    turnstileSiteKey.trim() ||
-    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY?.trim() ||
-    "";
-  const enabled = Boolean(siteKey) || turnstileEnabled;
+  const siteKey = (
+    turnstileSiteKey ||
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
+    ""
+  )
+    .trim()
+    .replace(/^[=]+/, "")
+    .replace(/^["']|["']$/g, "")
+    .trim();
+  const enabled = Boolean(siteKey);
 
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
